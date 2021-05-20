@@ -1,0 +1,49 @@
+.header__navigation {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.header__navigation-movies {
+  margin-right: auto;
+}
+
+.header__navigation-accountIcon {
+  min-width: 26px;
+  min-height: 30px;
+  background-color: #F9F9F9;
+  border-radius: 4px;
+  display: flex;
+  margin: 0;
+  justify-content: center;
+}
+
+.header__navigation-navBtn {
+  padding: 0;
+  border: 0;
+  color: #000;
+  margin-right: 16px;
+  background-color: transparent;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  text-decoration: none;
+}
+
+.header__navigation-navBtn_wight_400 {
+font-weight: 400;
+}
+
+.header__navigation-navBtn_background_colored {
+  background-color: #2BE080;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 76px;
+  border-radius: 3px;
+  min-height: 32px;
+  margin: 0 0 0 14px;
+}

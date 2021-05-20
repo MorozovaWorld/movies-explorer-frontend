@@ -1,0 +1,41 @@
+.portfolio {
+  padding: 100px 70px 0;
+}
+
+.portfolio-title {
+  font-size: 18px;
+  line-height: 1.11;
+  font-weight: 400;
+  color: #A0A0A0;
+  padding: 0;
+  margin: 0 0 50px;
+}
+
+.portfolio-links {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.portfolio-link-item {
+  list-style: none;
+  margin: 0;
+  color: #000;
+  width: 100%;
+  border-bottom: 1px solid #E8E8E8;
+  padding: 0 0 19px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.portfolio-link {
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 1.67;
+}
+
+.portfolio-link-arrow {
+  display: flex;
+  align-items: center;
+}

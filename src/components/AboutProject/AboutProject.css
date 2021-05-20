@@ -1,0 +1,87 @@
+.aboutProject {
+  width: calc(100% - 70px*2);
+  margin: 0 auto;
+  padding: 110px 0 100px;
+}
+
+.aboutProject-title {
+  font-size: 22px;
+  line-height: 1.21;
+  font-weight: 400;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  padding: 0 0 23px;
+  margin: 0;
+}
+
+.aboutProject-infoBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.aboutProject-description {
+  max-width: 550px;
+}
+
+.aboutProject-subtitle{
+  font-size: 20px;
+  line-height: 1.21;
+  font-weight: 400;
+  margin: 70px 0 26px;
+  padding: 0;
+}
+
+.aboutProject-text{
+  font-size: 14px;
+  line-height: 1.43;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  min-height: 150px;
+}
+
+.aboutProject-graph {
+  display: grid;
+  grid-template-columns: 228px 1fr;
+  grid-template-rows: 36px 36px;
+  row-gap: 5px;
+  grid-template-areas: 
+  'backWeeks frontWeeks'
+  'backend frontend';
+}
+
+.aboutProject-graph-text {
+  font-size: 14px;
+  line-height: 1.21;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aboutProject-graph-text_area_backWeeks {
+  grid-area: backWeeks;
+  background-color: #2BE080;
+}
+
+.aboutProject-graph-text_area_frontWeeks {
+  grid-area: frontWeeks;
+  background-color: #F2F2F2;
+  ;
+}
+
+.aboutProject-graph-text_area_backend {
+  grid-area: backend;
+  color: #A0A0A0;
+  font-weight: 500;
+}
+
+.aboutProject-graph-text_area_frontend {
+  grid-area: frontend;
+  color: #A0A0A0;
+  font-weight: 500;
+}
