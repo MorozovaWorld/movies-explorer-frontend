@@ -7,6 +7,7 @@ import Main from '../Main/Main.js';
 import '../../index.css';
 import Login from '../Login/Login.js';
 import Register from '../Register/Register.js';
+import Movies from '../Movies/Movies.js';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
               <Register />
             </Route>
             <Route path="/movies">
-              <Register />
+              <Movies />
             </Route>
             <Route path="/saved-movies">
               <Register />

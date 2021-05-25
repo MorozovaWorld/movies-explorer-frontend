@@ -11,8 +11,8 @@ function Navigation() {
         </Route>
         <Route path={["/movies", "/saved-movies", "/profile"]} >
           <div className="header__navigation-movies">
-            <NavLink className="header__navigation-navBtn opacity opacity_useAt_link" to="/signup" >Фильмы</NavLink>
-            <NavLink className="header__navigation-navBtn header__navigation-navBtn_wight_400 opacity opacity_useAt_link" to="/signup" >Сохранённые фильмы</NavLink>
+            <NavLink className="header__navigation-navBtn opacity opacity_useAt_link" to="/movies" >Фильмы</NavLink>
+            <NavLink className="header__navigation-navBtn header__navigation-navBtn_wight_400 opacity opacity_useAt_link" to="/saved-movies" >Сохранённые фильмы</NavLink>
           </div>
             <NavLink className="header__navigation-navBtn opacity opacity_useAt_link" to="/profile" >Аккаунт</NavLink>
             <Link className="header__navigation-accountIcon opacity opacity_useAt_link" to="/profile" >
