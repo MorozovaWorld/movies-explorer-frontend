@@ -3,6 +3,7 @@
   margin: 79px auto 20px;
   font-size: 13px;
   line-height: 1.21;
+  flex-shrink: 0;
 }
 
 .footer__info {

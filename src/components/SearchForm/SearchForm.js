@@ -18,7 +18,7 @@ function SearchForm() {
           <label className="searchForm__label"><img src={searchIcon} alt="иконка поиска" className="searchForm__label-icon" /></label>
           <input type="string" onChange={handleChange} name='movie' value={movie} id="movie" placeholder="Фильм" className="searchForm__input" autoComplete='off' required />
         </fieldset>
-        <button type="submit" className="searchForm__button">Найти</button>
+        <button type="submit" className="searchForm__button opacity opacity_useAt_button">Найти</button>
       </form>
       <FilterCheckbox />
     </section>

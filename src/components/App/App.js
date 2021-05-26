@@ -24,11 +24,8 @@ function App() {
             <Route path="/signup">
               <Register />
             </Route>
-            <Route path="/movies">
+            <Route path={["/movies", "/saved-movies"]}>
               <Movies />
-            </Route>
-            <Route path="/saved-movies">
-              <Register />
             </Route>
             <Route path="/profile">
               <Register />

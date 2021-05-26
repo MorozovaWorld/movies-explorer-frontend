@@ -1,5 +1,6 @@
 .movies {
   padding: 0 70px;
+  flex-grow: 1;
 }
 
 .movies__more {
@@ -13,4 +14,10 @@
   border: none;
   margin: 60px 0 80px;
   padding: 0;
+  cursor: pointer;
+}
+
+.movies__devider {
+  min-height: 140px;
+  width: 100%;
 }
