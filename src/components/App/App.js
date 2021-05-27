@@ -8,6 +8,7 @@ import '../../index.css';
 import Login from '../Login/Login.js';
 import Register from '../Register/Register.js';
 import Movies from '../Movies/Movies.js';
+import Profile from '../Profile/Profile.js';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
               <Movies />
             </Route>
             <Route path="/profile">
-              <Register />
+              <Profile />
             </Route>
           </Switch>
           <Footer />

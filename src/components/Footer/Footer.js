@@ -23,12 +23,6 @@ function Footer() {
             </nav>
           </div>
         </Route>
-        <Route path="/signin">
-
-        </Route>
-        <Route path="/signup">
-
-        </Route>
       </Switch>
       
     </footer>

@@ -1,15 +1,15 @@
 .footer {
   width: calc(100% - 70px*2);
-  margin: 79px auto 20px;
+  margin: 0 auto;
   font-size: 13px;
   line-height: 1.21;
-  flex-shrink: 0;
 }
 
 .footer__info {
   display: flex;
   justify-content: space-between;
-  margin: 20px 0 0;
+  margin: 0;
+  align-items: center;
 }
 
 .footer__title {
@@ -30,6 +30,8 @@
   margin: 0;
   padding: 0;
   display: flex;
+  min-height: 56px;
+  align-items: center;
 }
 
 .footer__link-item {
