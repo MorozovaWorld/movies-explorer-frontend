@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FormPage from '../FormPage/FormPage.js';
+import FormSubmitErr from '../FormSubmitErr/FormSubmitErr.js';
 
 function Login() {
   const [userData, setUserData] = useState({
@@ -26,7 +27,7 @@ function Login() {
       <div className="formPage__input-container">
         <label for="user-password" className="formPage__input-label">Пароль</label>
         <input type="password" onChange={handleChange} name='password' value={userData.password} autoComplete='off' id="user-password" className="formPage__input-text" required />
-        <span id="password-error" className="formPage__input-error"></span>
+        <FormSubmitErr errText=''></FormSubmitErr>
       </div>
     </FormPage>
   )
