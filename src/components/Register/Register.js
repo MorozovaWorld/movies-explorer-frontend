@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import FormPage from '../FormPage/FormPage.js';
 
-function Register({ handleRegister }) {
-
+function Register() {
   const [userData, setUserData] = useState({
+    name: '',
     email: '',
     password: '',
   });
@@ -18,31 +17,24 @@ function Register({ handleRegister }) {
     })
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const { email, password } = userData;
-
-    handleRegister(email, password);
-  }
-
   return (
-    <div className="popup__container popup__container_theme_dark">
-    <form className="popup__form" name="login" onSubmit={handleSubmit}>
-      <fieldset className="popup__input-text-form">
-        <legend className="popup__title popup__title_theme_dark">Регистрация</legend>
-        <div className="popup__input-container">
-          <input type="email" onChange={handleChange} name='email' value={userData.email} id="userEmail" placeholder="Email" className="popup__input-text popup__input-text_theme_dark" autoComplete='off' required />
-          <span id="name-error" className="popup__input-error"></span>
-        </div>
-        <div className="popup__input-container">
-          <input type="password" onChange={handleChange} name='password' value={userData.password} autoComplete='off' id="password" placeholder="Пароль" className="popup__input-text popup__input-text_theme_dark" required />
-          <span id="job-error" className="popup__input-error"></span>
-        </div>
-      </fieldset>
-      <button type="submit" className="popup__button-submit popup__button-submit_theme_dark opacity">Зарегистрироваться</button>
-    </form>
-    <p className="popup__bottomText">Уже зарегистрированы? <Link className="popup__bottomText-link opacity" to="/sign-in">Войти</Link></p>
-    </div>
+    <FormPage title='Добро пожаловать!' btnText="Зарегистрироваться" linkText="Войти" linkReason="Уже зарегистрированы?" linkUrl="/signin">
+      <div className="formPage__input-container">
+        <label for="user-name" className="formPage__input-label">Имя</label>
+        <input type="text" onChange={handleChange} name='name' value={userData.name} id="user-name" className="formPage__input-text" autoComplete='off' required />
+        <span id="name-error" className="formPage__input-error"></span>
+      </div>
+      <div className="formPage__input-container">
+        <label for="user-email" className="formPage__input-label">E-mail</label>
+        <input type="email" onChange={handleChange} name='email' value={userData.email} id="user-email" className="formPage__input-text" autoComplete='off' required />
+        <span id="email-error" className="formPage__input-error"></span>
+      </div>
+      <div className="formPage__input-container">
+        <label for="user-password" className="formPage__input-label">Пароль</label>
+        <input type="password" onChange={handleChange} name='password' value={userData.password} autoComplete='off' id="user-password" className="formPage__input-text" required />
+        <span id="password-error" className="formPage__input-error"></span>
+      </div>
+    </FormPage>
   )
 }
 

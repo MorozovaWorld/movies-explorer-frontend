@@ -24,7 +24,6 @@ function Footer() {
           </div>
         </Route>
       </Switch>
-      
     </footer>
   );
 }

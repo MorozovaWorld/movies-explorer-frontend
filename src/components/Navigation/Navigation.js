@@ -19,12 +19,6 @@ function Navigation() {
               <img src={accountIcon} alt="логотип сайта" />
             </Link>
         </Route>
-        <Route path="/signin">
-
-        </Route>
-        <Route path="/signup">
-
-        </Route>
       </Switch>
       </nav>
   );
