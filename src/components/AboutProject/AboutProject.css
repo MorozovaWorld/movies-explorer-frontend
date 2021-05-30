@@ -7,20 +7,19 @@
 .aboutProject-title {
   font-size: 22px;
   line-height: 1.21;
-  font-weight: 400;
   width: 100%;
   border-bottom: 1px solid #000;
   padding: 0 0 23px;
   margin: 0;
+  letter-spacing: -0.04em;
+  font-weight: normal;
 }
 
 .aboutProject-infoBlock {
-  display: flex;
-  justify-content: space-between;
-}
-
-.aboutProject-description {
-  max-width: 550px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(320px, 550px));
+  grid-template-rows: 1, 270px;
+  column-gap: 40px;
 }
 
 .aboutProject-subtitle{
@@ -29,6 +28,7 @@
   font-weight: 400;
   margin: 70px 0 26px;
   padding: 0;
+  letter-spacing: -0.04em;
 }
 
 .aboutProject-text{
@@ -84,4 +84,85 @@
   grid-area: frontend;
   color: #A0A0A0;
   font-weight: 500;
+}
+
+@media screen and (max-width: 914px) {
+  .aboutProject  {
+    width: calc(100% - 60px*2);
+    padding: 100px 0 90px;
+  }
+
+  .aboutProject-infoBlock {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }
+
+  .aboutProject-subtitle{
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject  {
+    width: calc(100% - 50px*2);
+    padding: 90px 0 80px;
+  }
+
+  .aboutProject-infoBlock {
+    grid-template-columns: repeat(2, minmax(1fr, 319px));
+    grid-template-rows: 1fr;
+    column-gap: 30px;
+  }
+
+  .aboutProject-text{
+    min-height: 147px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .aboutProject-graph {
+    grid-template-columns: 140px 1fr;
+  }
+}
+
+@media screen and (max-width: 535px) {
+  .aboutProject  {
+    width: calc(100% - 18px*2);
+    padding: 70px 0 58px;
+  }
+
+  .aboutProject-title {
+    font-size: 18px;
+    line-height: 1.22;
+    padding-bottom: 28px;
+    margin-bottom: 60px;
+  }
+
+  .aboutProject-subtitle {
+    margin-bottom: 18px;
+    line-height: 1.22;
+    margin: 0 0 16px;
+  }
+
+  .aboutProject-infoBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .aboutProject-text{
+    min-height: 104px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .aboutProject-graph {
+    margin-top: 4px;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: 35px 35px;
+    row-gap: 1px;
+  }
+
+  .aboutProject-graph-text {
+    font-size: 11px;
+  }
 }

@@ -27,8 +27,6 @@
   color: #000;
   margin-right: 16px;
   background-color: transparent;
-  font-family: Inter;
-  font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
@@ -48,4 +46,18 @@ font-weight: 400;
   border-radius: 3px;
   min-height: 32px;
   margin: 0 0 0 14px;
+}
+
+@media screen and (max-width: 320px) {
+  .header__navigation-navBtn {
+    font-size: 10px;
+    line-height: 1.6;
+    margin-right: 0;
+  }
+
+  .header__navigation-navBtn_background_colored {
+    min-width: 54px;
+    border-radius: 3px;
+    min-height: 26px;
+  }
 }

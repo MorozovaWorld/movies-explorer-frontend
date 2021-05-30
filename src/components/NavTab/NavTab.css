@@ -20,6 +20,11 @@
 }
 
 @media screen and (max-width: 320px) {
+  .promo__navTab {
+    min-height: 26px;
+    margin-bottom: 17px;
+  }
+
   .promo__navTabBtn{
     font-size: 10px;
     line-height: 1.6;

@@ -1,5 +1,5 @@
 .portfolio {
-  padding: 100px 70px 0;
+  padding: 100px 70px 204px;
 }
 
 .portfolio-title {
@@ -33,9 +33,36 @@
   text-decoration: none;
   font-size: 30px;
   line-height: 1.67;
+  letter-spacing: -0.04em;
 }
 
 .portfolio-link-arrow {
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding: 90px 50px 169px;
+  }
+
+  .portfolio-link {
+    font-size: 28px;
+    line-height: 1.79;
+  }
+
+  .portfolio-link-item {
+    border-bottom: 1px solid #E5E5E5;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .portfolio {
+    padding: 69px 14px 149px;
+  }
+
+  .portfolio-link {
+    font-size: 18px;
+    line-height: 1.56;
+  }
 }
