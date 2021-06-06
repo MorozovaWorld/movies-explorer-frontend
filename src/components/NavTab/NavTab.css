@@ -19,7 +19,7 @@
   margin: 0 5px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 535px) {
   .promo__navTab {
     min-height: 26px;
     margin-bottom: 17px;
@@ -30,5 +30,7 @@
     line-height: 1.6;
     padding: 5px 0;
     min-width: 82px;
+    border-radius: 6px;
+    margin: 0 3px;
   }
 }

@@ -71,7 +71,6 @@
 .aboutProject-graph-text_area_frontWeeks {
   grid-area: frontWeeks;
   background-color: #F2F2F2;
-  ;
 }
 
 .aboutProject-graph-text_area_backend {
@@ -107,6 +106,11 @@
     padding: 90px 0 80px;
   }
 
+  .aboutProject-subtitle{
+    font-size: 20px;
+    margin-bottom: 22px;
+  }
+
   .aboutProject-infoBlock {
     grid-template-columns: repeat(2, minmax(1fr, 319px));
     grid-template-rows: 1fr;
@@ -124,23 +128,11 @@
   }
 }
 
-@media screen and (max-width: 535px) {
-  .aboutProject  {
-    width: calc(100% - 18px*2);
-    padding: 70px 0 58px;
-  }
-
-  .aboutProject-title {
+@media screen and (max-width: 572px) {
+  .aboutProject-subtitle {
     font-size: 18px;
     line-height: 1.22;
-    padding-bottom: 28px;
-    margin-bottom: 60px;
-  }
-
-  .aboutProject-subtitle {
-    margin-bottom: 18px;
-    line-height: 1.22;
-    margin: 0 0 16px;
+    margin: 0 0 18px;
   }
 
   .aboutProject-infoBlock {
@@ -164,5 +156,29 @@
 
   .aboutProject-graph-text {
     font-size: 11px;
+  }
+
+  .aboutProject-graph-text_area_backend {
+    padding-bottom: 6px;
+    box-sizing: border-box;
+  }
+  
+  .aboutProject-graph-text_area_frontend {
+    padding-bottom: 6px;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 535px) {
+  .aboutProject  {
+    width: calc(100% - 18px*2);
+    padding: 70px 0 58px;
+  }
+
+  .aboutProject-title {
+    font-size: 18px;
+    line-height: 1.22;
+    padding-bottom: 28px;
+    margin-bottom: 62px;
   }
 }

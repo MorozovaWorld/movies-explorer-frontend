@@ -1,5 +1,6 @@
 .footer {
   width: calc(100% - 70px*2);
+  font-weight: normal;
   margin: 0 auto;
   font-size: 13px;
   line-height: 1.21;
@@ -49,7 +50,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 535px) {
   .footer {
     width: calc(100% - 10px*2);
     font-size: 12px;
@@ -69,7 +70,7 @@
 
   .footer__links {
     list-style: none;
-    margin: 30px 0 0;
+    margin: 32px 0 0;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -81,7 +82,7 @@
 
   .footer__link {
     text-align: center;
-    margin: 0 auto 12px 0;
+    margin: 0 auto 13px 0;
     display: flex;
   }
 
