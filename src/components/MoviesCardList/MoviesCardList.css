@@ -17,3 +17,12 @@
   margin: 0;
   padding: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .moviesCardList__list {
+    grid-template-columns: repeat(2, minmax(100px, 339px));
+    grid-template-rows: repeat(auto-fit, minmax(min-content, max-content));
+    column-gap: 30px;
+    row-gap: 30px;
+  }
+}

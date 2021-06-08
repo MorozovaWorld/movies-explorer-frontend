@@ -27,14 +27,25 @@
   color: #000;
   margin-right: 16px;
   background-color: transparent;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 12px;
   line-height: 1.33;
   text-decoration: none;
 }
 
-.header__navigation-navBtn_wight_400 {
-font-weight: 400;
+.header__navigation-navBtn_link-to_movies {
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+.header__navigation-navBtn_link-to_account {
+  font-size: 14px;
+  line-height: 1.14;
+  font-weight: 500;
+}
+
+.header__navigation-navBtn_status_active {
+  font-weight: 500;
 }
 
 .header__navigation-navBtn_background_colored {

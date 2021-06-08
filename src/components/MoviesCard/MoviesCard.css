@@ -3,9 +3,9 @@
   justify-content: space-between;
   align-items: flex-start;
   border-bottom: 1px solid #E8E8E8;
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   padding: 0;
-  min-height: 45px;
+  min-height: 47px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -19,7 +19,7 @@
   font-size: 13px;
   line-height: 1.23;
   font-weight: 500;
-  margin: 4px 0 0;
+  margin: 3px 0 0;
   max-width: 226px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -36,7 +36,7 @@
 }
 
 .moviesCard__save-icon {
-  object-position: center;
+  margin: auto;
 }
 
 .moviesCard__save-icon_status_clicked {
@@ -48,5 +48,15 @@
   color: #A0A0A0;
   font-size: 11px;
   line-height: 1.18;
-  margin: 6px 0 0;
+  margin: 10px 0 0;
+}
+
+@media screen and (max-width: 768px) {
+  .moviesCard__image {
+    max-height: 190px;
+  }
+
+  .moviesCard__title {
+    max-width: 100%;
+  }
 }
