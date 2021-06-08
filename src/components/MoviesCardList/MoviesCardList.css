@@ -8,8 +8,8 @@
 
 .moviesCardList__list {
   display: grid;
-  grid-template-columns: repeat(4, minmax(100px, 270px));
-  grid-template-rows: repeat(auto-fit, minmax(min-content, 230px));
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(230px, 1fr));
   grid-auto-rows: 1fr;
   column-gap: 20px;
   row-gap: 38px;
