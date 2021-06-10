@@ -1,0 +1,61 @@
+.burgerMenu__toggleBtn {
+  height: 23px;
+  width: 28px;
+}
+
+.burgerMenu__toggleBtn:hover {
+  cursor: pointer;
+}
+
+.burgerMenu__toggleBtn-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.burgerMenu__toggleBtn-span {
+  width: 28px;
+  height: 3px;
+  background-color: #000;
+  content: "";
+  box-sizing: border-box;	
+  position: relative;
+  display: block;
+  transition: .15s;
+}
+
+.burgerMenu__toggleBtn-span::before {
+  content: "";
+  width: 28px;
+  height: 3px;
+  background-color: #000;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  transition: .15s;
+}
+
+.burgerMenu__toggleBtn-span::after {
+  content: "";
+  width: 28px;
+  height: 3px;
+  background-color: #000;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  transition: all .3s;
+}
+
+.burgerMenu__toggleBtn-input:checked + .burgerMenu__toggleBtn-span {
+  transform: translate(6px, 10px) rotate(-45deg) scaleX(-0.8);;
+}
+
+.burgerMenu__toggleBtn-input:checked + .burgerMenu__toggleBtn-span::before {
+  transform: translateY(-10px) rotate(-45deg) scale(0);
+}
+
+.burgerMenu__toggleBtn-input:checked + .burgerMenu__toggleBtn-span::after {
+  transform: translateY(-20px) rotate(-90deg) scale(0.8, 1.3);
+}
