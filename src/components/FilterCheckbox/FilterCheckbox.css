@@ -64,3 +64,18 @@
 		margin-left: 19px;
 	}
 }
+
+@media screen and (max-width: 600px) {
+	.filterCheckbox {
+		margin-left: 0;
+	}
+
+	.filterCheckbox__text {
+		font-size: 11px;
+		line-height: 1.64;
+	}
+
+	.filterCheckbox__label {
+		margin-right: 13px;
+	}
+}

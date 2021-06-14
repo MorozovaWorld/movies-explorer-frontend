@@ -97,3 +97,16 @@
     line-height: 1.21;
   }
 }
+
+@media screen and (max-width: 380px) {
+  .navigation__navBtn_placedOn_landing {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .navigation__navBtn_background_colored {
+    min-width: 54px;
+    min-height: 26px;
+    margin-left: 0;
+  }
+}

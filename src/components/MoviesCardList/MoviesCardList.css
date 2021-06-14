@@ -26,3 +26,25 @@
     row-gap: 30px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .moviesCardList {
+    padding: 50px 0 0;
+  }
+
+  .moviesCardList__list {
+    grid-template-columns: repeat(auto-fit, minmax(min-content, max-content));
+    grid-template-rows: repeat(auto-fit, minmax(min-content, max-content));
+    column-gap: 15px;
+    row-gap: 15px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .moviesCardList__list {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fit, minmax(min-content, max-content));
+    column-gap: 30px;
+    row-gap: 30px;
+  }
+}

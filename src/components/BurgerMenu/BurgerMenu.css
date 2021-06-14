@@ -62,3 +62,25 @@
 .burgerMenu__toggleBtn-icon_action_close::after {
   transform: translateY(-20px) rotate(-90deg) scale(0.8, 1.3);
 }
+
+@media screen and (max-width: 380px) {
+  .burgerMenu__toggleBtn {
+    height: 20.5px;
+    width: 22px;
+  }
+
+  .burgerMenu__toggleBtn-icon {
+    height: 2.5px;
+    width: 22px;
+  }
+  
+  .burgerMenu__toggleBtn-icon::before {
+    height: 2.5px;
+    width: 22px;
+  }
+  
+  .burgerMenu__toggleBtn-icon::after {
+    height: 2.5px;
+    width: 22px;
+  }
+}
