@@ -66,6 +66,21 @@
 
 @media screen and (max-width: 768px) {
   .searchForm {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .searchForm__button {
+    margin-right: 19px;
+  }
+
+  .searchForm_form {
+    width: 70.5%;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .searchForm {
     margin: 80px 0 109px;
     width: 100%;
   }

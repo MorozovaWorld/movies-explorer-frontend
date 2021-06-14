@@ -13,7 +13,7 @@ function SearchForm() {
 
   return (
     <section className="searchForm">
-      <form className="searchForm_form" name="search" onSubmit="">
+      <form className="searchForm_form" name="search">
         <fieldset className="searchForm__fieldset">
           <label className="searchForm__label"><img src={searchIcon} alt="иконка поиска" className="searchForm__label-icon" /></label>
           <input type="string" onChange={handleChange} name='movie' value={movie} id="movie" placeholder="Фильм" className="searchForm__input" autoComplete='off' required />

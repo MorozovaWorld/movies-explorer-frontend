@@ -16,21 +16,9 @@ import pic14 from '../../images/pic14.jpg';
 import pic15 from '../../images/pic15.jpg';
 import pic16 from '../../images/pic16.jpg';
 import { Route, Switch } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-function MoviesCardList() {
-  const [width, setWidth] = useState(window.innerWidth);
-  const breakpoint768 = 768;
-  const breakpoint400 = 400;
-
-  const handleWindowResize = () => setWidth(window.innerWidth);
-
-  useEffect(() => {
-    window.onresize = () => {
-      handleWindowResize();
-    }
-  }, []);
-
+function MoviesCardList({width, breakpoint768, breakpoint400}) {
   return (
     <section className="moviesCardList">
       <ul className="moviesCardList__list">

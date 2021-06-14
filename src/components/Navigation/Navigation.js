@@ -1,42 +1,68 @@
 import accountIcon from '../../images/account-icon.svg';
-import { Route, Switch, Link, NavLink, useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
+import { Route, Switch, Link, NavLink } from 'react-router-dom';
+import React from 'react';
 
-function Navigation() {
-  const [moviesBtnActive, setMoviesBtnActive] = useState(true);
-  const [savedMoviesBtnActive, setSavedMoviesBtnActive] = useState(false);
-  const location = useLocation();
-
-  React.useEffect(() => {
-    if(location.pathname === '/movies') {
-      setMoviesBtnActive(true);
-      setSavedMoviesBtnActive(false);
-    } 
-    if(location.pathname === '/saved-movies') {
-      setMoviesBtnActive(false);
-      setSavedMoviesBtnActive(true);
-    }
-  }, [location]);
-  
+function Navigation({ isMobile, handleMobileMenuClose }) {
   return (
-    <nav className="header__navigation">
-      <Switch>
-        <Route exact path="/">
-            <Link className="header__navigation-navBtn opacity opacity_useAt_link" to="/signup" >Регистрация</Link>
-            <Link className="header__navigation-navBtn header__navigation-navBtn_background_colored opacity opacity_useAt_button" to="/signin" >Войти</Link>
-        </Route>
-        <Route path={["/movies", "/saved-movies", "/profile"]} >
-          <div className="header__navigation-movies">
-            <NavLink className={"header__navigation-navBtn header__navigation-navBtn_link-to_movies opacity opacity_useAt_link" + (moviesBtnActive ? ' header__navigation-navBtn_status_active' : '')}  to="/movies" >Фильмы</NavLink>
-            <NavLink className={"header__navigation-navBtn header__navigation-navBtn_link-to_movies opacity opacity_useAt_link"  + (savedMoviesBtnActive ? ' header__navigation-navBtn_status_active' : '')} to="/saved-movies" >Сохранённые фильмы</NavLink>
+    <Switch>
+      <Route exact path='/'>
+        <nav className='navigation'>
+          <Link
+            className='
+              navigation__navBtn
+              navigation__navBtn_placedOn_landing
+              opacity
+              opacity_useAt_link'
+            to='/signup'>Регистрация</Link>
+          <Link
+            className='
+              navigation__navBtn
+              navigation__navBtn_placedOn_landing
+              navigation__navBtn_background_colored
+              opacity
+              opacity_useAt_button'
+            to='/signin'>Войти</Link>
+        </nav>
+      </Route>
+      <Route path={['/movies', '/saved-movies', '/profile']}>
+        <nav className={'navigation' + (isMobile ? ' navigation_mobile' : '')}>
+          <div className='navigation__main-links'>
+            {isMobile ? (<NavLink
+              className='navigation__navBtn navigation__navBtn_mobile'
+              to='/'
+              onClick={handleMobileMenuClose} >Главная</NavLink>) : null}
+            <NavLink
+              className={'navigation__navBtn opacity opacity_useAt_link' + (isMobile ? ' navigation__navBtn_mobile' : '')}
+              activeClassName='navigation__navBtn_status_active'
+              to='/movies'
+              onClick={handleMobileMenuClose}>Фильмы</NavLink>
+            <NavLink
+              className={'navigation__navBtn opacity opacity_useAt_link' + (isMobile ? ' navigation__navBtn_mobile' : '')}
+              activeClassName='navigation__navBtn_status_active'
+              to='/saved-movies'
+              onClick={handleMobileMenuClose}>Сохранённые фильмы</NavLink>
           </div>
-            <NavLink className="header__navigation-navBtn header__navigation-navBtn_link-to_account opacity opacity_useAt_link" to="/profile" >Аккаунт</NavLink>
-            <Link className="header__navigation-accountIcon opacity opacity_useAt_link" to="/profile" >
-              <img src={accountIcon} alt="логотип сайта" />
-            </Link>
-        </Route>
-      </Switch>
-      </nav>
+          <div
+            className='navigation_account-links'>
+            <NavLink
+              className='
+                navigation__navBtn
+                navigation__navBtn_placedOn_main-mobile
+                opacity
+                opacity_useAt_link'
+                to='/profile'
+                onClick={handleMobileMenuClose}>Аккаунт</NavLink>
+            <Link
+              className='
+                navigation__accountIcon
+                opacity
+                opacity_useAt_link'
+              to='/profile'
+              onClick={handleMobileMenuClose}><img src={accountIcon} alt='логотип сайта' /></Link>
+          </div>
+        </nav>
+      </Route>
+    </Switch>
   );
 }
 

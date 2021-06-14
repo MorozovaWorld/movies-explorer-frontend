@@ -1,55 +1,31 @@
-.header__navigation {
+.navigation {
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: flex-end;
 }
 
-.header__navigation-movies {
-  margin-right: auto;
-  display: flex;
-  align-items: center;
-}
-
-.header__navigation-accountIcon {
-  min-width: 26px;
-  min-height: 30px;
-  background-color: #F9F9F9;
-  border-radius: 4px;
-  display: flex;
-  margin: 0;
-  justify-content: center;
-}
-
-.header__navigation-navBtn {
+.navigation__navBtn {
   padding: 0;
   border: 0;
   color: #000;
   margin-right: 16px;
   background-color: transparent;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 1.33;
   text-decoration: none;
 }
 
-.header__navigation-navBtn_link-to_movies {
-  font-size: 13px;
-  line-height: 1.38;
-}
-
-.header__navigation-navBtn_link-to_account {
-  font-size: 14px;
-  line-height: 1.14;
+.navigation__navBtn_status_active {
   font-weight: 500;
 }
 
-.header__navigation-navBtn_status_active {
+.navigation__navBtn_placedOn_landing {
   font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
 }
 
-.header__navigation-navBtn_background_colored {
-  background-color: #2BE080;
+.navigation__navBtn_background_colored {
+  background-color: #2be080;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,16 +35,65 @@
   margin: 0 0 0 14px;
 }
 
-@media screen and (max-width: 320px) {
-  .header__navigation-navBtn {
-    font-size: 10px;
-    line-height: 1.6;
-    margin-right: 0;
+.navigation__main-links {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+.navigation_account-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1.14;
+  font-weight: 500;
+}
+
+.navigation__accountIcon {
+  min-width: 26px;
+  min-height: 30px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  display: flex;
+  margin: 0;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation_mobile {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 159px 0 92px;
   }
 
-  .header__navigation-navBtn_background_colored {
-    min-width: 54px;
-    border-radius: 3px;
-    min-height: 26px;
+  .navigation__navBtn_mobile {
+    margin-right: 0;
+    margin-bottom: 23px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+
+  .navigation__navBtn_status_active {
+    border-bottom: 2px solid #000;
+  }
+
+  .navigation__navBtn_placedOn_main-mobile {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-right: 17px;
+  }
+
+  .navigation__main-links {
+    flex-direction: column;
+    width: calc(100%-2*90px);
+    margin-right: 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.21;
   }
 }
