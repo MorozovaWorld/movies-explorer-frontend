@@ -17,6 +17,7 @@
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
+  margin-bottom: 210px;
 }
 
 .profile__title {
@@ -31,13 +32,14 @@
   justify-content: space-between;
   border-bottom: 1px solid #E8E8E8;
   padding-bottom: 16px;
-  margin-bottom: 17px;
+  margin-bottom: 18px;
   position: relative;
 }
 
 .profile__input-container:last-child {
   border: none;
   padding-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .profile__input-label {
@@ -90,4 +92,45 @@
   line-height: 1.23;
   color: #FF3055;
   margin: 16px 0 70px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    padding-top: 236px;
+  }
+
+  .profile__title {
+    margin-bottom: 96px;
+  }
+
+  .profile__input-container {
+    margin-bottom: 19px;
+  }
+
+  .profile__form {
+    margin-bottom: 203px;
+  }
+
+  .profile__button-signout {
+    margin-bottom: 269px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profile {
+    min-width: 81.25%;
+    padding-top: 70px;
+  }
+
+  .profile__title {
+    margin-bottom: 80px;
+  }
+
+  .profile__form {
+    margin-bottom: 100px;
+  }
+
+  .profile__button-signout {
+    margin-bottom: 40px;
+  }
 }
