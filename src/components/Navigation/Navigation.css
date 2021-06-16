@@ -98,7 +98,7 @@
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 520px) {
   .navigation__navBtn_placedOn_landing {
     font-size: 10px;
     line-height: 1.6;
@@ -108,5 +108,18 @@
     min-width: 54px;
     min-height: 26px;
     margin-left: 0;
+  }
+
+  .navigation__main-links {
+    width: 100%;
+  }
+
+  .navigation_mobile {
+    padding: 144px 0 48px;
+  }
+
+  .navigation__navBtn_mobile {
+    margin-bottom: 18px;
+    padding-bottom: 6px;
   }
 }

@@ -45,6 +45,6 @@
     grid-template-columns: 1fr;
     grid-template-rows: repeat(auto-fit, minmax(min-content, max-content));
     column-gap: 30px;
-    row-gap: 30px;
+    row-gap: 34px;
   }
 }

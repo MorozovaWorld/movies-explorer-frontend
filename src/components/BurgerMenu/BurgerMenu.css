@@ -73,14 +73,28 @@
     height: 2.5px;
     width: 22px;
   }
-  
+
   .burgerMenu__toggleBtn-icon::before {
     height: 2.5px;
     width: 22px;
   }
-  
+
   .burgerMenu__toggleBtn-icon::after {
     height: 2.5px;
     width: 22px;
   }
+
+  .burgerMenu__toggleBtn_action_close {
+    top: 20.16px;
+    right: 20.16px;
+  }
+
+  .burgerMenu__toggleBtn-icon_action_close {
+    transform: translate(1px, 8px) rotate(-45deg) scaleX(1);
+  }
+  
+  .burgerMenu__toggleBtn-icon_action_close::after {
+    transform: translateY(-19px) translateX(0) rotate(-90deg) scale(1, 1.1);
+  }
+  
 }

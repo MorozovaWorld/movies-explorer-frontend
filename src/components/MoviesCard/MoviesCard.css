@@ -34,10 +34,11 @@
   padding: 0;
   border: 0;
   margin: 0;
+  object-position: center;
 }
 
 .moviesCard__save-icon {
-  margin: auto;
+  max-height: 8.5px;
 }
 
 .moviesCard__save-icon_status_clicked {
@@ -59,5 +60,24 @@
 
   .moviesCard__title {
     max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .moviesCard__image {
+    max-height: 190px;
+  }
+
+  .moviesCard__title {
+    font-size: 12px;
+  line-height: 1.21;
+  }
+
+  .moviesCard__info {
+    margin-top: 10px;
+  }
+
+  .moviesCard__movieTime {
+    margin-top: 6px;
   }
 }
