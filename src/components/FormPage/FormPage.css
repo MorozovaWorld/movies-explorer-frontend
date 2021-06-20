@@ -9,13 +9,6 @@
   padding: 70px 0;
 }
 
-.formPage__container {
-  height: 560px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .formPage__logo {
   margin-bottom: 40px;
   max-height: 38px;
@@ -44,6 +37,9 @@
   color: #FFF;
   border: none;
   padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.21;
   margin: 0 0 16px;
   cursor: pointer;
 }
@@ -92,8 +88,11 @@
   min-height: 46px;
   width: 100%;
   border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.23;
+  padding: 0 15px;
+  box-sizing: border-box;
   border: none;
-  padding: 0;
   background-color: #F9F9F9;
 }
 
@@ -105,4 +104,39 @@
   line-height: 1.2;
   text-align: left;
   color: #FF3055;
+}
+
+
+@media screen and (max-width: 430px) {
+  .formPage {
+    min-width: 81.25%;
+    padding: 56px 0 30px;
+    align-items: center;
+  }
+
+  .formPage__fieldset {
+    flex-grow: 1;
+  }
+
+  .formPage__logo {
+    margin-bottom: 50px;
+  }
+
+  .formPage__title {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .formPage__button-submit {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .formPage__bottomText {
+    font-size: 12px;
+  }
+
+  .formPage__link {
+    font-size: 12px;
+  }
 }

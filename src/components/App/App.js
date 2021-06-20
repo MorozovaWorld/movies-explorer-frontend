@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
@@ -11,7 +11,7 @@ import Movies from '../Movies/Movies.js';
 import Profile from '../Profile/Profile.js';
 import MobileNavigation from '../MobileNavigation/MobileNavigation.js'
 
-function App() {
+function App( {location} ) {
   const [width, setWidth] = useState(window.innerWidth);
   const [isMobileNavigationOpen, setMobileNavigationOpen] = useState(false);
   const [isMobileLayout, setMobileLayout] = useState(false);
@@ -46,11 +46,14 @@ function App() {
   return (
       <div className="body">
         <div className="page">
-          <Header 
+          {
+            location.pathname !== '/signin' && location.pathname !== '/signup' ? 
+            <Header 
             onBurgerMenuClick={toggleBurgerMenuOpen}
             isMobileNavigationOpen={isMobileNavigationOpen}
             isMobile={isMobileLayout}
-          />
+          /> : null
+          }
           <Switch>
             <Route exact path="/">
               <Main />
@@ -82,4 +85,4 @@ function App() {
   )
 }
 
-export default App;
+export default withRouter(App);
