@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import FormPage from '../FormPage/FormPage.js';
 import FormSubmitErr from '../FormSubmitErr/FormSubmitErr.js';
-import {validators} from '../../utils/constants.js'
+import {
+  validators,
+  requiredErrMessage,
+  minLengthErrMessage,
+  maxLengthErrMessage,
+  isEmailErrMessage
+} from '../../utils/constants.js'
 
 function Register() {
   const [userData, setUserData] = useState({
@@ -48,6 +54,7 @@ function Register() {
     },
     password: {
       required: false,
+      minlength: false,
     },
   });
 
@@ -97,24 +104,25 @@ function Register() {
         <label htmlFor="user-name" className="formPage__input-label">Имя</label>
         <input type="text" onFocus={handleInputFocus} onChange={handleChange} name='name' value={name} id="user-name" className="formPage__input-text" placeholder="Введите имя" autoComplete='off' required />
         <span id="name-error" className="formPage__input-error">
-          {isInputFocused.name && validationErrors.name.required && 'Поле не заполнено'}
-          {!validationErrors.name.required && validationErrors.name.minlength && 'Минимальное количество символов: 2'}
-          {validationErrors.name.maxlength && 'Максимальное количество символов: 30'}
+          {isInputFocused.name && validationErrors.name.required && requiredErrMessage}
+          {!validationErrors.name.required && validationErrors.name.minlength && minLengthErrMessage}
+          {validationErrors.name.maxlength && maxLengthErrMessage}
         </span>
       </div>
       <div className="formPage__input-container">
         <label htmlFor="user-email" className="formPage__input-label">E-mail</label>
         <input type="email" onFocus={handleInputFocus} onChange={handleChange} placeholder="Введите e-mail" name='email' value={email} id="user-email" className="formPage__input-text" autoComplete='off' required />
         <span id="email-error" className="formPage__input-error">
-          {isInputFocused.email && validationErrors.email.required && 'Поле не заполнено'}
-          {!validationErrors.email.required && validationErrors.email.isEmail && 'Введите, пожалуйста, email'}
+          {isInputFocused.email && validationErrors.email.required && requiredErrMessage}
+          {!validationErrors.email.required && validationErrors.email.isEmail && isEmailErrMessage}
         </span>
       </div>
       <div className="formPage__input-container">
         <label htmlFor="user-password" className="formPage__input-label">Пароль</label>
         <input type="password" onFocus={handleInputFocus} onChange={handleChange} name='password' value={password} autoComplete='off' id="user-password" className="formPage__input-text" placeholder="Введите пароль" required />
-        <span id="email-error" className="formPage__input-error">
-          {isInputFocused.password && validationErrors.password.required && 'Поле не заполнено'}
+        <span id="password-error" className="formPage__input-error">
+          {isInputFocused.password && validationErrors.password.required && requiredErrMessage}
+          {!validationErrors.password.required && validationErrors.password.minlength && minLengthErrMessage}
         </span>
         <FormSubmitErr errText=''></FormSubmitErr>
       </div>
