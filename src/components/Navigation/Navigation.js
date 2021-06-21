@@ -58,7 +58,7 @@ function Navigation({ isMobile, handleMobileMenuClose }) {
                 opacity
                 opacity_useAt_link'
               to='/profile'
-              onClick={handleMobileMenuClose}><img src={accountIcon} alt='логотип сайта' /></Link>
+              onClick={handleMobileMenuClose}><img src={accountIcon} alt='иконка перехода на страницу о проекте' /></Link>
           </div>
         </nav>
       </Route>

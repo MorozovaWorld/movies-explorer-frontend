@@ -9,19 +9,19 @@ function Portfolio() {
           <li className="portfolio-link-item opacity">
             <a href="https://github.com/MorozovaWorld/how-to-learn" rel='noreferrer' className="portfolio-link opacity opacity_useAt_link" target="_blank">Статичный сайт</a>
             <a href="https://github.com/MorozovaWorld/how-to-learn" rel='noreferrer' className="portfolio-link-arrow opacity opacity_useAt_button" target="_blank">
-              <img src={arrow} alt="иконка стрелки" className="portfolio-link-arrow-icon" />
+              <img src={arrow} alt="иконка перехода по ссылке" className="portfolio-link-arrow-icon" />
             </a>
           </li>
           <li className="portfolio-link-item opacity">
             <a href="https://github.com/https://github.com/MorozovaWorld/russian-travel" rel='noreferrer' className="portfolio-link opacity opacity_useAt_link" target="_blank">Адаптивный сайт</a>
             <a href="https://github.com/MorozovaWorld/how-to-learn" rel='noreferrer' className="portfolio-link-arrow opacity opacity_useAt_button" target="_blank">
-              <img src={arrow} alt="иконка стрелки" className="portfolio-link-arrow-icon" />
+              <img src={arrow} alt="иконка перехода по ссылке" className="portfolio-link-arrow-icon" />
             </a>
           </li>
           <li className="portfolio-link-item opacity">
             <a href="https://github.com/MorozovaWorld/react-mesto-api-full" rel='noreferrer' className="portfolio-link opacity opacity_useAt_link" target="_blank">Одностраничное приложение</a>
             <a href="https://github.com/MorozovaWorld/how-to-learn" rel='noreferrer' className="portfolio-link-arrow opacity opacity_useAt_button" target="_blank">
-              <img src={arrow} alt="иконка стрелки" className="portfolio-link-arrow-icon" />
+              <img src={arrow} alt="иконка перехода по ссылке" className="portfolio-link-arrow-icon" />
             </a>
           </li>
         </ul>

@@ -35,6 +35,7 @@
   border: 0;
   margin: 0;
   object-position: center;
+  cursor: pointer;
 }
 
 .moviesCard__save-icon {

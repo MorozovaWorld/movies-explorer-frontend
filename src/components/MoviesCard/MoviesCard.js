@@ -19,7 +19,7 @@ function MoviesCard({ imgSrc, movieTitle, movieTime }) {
       <div className="moviesCard__info">
         <h2 className="moviesCard__title">{movieTitle}</h2>
         <button type="button" className="moviesCard__save" onClick={() => {handleSaveClick()}}>
-          <img src={saveIcon} alt="иконка сохранения" className="moviesCard__save-icon opacity opacity_useAt_button" />
+          <img src={saveIcon} alt="иконка сохранения карточки фильма" className="moviesCard__save-icon opacity opacity_useAt_button" />
         </button>
       </div>
       <p className="moviesCard__movieTime">{movieTime}</p>

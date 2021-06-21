@@ -5,8 +5,8 @@ function FormPage({title, children, btnText, linkText, linkUrl, linkReason, isDi
   return (
     <>
       <form className="formPage" name="name">
-        <div className="formPage__logo opacity opacity_useAt_link">
-          <Link to="/" ><img src={logo} alt="логотип сайта" /></Link>
+        <div className="formPage__logo">
+          <Link className="opacity opacity_useAt_link" to="/" ><img src={logo} alt="логотип сайта, иконка перехода на страницу о проекте" /></Link>
         </div>
         <fieldset className="formPage__fieldset">
           <legend className="formPage__title">{title}</legend>

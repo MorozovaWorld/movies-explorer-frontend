@@ -8,7 +8,7 @@ function Header({ isMobile, onBurgerMenuClick, isMobileNavigationOpen }) {
   return (
     <header className="header">
     <Link className="header__logo opacity opacity_useAt_link" to="/" >
-      <img src={logo} alt="логотип сайта" />
+      <img src={logo} alt="логотип сайта, иконка перехода на страницу о проекте" />
     </Link>
     <Switch>
       <Route exact path="/">
