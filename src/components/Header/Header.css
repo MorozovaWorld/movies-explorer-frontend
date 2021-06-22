@@ -17,9 +17,9 @@
   .header {
     width: calc(100% - 14px*2);
   }
-}
 
-.header__logo {
-  max-height: 38px;
-  margin-right: 44px;
+  .header__logo {
+    max-height: 38px;
+    margin-right: 44px;
+  }
 }

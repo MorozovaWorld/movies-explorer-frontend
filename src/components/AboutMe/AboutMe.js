@@ -1,6 +1,6 @@
 function AboutMe() {
   return (
-    <section className="aboutMe">
+    <section className="aboutMe" id="student">
       <h2 className="aboutMe-title">Студент</h2>
       <article className="aboutMe-acticle">
         <div className="aboutMe-info">

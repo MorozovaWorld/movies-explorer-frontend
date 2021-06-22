@@ -9,7 +9,8 @@ import Login from '../Login/Login.js';
 import Register from '../Register/Register.js';
 import Movies from '../Movies/Movies.js';
 import Profile from '../Profile/Profile.js';
-import MobileNavigation from '../MobileNavigation/MobileNavigation.js'
+import MobileNavigation from '../MobileNavigation/MobileNavigation.js';
+import PageNotFound from '../PageNotFound/PageNotFound.js';
 
 function App( {location} ) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -73,6 +74,9 @@ function App( {location} ) {
             </Route>
             <Route path="/profile">
               <Profile />
+            </Route>
+            <Route path="*">
+              <PageNotFound />
             </Route>
           </Switch>
           <Footer />

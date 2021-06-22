@@ -1,15 +1,19 @@
 import logo from '../../images/logo.svg';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, useLocation } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation.js';
 import BurgerMenu from '../BurgerMenu/BurgerMenu.js';
 import React  from 'react';
 
 function Header({ isMobile, onBurgerMenuClick, isMobileNavigationOpen }) {
+  const location = useLocation();
+
   return (
     <header className="header">
-    <Link className="header__logo opacity opacity_useAt_link" to="/" >
-      <img src={logo} alt="логотип сайта, иконка перехода на страницу о проекте" />
-    </Link>
+    {(location.pathname === '*') ? 
+      <Link className="header__logo opacity opacity_useAt_link" to="/" >
+        <img src={logo} alt="логотип сайта, иконка перехода на страницу о проекте" />
+      </Link>
+    : ''}
     <Switch>
       <Route exact path="/">
           <Navigation />
