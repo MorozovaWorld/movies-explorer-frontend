@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+.header__logo {
+  max-height: 38px;
+  margin-right: 44px;
+}
+
 @media screen and (max-width: 768px) {
   .header {
     width: calc(100% - 30px*2);
@@ -16,10 +21,5 @@
 @media screen and (max-width: 500px) {
   .header {
     width: calc(100% - 14px*2);
-  }
-
-  .header__logo {
-    max-height: 38px;
-    margin-right: 44px;
   }
 }

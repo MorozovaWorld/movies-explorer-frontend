@@ -8,7 +8,7 @@ import {
   isEmailErrMessage
 } from '../../utils/constants.js'
 
-function Login() {
+function Login({ handleLogin }) {
   const [userData, setUserData] = useState({
     email: '',
     password: '',
@@ -83,8 +83,17 @@ function Login() {
       setFormValid((isEmailValid || isPasswordValid));
     }, [validationErrors.email, validationErrors.password, setFormValid])
 
+    function handleSubmit(e) {
+      e.preventDefault();
+      if (!email || !password){
+        return;
+      }
+  
+      handleLogin(email, password);
+    }
+
   return (
-    <FormPage title='Рады видеть!' btnText="Войти" linkText="Регистрация" linkReason="Ещё не зарегистрированы?" linkUrl="/signup" isDisabled={isFormValid}>
+    <FormPage title='Рады видеть!' btnText="Войти" linkText="Регистрация" linkReason="Ещё не зарегистрированы?" linkUrl="/signup" isDisabled={isFormValid} handleSubmit={handleSubmit}>
       <div className="formPage__input-container">
         <label htmlFor="user-email" className="formPage__input-label">E-mail</label>
         <input type="email" onFocus={handleInputFocus} onChange={handleChange} name='email' value={email} id="user-email" className="formPage__input-text" autoComplete='off' required />

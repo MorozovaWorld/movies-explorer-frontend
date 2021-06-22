@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Profile() {
   const [name, setName] = useState('Виталий');
@@ -17,9 +18,16 @@ function Profile() {
     setEmail(e.target.value);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    
+    setName(name);
+    setEmail(email);
+  }
+  
   return (
-      <form className="profile" name="name">
-        <h2 className="profile__title">Привет, Виталий!</h2>
+      <form className="profile" name="name" onSubmit={handleSubmit}>
+        <h2 className="profile__title">{`Привет, ${name}!`}</h2>
         <fieldset className="profile__form">
           <div className="profile__input-container">
             <label for="user-name" className="profile__input-label">Имя</label>
@@ -33,7 +41,7 @@ function Profile() {
           </div>
         </fieldset>
         <button type="submit" className="profile__button-submit opacity opacity_useAt_button">Редактировать</button>
-        <button type="submit" className="profile__button-signout opacity opacity_useAt_button">Выйти из аккаунта</button>
+        <Link className="profile__button-signout opacity opacity_useAt_button" to="/signin" >Выйти из аккаунта</Link>
       </form>
   )
 }

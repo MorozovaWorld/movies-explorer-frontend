@@ -12,6 +12,7 @@
 .formPage__logo {
   margin-bottom: 40px;
   max-height: 38px;
+  width: 38px;
 }
 
 .formPage__fieldset {
