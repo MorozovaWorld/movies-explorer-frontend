@@ -26,7 +26,7 @@
   overflow: hidden;
 }
 
-.moviesCard__save {
+.moviesCard__icon {
   background-color: #F9F9F9;
   height: 24px;
   width: 24px;
@@ -36,6 +36,23 @@
   margin: 0;
   object-position: center;
   cursor: pointer;
+}
+
+.moviesCard__icon_display_none {
+  background-color: transparent;
+}
+
+.moviesCard__icon_display_none:hover {
+  background-color: #F9F9F9;
+}
+
+.moviesCard__delete-icon {
+  display: none;
+  margin: auto;
+}
+
+.moviesCard__icon_display_none:hover .moviesCard__delete-icon{
+  display: flex;
 }
 
 .moviesCard__save-icon {

@@ -5,7 +5,8 @@ import {
   validators,
   requiredErrMessage,
   minLengthErrMessage,
-  isEmailErrMessage
+  isEmailErrMessage,
+  routesConfig
 } from '../../utils/constants.js'
 
 function Login({ handleLogin }) {
@@ -93,7 +94,7 @@ function Login({ handleLogin }) {
     }
 
   return (
-    <FormPage title='Рады видеть!' btnText="Войти" linkText="Регистрация" linkReason="Ещё не зарегистрированы?" linkUrl="/signup" isDisabled={isFormValid} handleSubmit={handleSubmit}>
+    <FormPage title='Рады видеть!' btnText="Войти" linkText="Регистрация" linkReason="Ещё не зарегистрированы?" linkUrl={routesConfig.signUpUrl} isDisabled={isFormValid} handleSubmit={handleSubmit}>
       <div className="formPage__input-container">
         <label htmlFor="user-email" className="formPage__input-label">E-mail</label>
         <input type="email" onFocus={handleInputFocus} onChange={handleChange} name='email' value={email} id="user-email" className="formPage__input-text" autoComplete='off' required />

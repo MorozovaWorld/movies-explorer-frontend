@@ -25,10 +25,10 @@ function Header({ isMobile, onBurgerMenuClick, isMobileNavigationOpen }) {
           <img src={logo} alt="логотип сайта, иконка перехода на страницу о проекте" />
         </Link>}
     <Switch>
-      <Route exact path="/">
+      <Route exact path={mainPageUrl}>
           <Navigation />
       </Route>
-      <Route path={["/", "/movies", "/saved-movies"]}>
+      <Route path={[mainPageUrl, moviesUrl, savedMoviesUrl]}>
         {!isMobile ? <Navigation/> : 
           <BurgerMenu
             toggleBurgerMenuOpen={onBurgerMenuClick}

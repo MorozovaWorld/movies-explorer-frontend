@@ -6,7 +6,8 @@ import {
   requiredErrMessage,
   minLengthErrMessage,
   maxLengthErrMessage,
-  isEmailErrMessage
+  isEmailErrMessage,
+  routesConfig
 } from '../../utils/constants.js'
 
 function Register() {
@@ -99,7 +100,7 @@ function Register() {
   }, [validationErrors.name, validationErrors.email, validationErrors.password, setFormValid])
   
   return (
-    <FormPage title='Добро пожаловать!' btnText="Зарегистрироваться" linkText="Войти" linkReason="Уже зарегистрированы?" linkUrl="/signin" isDisabled={isFormValid}>
+    <FormPage title='Добро пожаловать!' btnText="Зарегистрироваться" linkText="Войти" linkReason="Уже зарегистрированы?" linkUrl={routesConfig.singInUrl} isDisabled={isFormValid}>
       <div className="formPage__input-container">
         <label htmlFor="user-name" className="formPage__input-label">Имя</label>
         <input type="text" onFocus={handleInputFocus} onChange={handleChange} name='name' value={name} id="user-name" className="formPage__input-text" placeholder="Введите имя" autoComplete='off' required />
