@@ -1,11 +1,16 @@
 import { Link, } from 'react-router-dom';
 import logo from '../../images/logo.svg';
+import { routesConfig } from '../../utils/constants';
 
 function FormPage({title, children, btnText, linkText, linkUrl, linkReason, isDisabled, handleSubmit }) {
+  const { 
+    mainPageUrl,
+  } = routesConfig;
+
   return (
     <>
       <form className="formPage" name="name" onSubmit={handleSubmit}>
-        <Link className="formPage__logo opacity opacity_useAt_link" to="/" ><img src={logo} alt="логотип сайта, иконка перехода на страницу о проекте" /></Link>
+        <Link className="formPage__logo opacity opacity_useAt_link" to={mainPageUrl} ><img src={logo} alt="логотип сайта, иконка перехода на страницу о проекте" /></Link>
         <fieldset className="formPage__fieldset">
           <legend className="formPage__title">{title}</legend>
           {children}

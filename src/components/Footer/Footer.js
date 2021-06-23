@@ -1,10 +1,17 @@
 import { Route, Switch } from 'react-router-dom';
+import { routesConfig } from '../../utils/constants';
 
 function Footer() {
+  const { 
+    mainPageUrl,
+    moviesUrl,
+    savedMoviesUrl,
+  } = routesConfig;
+
   return (
     <footer className="footer">
       <Switch>
-        <Route exact path={["/", "/movies", "/saved-movies"]}>
+        <Route exact path={[mainPageUrl, moviesUrl, savedMoviesUrl]}>
           <p className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
             <div className="footer__info">
             <p className="footer__copyright">&copy; 2020</p>

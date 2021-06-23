@@ -62,6 +62,10 @@ function App( {location} ) {
     history.push(moviesUrl);
   };
 
+  const onRegister = (name, email, password) => {
+    history.push(singInUrl);
+  };
+
   return (
       <div className="body">
         <div className="page">
@@ -81,7 +85,7 @@ function App( {location} ) {
               <Login handleLogin={onLogin}/>
             </Route>
             <Route path={signUpUrl}>
-              <Register />
+              <Register handleRegister={onRegister}/>
             </Route>
             <Route path={moviesUrl}>
               <Movies

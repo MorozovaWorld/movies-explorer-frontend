@@ -17,13 +17,19 @@ import pic15 from '../../images/pic15.jpg';
 import pic16 from '../../images/pic16.jpg';
 import { Route, Switch } from 'react-router-dom';
 import React from 'react';
+import { routesConfig } from '../../utils/constants';
 
 function MoviesCardList({width, breakpoint768, breakpoint400}) {
+  const { 
+    moviesUrl,
+    savedMoviesUrl,
+  } = routesConfig;
+
   return (
     <section className="moviesCardList">
       <ul className="moviesCardList__list">
       <Switch>
-        <Route exact path="/movies">
+        <Route exact path={moviesUrl}>
           <MoviesCard imgSrc={pic1} movieTitle={'33 слова о дизайне'} movieTime={'1ч42м'} />
           <MoviesCard imgSrc={pic2} movieTitle={'Киноальманах «100 лет дизайна»'} movieTime={'1ч42м'} />
           <MoviesCard imgSrc={pic3} movieTitle={'В погоне за Бенкси'} movieTime={'1ч42м'} />
@@ -50,7 +56,7 @@ function MoviesCardList({width, breakpoint768, breakpoint400}) {
               : null }
 
         </Route>
-        <Route exact path="/saved-movies">
+        <Route exact path={savedMoviesUrl}>
           <MoviesCard imgSrc={pic1} movieTitle={'33 слова о дизайне'} movieTime={'1ч42м'} />
           <MoviesCard imgSrc={pic2} movieTitle={'Киноальманах «100 лет дизайна»'} movieTime={'1ч42м'} />
           <MoviesCard imgSrc={pic3} movieTitle={'В погоне за Бенкси'} movieTime={'1ч42м'} />

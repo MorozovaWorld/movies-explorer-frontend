@@ -1,11 +1,19 @@
 import accountIcon from '../../images/account-icon.svg';
 import { Route, Switch, Link, NavLink } from 'react-router-dom';
 import React from 'react';
+import { routesConfig } from '../../utils/constants';
 
 function Navigation({ isMobile, handleMobileMenuClose }) {
+  const { 
+    mainPageUrl,
+    moviesUrl,
+    savedMoviesUrl,
+    profileUrl,
+  } = routesConfig;
+
   return (
     <Switch>
-      <Route exact path='/'>
+      <Route exact path={mainPageUrl}>
         <nav className='navigation'>
           <Link
             className='
@@ -24,7 +32,7 @@ function Navigation({ isMobile, handleMobileMenuClose }) {
             to='/signin'>Войти</Link>
         </nav>
       </Route>
-      <Route path={['/movies', '/saved-movies', '/profile']}>
+      <Route path={[{moviesUrl}, {savedMoviesUrl}, {profileUrl}]}>
         <nav className={'navigation' + (isMobile ? ' navigation_mobile' : '')}>
           <div className='navigation__main-links'>
             {isMobile ? (<NavLink
