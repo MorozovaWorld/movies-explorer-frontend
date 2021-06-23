@@ -1,0 +1,147 @@
+.formPage {
+  min-width: 396px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 70px 0;
+}
+
+.formPage__logo {
+  margin-bottom: 40px;
+  max-height: 38px;
+  width: 38px;
+}
+
+.formPage__fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 404px;
+}
+
+.formPage__title {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.21;
+  margin: 0 0 40px;
+}
+
+.formPage__button-submit {
+  min-height: 45px;
+  width: 100%;
+  border-radius: 3px;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.21;
+  margin: 0 0 16px;
+  cursor: pointer;
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
+.formPage__button-submit_active {
+  background-color: #3456F3;
+  color: #FFF;
+}
+
+.formPage__link {
+  display: flex;
+  border: none;
+  padding: 0;
+  line-height: 1.21;
+  color: #3456F3;
+  margin: 0 0 0 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.formPage__bottomText {
+  margin: 0 auto;
+  display: flex;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  color: #A0A0A0;
+}
+
+.formPage__input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 20px 0;
+  position: relative;
+}
+
+.formPage__input-container:last-child {
+  margin: 0;
+}
+
+.formPage__input-label {
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: left;
+  color: #A0A0A0;
+  margin-bottom: 10px;
+}
+
+.formPage__input-text {
+  min-height: 46px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.23;
+  padding: 0 15px;
+  box-sizing: border-box;
+  border: none;
+  background-color: #F9F9F9;
+}
+
+.formPage__input-error {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: left;
+  color: #FF3055;
+}
+
+@media screen and (max-width: 430px) {
+  .formPage {
+    min-width: 81.25%;
+    padding: 56px 0 30px;
+    align-items: center;
+  }
+
+  .formPage__fieldset {
+    flex-grow: 1;
+  }
+
+  .formPage__logo {
+    margin-bottom: 50px;
+  }
+
+  .formPage__title {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .formPage__button-submit {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .formPage__bottomText {
+    font-size: 12px;
+  }
+
+  .formPage__link {
+    font-size: 12px;
+  }
+}

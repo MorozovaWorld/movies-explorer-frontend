@@ -1,0 +1,36 @@
+.promo__navTab {
+  min-height: 36px;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.promo__navTabBtn {
+  background-color: #E8E8E8;
+  border-radius: 10px;
+  min-height: 100%;
+  min-width: 96px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  text-align: center;
+  padding: 10px 0;
+  margin: 0 5px;
+}
+
+@media screen and (max-width: 535px) {
+  .promo__navTab {
+    min-height: 26px;
+    margin-bottom: 17px;
+  }
+
+  .promo__navTabBtn{
+    font-size: 10px;
+    line-height: 1.6;
+    padding: 5px 0;
+    min-width: 82px;
+    border-radius: 6px;
+    margin: 0 3px;
+  }
+}
