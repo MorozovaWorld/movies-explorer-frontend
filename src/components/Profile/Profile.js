@@ -30,12 +30,12 @@ function Profile() {
         <h2 className="profile__title">{`Привет, ${name}!`}</h2>
         <fieldset className="profile__form">
           <div className="profile__input-container">
-            <label for="user-name" className="profile__input-label">Имя</label>
+            <label htmlFor="user-name" className="profile__input-label">Имя</label>
             <input type="text" onChange={handleNameChange} name='name' value={name} autoComplete='off' id="user-name" className="profile__input-text" required />
             <span id="email-error" className="profile__input-error"></span>
           </div>
           <div className="profile__input-container">
-            <label for="user-email" className="profile__input-label">E-mail</label>
+            <label htmlFor="user-email" className="profile__input-label">E-mail</label>
             <input type="email" onChange={handleEmailChange} name='email' value={email} id="user-email" className="profile__input-text" autoComplete='off' required />
             <span id="email-error" className="profile__input-error"></span>
           </div>
