@@ -1,0 +1,114 @@
+.searchForm {
+  margin: 70px 0 69px;
+  width: 100%;
+  background-color: #F9F9F9;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+}
+
+.searchForm_form {
+  width: 80%;
+  display: flex;
+  min-height: 72px;
+  border-right: 1px solid #E8E8E8;
+  justify-content: space-between;
+}
+
+.searchForm__fieldset {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 0;
+  margin: 0 0 0 30px;
+  display: flex;
+  width: 100%;
+}
+
+.searchForm__label {
+  display: flex;
+  align-items: center;
+}
+
+.searchForm__input {
+  font-size: 18px;
+  line-height: 1.11;
+  width: 100%;
+  margin: 0 0 0 16px;
+  border: none;
+  background-color: transparent;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.searchForm__input::-webkit-input-placeholder {color:#A0A0A0;}
+.searchForm__input::-moz-placeholder          {color:#A0A0A0;}
+.searchForm__input::-ms-input-placeholder     {color:#A0A0A0;}
+.searchForm__input::placeholder               {color:#A0A0A0;}
+
+.searchForm__button {
+  background-color: #3456F3;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.64;
+  color: #fff;
+  padding: 0;
+  min-width: 58.65px;
+  height: 34px;
+  border-radius: 48px;
+  padding: 0;
+  margin: auto 30px auto 15px;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .searchForm {
+    margin: 80px 0 109px;
+  }
+
+  .searchForm__button {
+    margin-right: 19px;
+  }
+
+  .searchForm_form {
+    width: 70.5%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .searchForm {
+    margin: 80px 0 46px;
+    width: 100%;
+    flex-direction: column;
+    background-color: transparent;
+    border-radius: 0;
+  }
+
+  .searchForm__button {
+    margin-right: 19px;
+  }
+
+  .searchForm__fieldset {
+    margin-left: 0;
+    display: flex;
+  }
+
+  .searchForm_form {
+    width: 100%;
+    margin-bottom: 45px;
+    min-height: 72px;
+    background-color: #F9F9F9;
+    border-radius: 9px;
+  }
+
+  .searchForm__label {
+    display: none;
+  }
+
+  .searchForm__input {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+}
