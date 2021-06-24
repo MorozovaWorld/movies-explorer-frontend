@@ -7,7 +7,8 @@ import {
   minLengthErrMessage,
   maxLengthErrMessage,
   isEmailErrMessage,
-  routesConfig
+  routesConfig,
+  isValidNameErrMessage
 } from '../../utils/constants.js'
 
 function Register({ handleRegister }) {
@@ -48,6 +49,7 @@ function Register({ handleRegister }) {
       required: false,
       minlength: false,
       maxlength: false,
+      validate: false,
     },
     email: {
       required: false,
@@ -117,6 +119,7 @@ function Register({ handleRegister }) {
           {isInputFocused.name && validationErrors.name.required && requiredErrMessage}
           {!validationErrors.name.required && validationErrors.name.minlength && minLengthErrMessage}
           {validationErrors.name.maxlength && maxLengthErrMessage}
+          {!validationErrors.name.minlength && validationErrors.name.validate && isValidNameErrMessage}
         </span>
       </div>
       <div className="formPage__input-container">

@@ -11,6 +11,9 @@ export const validators = {
     maxlength: (value) => {
       return value.length > 30;
     },
+    validate: (value) => {
+      return /[^a-zа-яё\-\s]/giu.test(value);
+    },
   },
   email: {
     required: (value) => {
@@ -34,6 +37,8 @@ export const requiredErrMessage = 'Поле не заполнено';
 export const minLengthErrMessage = 'Минимальное количество символов: 2';
 export const maxLengthErrMessage = 'Максимальное количество символов: 30';
 export const isEmailErrMessage = 'Введите, пожалуйста, email';
+export const isValidNameErrMessage = 'Имя может содержит латинские и русские буквы, пробел или дефис';
+export const isSearchWordNeededErrMessage = 'Нужно ввести ключевое слово';
 
 export const routesConfig = {
   mainPageUrl: '/',

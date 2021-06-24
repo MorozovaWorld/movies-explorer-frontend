@@ -112,6 +112,10 @@
   color: #FF3055;
 }
 
+.formPage__input-error_location_movie-search {
+  top: 82px;
+}
+
 @media screen and (max-width: 430px) {
   .formPage {
     min-width: 81.25%;
