@@ -3,7 +3,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-icon.svg';
 import { isSearchWordNeededErrMessage } from '../../utils/constants'
 
-function SearchForm() {
+function SearchForm({ handleSearch }) {
   const [movie, setMovie] = useState('');
   const [isValid, setIsValid] = React.useState(true);
   const [isErrDisplayed, setErrDisplayed] = React.useState(false);
@@ -26,9 +26,7 @@ function SearchForm() {
     e.preventDefault();
 
     if(isValid) {
-
-      // handleSearch(movie);
-
+      handleSearch(movie);
     } else {
       setErrDisplayed(true);
     }

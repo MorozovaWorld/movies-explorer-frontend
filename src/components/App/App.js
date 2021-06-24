@@ -13,6 +13,7 @@ import MobileNavigation from '../MobileNavigation/MobileNavigation.js';
 import PageNotFound from '../PageNotFound/PageNotFound.js';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import { routesConfig } from '../../utils/constants';
+import moviesApi from '../../utils/MoviesApi'
 
 function App( {location} ) {
   const { 
@@ -66,6 +67,14 @@ function App( {location} ) {
     history.push(singInUrl);
   };
 
+  const onInitialMoviesSearch = (movie) => {
+    moviesApi.getInitialContent(movie)
+      .then((res) => {
+        localStorage.setItem("initialMoviesObject", JSON.stringify(res));
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
       <div className="body">
         <div className="page">
@@ -92,6 +101,7 @@ function App( {location} ) {
                 width={width}
                 mobileBreakpoint768={breakpoint768}
                 mobileBreakpoint400={breakpoint400}
+                handleSearch={onInitialMoviesSearch}
               />
             </Route>
             <Route path={savedMoviesUrl}>
