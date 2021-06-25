@@ -14,6 +14,7 @@ import PageNotFound from '../PageNotFound/PageNotFound.js';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import { routesConfig } from '../../utils/constants';
 import moviesApi from '../../utils/MoviesApi'
+import { handleFilter } from '../../utils/functions'
 
 function App( {location} ) {
   const { 
@@ -30,6 +31,9 @@ function App( {location} ) {
   const [width, setWidth] = useState(window.innerWidth);
   const [isMobileNavigationOpen, setMobileNavigationOpen] = useState(false);
   const [isMobileLayout, setMobileLayout] = useState(false);
+  const [moviesFilteredData, setMoviesFilteredData] = useState([]);
+  const [isMoviesArrayNotEmpty, setMoviesArrayNotEmpty] = useState(false);
+  const [isAfterFilter, setAfterFilter] = useState(false);
   
   const breakpoint768 = 769;
   const breakpoint400 = 400;
@@ -41,6 +45,16 @@ function App( {location} ) {
       handleWindowResize();
     }
   }, [width]);
+
+  useEffect(() => {
+    if(moviesFilteredData.length > 0) {
+      setMoviesArrayNotEmpty(true);
+      console.log('moviesFilteredData.length > 0')
+    } else {
+      setMoviesArrayNotEmpty(false);
+      console.log('moviesFilteredData.length = 0')
+    }
+  }, [moviesFilteredData]);
 
   useEffect(() => {
     if (width < breakpoint768) {
@@ -67,12 +81,46 @@ function App( {location} ) {
     history.push(singInUrl);
   };
 
+  const moviesArrayCheck = (filteredMoviesArray) => {
+    if(filteredMoviesArray.length > 0) {
+      setMoviesFilteredData(filteredMoviesArray);
+      console.log('в onInitialMoviesSearch, массив полный')
+    } else {
+      console.log('в onInitialMoviesSearch, массив пустой')
+      setMoviesArrayNotEmpty(false);
+      setAfterFilter(true);
+    }
+  }
+
   const onInitialMoviesSearch = (movie) => {
-    moviesApi.getInitialContent(movie)
-      .then((res) => {
-        localStorage.setItem("initialMoviesObject", JSON.stringify(res));
-      })
-      .catch(err => console.log(err));
+    moviesApi.getInitialContent()
+    .then((res) => {
+      localStorage.setItem("initialMoviesObject", JSON.stringify(res));
+      handleFilter(movie, moviesArrayCheck);
+    })
+    .catch(err => alert(err));
+  }
+
+  const onSearchSubmit = (movie) => {
+    const localStoragedMoviesLength = localStorage.getItem("initialMoviesObject");
+
+    if(localStoragedMoviesLength) {
+      handleFilter(movie, moviesArrayCheck);
+    } else {
+      onInitialMoviesSearch(movie)
+    }
+  }
+
+  const handleCardClick = () => {
+    console.log('in onCardClick')
+  };
+
+  const handleCardDelete = () => {
+    console.log('in onCardDelete')
+  };
+
+  const handleCardSave = () => {
+    console.log('in onCardLike')
   };
 
   return (
@@ -101,7 +149,13 @@ function App( {location} ) {
                 width={width}
                 mobileBreakpoint768={breakpoint768}
                 mobileBreakpoint400={breakpoint400}
-                handleSearch={onInitialMoviesSearch}
+                handleSearch={onSearchSubmit}
+                movies={moviesFilteredData}
+                onCardClick={handleCardClick}
+                onCardDelete={handleCardDelete}
+                onCardLike={handleCardSave}
+                isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
+                isAfterFilter={isAfterFilter}
               />
             </Route>
             <Route path={savedMoviesUrl}>

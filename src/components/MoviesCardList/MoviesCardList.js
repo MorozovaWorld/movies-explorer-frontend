@@ -1,35 +1,43 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
-import pic1 from '../../images/pic1.jpg';
-import pic2 from '../../images/pic2.jpg';
-import pic3 from '../../images/pic3.jpg';
-import pic4 from '../../images/pic4.jpg';
-import pic5 from '../../images/pic5.jpg';
-import pic6 from '../../images/pic6.jpg';
-import pic7 from '../../images/pic7.jpg';
-import pic8 from '../../images/pic8.jpg';
-import pic9 from '../../images/pic9.jpg';
-import pic10 from '../../images/pic10.jpg';
-import pic11 from '../../images/pic11.jpg';
-import pic12 from '../../images/pic12.jpg';
-import pic13 from '../../images/pic13.jpg';
-import pic14 from '../../images/pic14.jpg';
-import pic15 from '../../images/pic15.jpg';
-import pic16 from '../../images/pic16.jpg';
-import { Route, Switch } from 'react-router-dom';
+// import { Route, Switch } from 'react-router-dom';
 import React from 'react';
-import { routesConfig } from '../../utils/constants';
+import { NOTHING_IS_FINDED } from '../../utils/constants';
+// import { routesConfig } from '../../utils/constants';
 
-function MoviesCardList({width, breakpoint768, breakpoint400}) {
-  const { 
+function MoviesCardList({ width, breakpoint768, breakpoint400, movies, onCardClick, onCardDelete, onCardLike, isMoviesArrayNotEmpty, isAfterFilter }) {
+/*   const { 
     moviesUrl,
     savedMoviesUrl,
-  } = routesConfig;
+  } = routesConfig; */
+  console.log(movies)
 
   return (
     <section className="moviesCardList">
-      <ul className="moviesCardList__list">
-      <Switch>
-        <Route exact path={moviesUrl}>
+
+      {isMoviesArrayNotEmpty ?
+        <ul className="moviesCardList__list">
+        {
+          movies.map(movie => 
+            <MoviesCard 
+              imgSrc={`${'https://api.nomoreparties.co'}${movie.image.url}`}
+              key={movie.id}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+              movieTitle={movie.nameRU}
+              movieTime={movie.duration}
+            />
+          )
+        }
+        </ul>
+      : null}
+
+      {!isMoviesArrayNotEmpty && isAfterFilter && NOTHING_IS_FINDED}
+
+
+{/* <ul className="moviesCardList__list">
+      <Switch> */}
+{/*         <Route exact path={moviesUrl}>
           <MoviesCard imgSrc={pic1} movieTitle={'33 слова о дизайне'} movieTime={'1ч42м'} />
           <MoviesCard imgSrc={pic2} movieTitle={'Киноальманах «100 лет дизайна»'} movieTime={'1ч42м'} />
           <MoviesCard imgSrc={pic3} movieTitle={'В погоне за Бенкси'} movieTime={'1ч42м'} />
@@ -55,15 +63,15 @@ function MoviesCardList({width, breakpoint768, breakpoint400}) {
                 </>
               : null }
 
-        </Route>
-        <Route exact path={savedMoviesUrl}>
+        </Route> */}
+{/*         <Route exact path={savedMoviesUrl}>
           <MoviesCard imgSrc={pic1} movieTitle={'33 слова о дизайне'} movieTime={'1ч42м'} />
           <MoviesCard imgSrc={pic2} movieTitle={'Киноальманах «100 лет дизайна»'} movieTime={'1ч42м'} />
           <MoviesCard imgSrc={pic3} movieTitle={'В погоне за Бенкси'} movieTime={'1ч42м'} />
-        </Route>
-      </Switch>
+        </Route> */}
+{/*     /</Switch>
         
-      </ul>
+      </ul> */}
     </section>
   );
 }

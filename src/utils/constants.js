@@ -39,6 +39,7 @@ export const maxLengthErrMessage = 'Максимальное количеств�
 export const isEmailErrMessage = 'Введите, пожалуйста, email';
 export const isValidNameErrMessage = 'Имя может содержит латинские и русские буквы, пробел или дефис';
 export const isSearchWordNeededErrMessage = 'Нужно ввести ключевое слово';
+export const NOTHING_IS_FINDED = 'Ничего не найдено';
 
 export const routesConfig = {
   mainPageUrl: '/',

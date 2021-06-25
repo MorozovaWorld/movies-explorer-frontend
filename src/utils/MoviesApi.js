@@ -3,7 +3,7 @@ class MoviesApi {
     this._url = config.baseUrl;
   }
 
-  getInitialContent(token) {
+  getInitialContent() {
     return fetch(`${this._url}`, {
       method: 'GET',
       headers: {
