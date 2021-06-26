@@ -1,12 +1,13 @@
 
-// функция фильтрации данных
-export const handleFilter = (value, callback) => {
-  // const data = JSON.parse(localStorage.getItem("initialMoviesObject"));
-  // console.log(data);
-  // console.log(value);
-  console.log('localStorage хранит данные о фильмах');
-  const result = [];
-  callback(result);
+const filterIt = (arr, searchKey) => {
+  return arr.filter((obj) => { 
+    return obj.nameRU.includes(searchKey) ||  (obj.nameEN !== null && obj.nameEN.includes(searchKey))
+  });
+}
 
-  return result;
+export const handleFilter = (value, callback) => {
+  const data = JSON.parse(localStorage.getItem("initialMoviesObject"));
+  
+  const result = filterIt(data, value);
+  callback(result);
 }

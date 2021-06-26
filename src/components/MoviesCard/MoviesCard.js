@@ -40,7 +40,7 @@ function MoviesCard({ imgSrc, movieTitle, movieTime }) {
           </button>
         : null}
       </div>
-      <p className="moviesCard__movieTime">{movieTime}</p>
+      <p className="moviesCard__movieTime">{Math.floor(movieTime / 60)}ч {movieTime % 60}m</p>
     </li>
   );
 }

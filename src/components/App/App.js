@@ -49,10 +49,8 @@ function App( {location} ) {
   useEffect(() => {
     if(moviesFilteredData.length > 0) {
       setMoviesArrayNotEmpty(true);
-      console.log('moviesFilteredData.length > 0')
     } else {
       setMoviesArrayNotEmpty(false);
-      console.log('moviesFilteredData.length = 0')
     }
   }, [moviesFilteredData]);
 
@@ -84,9 +82,7 @@ function App( {location} ) {
   const moviesArrayCheck = (filteredMoviesArray) => {
     if(filteredMoviesArray.length > 0) {
       setMoviesFilteredData(filteredMoviesArray);
-      console.log('в onInitialMoviesSearch, массив полный')
     } else {
-      console.log('в onInitialMoviesSearch, массив пустой')
       setMoviesArrayNotEmpty(false);
       setAfterFilter(true);
     }

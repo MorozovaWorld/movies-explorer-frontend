@@ -9,7 +9,6 @@ function MoviesCardList({ width, breakpoint768, breakpoint400, movies, onCardCli
     moviesUrl,
     savedMoviesUrl,
   } = routesConfig; */
-  console.log(movies)
 
   return (
     <section className="moviesCardList">
