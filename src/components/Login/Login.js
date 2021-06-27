@@ -3,10 +3,10 @@ import FormPage from '../FormPage/FormPage.js';
 import FormSubmitErr from '../FormSubmitErr/FormSubmitErr.js';
 import {
   validators,
-  requiredErrMessage,
-  minLengthErrMessage,
-  isEmailErrMessage,
-  routesConfig
+  REQUIRED_ERR_MESSAGE,
+  MIN_LENGTH_ERR_MESSAGE,
+  EMAIL_UNVALID_ERR_MESSAGE,
+  routesConfig,
 } from '../../utils/constants.js'
 
 function Login({ handleLogin }) {
@@ -99,16 +99,16 @@ function Login({ handleLogin }) {
         <label htmlFor="user-email" className="formPage__input-label">E-mail</label>
         <input type="email" onFocus={handleInputFocus} onChange={handleChange} name='email' value={email} id="user-email" className="formPage__input-text" autoComplete='off' required />
         <span id="email-error" className="formPage__input-error">
-          {isInputFocused.email && validationErrors.email.required && requiredErrMessage}
-          {!validationErrors.email.required && validationErrors.email.isEmail && isEmailErrMessage}
+          {isInputFocused.email && validationErrors.email.required && REQUIRED_ERR_MESSAGE}
+          {!validationErrors.email.required && validationErrors.email.isEmail && EMAIL_UNVALID_ERR_MESSAGE}
         </span>
       </div>
       <div className="formPage__input-container">
         <label htmlFor="user-password" className="formPage__input-label">Пароль</label>
         <input type="password" onFocus={handleInputFocus} onChange={handleChange} name='password' value={password} autoComplete='off' id="user-password" className="formPage__input-text" required />
         <span id="password-error" className="formPage__input-error">
-          {isInputFocused.password && validationErrors.password.required && requiredErrMessage}
-          {!validationErrors.password.required && validationErrors.password.minlength && minLengthErrMessage}
+          {isInputFocused.password && validationErrors.password.required && REQUIRED_ERR_MESSAGE}
+          {!validationErrors.password.required && validationErrors.password.minlength && MIN_LENGTH_ERR_MESSAGE}
         </span>
         <FormSubmitErr errText=''></FormSubmitErr>
       </div>

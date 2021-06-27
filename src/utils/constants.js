@@ -33,14 +33,6 @@ export const validators = {
   },
 };
 
-export const requiredErrMessage = 'Поле не заполнено';
-export const minLengthErrMessage = 'Минимальное количество символов: 2';
-export const maxLengthErrMessage = 'Максимальное количество символов: 30';
-export const isEmailErrMessage = 'Введите, пожалуйста, email';
-export const isValidNameErrMessage = 'Имя может содержит латинские и русские буквы, пробел или дефис';
-export const isSearchWordNeededErrMessage = 'Нужно ввести ключевое слово';
-export const NOTHING_IS_FINDED = 'Ничего не найдено';
-
 export const routesConfig = {
   mainPageUrl: '/',
   moviesUrl: '/movies',
@@ -49,3 +41,17 @@ export const routesConfig = {
   signUpUrl: '/signup',
   singInUrl: '/signin'
 };
+
+export const REQUIRED_ERR_MESSAGE = 'Поле не заполнено';
+export const MIN_LENGTH_ERR_MESSAGE = 'Минимальное количество символов: 2';
+export const MAX_LENGTH_ERR_MESSAGE = 'Максимальное количество символов: 30';
+export const EMAIL_UNVALID_ERR_MESSAGE = 'Введите, пожалуйста, email';
+export const NAME_UNVALID_ERR_MESSAGE = 'Имя может содержит латинские и русские буквы, пробел или дефис';
+export const KEYWORD_REQUIRED_ERR_MESSAGE = 'Нужно ввести ключевое слово';
+export const NOTHING_IS_FINDED = 'Ничего не найдено';
+export const BAD_REQUEST_ERR_MESSAGE= 'Некорректно заполнено одно из полей';
+export const EMAIL_CONFLICT_ERR_MESSAGE= 'Пользователь с таким емейлом уже зарегистрирован';
+export const EMAIL_NOT_FOUND_ERR_MESSAGE= 'Пользователь с таким емейлом не найден';
+
+export const USER_INFO_UPDATE_SUCCEED = 'Профиль обновлен!';
+export const REGISTER_SUCCEED_MESSAGE = 'Вы успешно зарегистрировались!';

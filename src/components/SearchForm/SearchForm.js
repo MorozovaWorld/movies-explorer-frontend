@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-icon.svg';
-import { isSearchWordNeededErrMessage } from '../../utils/constants'
+import { KEYWORD_REQUIRED_ERR_MESSAGE } from '../../utils/constants'
 
 function SearchForm({ handleSearch }) {
   const [movie, setMovie] = useState('');
@@ -39,7 +39,7 @@ function SearchForm({ handleSearch }) {
           <label className="searchForm__label" htmlFor="movie"><img src={searchIcon} alt="иконка поиска фильма" className="searchForm__label-icon" /></label>
           <input type="string" onChange={handleChange} name='movie' value={movie} id="movie" placeholder="Фильм" className="searchForm__input" autoComplete='off' />
           <span id="search-error" className="formPage__input-error formPage__input-error_location_movie-search">
-            {isErrDisplayed && isSearchWordNeededErrMessage}
+            {isErrDisplayed && KEYWORD_REQUIRED_ERR_MESSAGE}
           </span>
         </fieldset>
         <button type="submit" className="searchForm__button opacity opacity_useAt_button">Найти</button>
