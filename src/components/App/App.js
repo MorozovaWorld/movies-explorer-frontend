@@ -202,6 +202,10 @@ function App( {location} ) {
         if (res.status === 409) {
           onSubmitFail(EMAIL_CONFLICT_ERR_MESSAGE);
           throw new Error(EMAIL_CONFLICT_ERR_MESSAGE);
+        }
+        if (res.status === 400) {
+          onSubmitFail(BAD_REQUEST_ERR_MESSAGE);
+          throw new Error(BAD_REQUEST_ERR_MESSAGE);
         } else {
           setCurrentUser({...currentUser, name: res.name, email: res.email });
           onSubmitSucceed(USER_INFO_UPDATE_SUCCEED)

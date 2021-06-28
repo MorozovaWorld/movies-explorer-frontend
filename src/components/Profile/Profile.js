@@ -4,7 +4,11 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import FormSubmitErr from '../FormSubmitErr/FormSubmitErr.js';
 import {
   validators,
-  routesConfig,
+  REQUIRED_ERR_MESSAGE,
+  MIN_LENGTH_ERR_MESSAGE,
+  MAX_LENGTH_ERR_MESSAGE,
+  EMAIL_UNVALID_ERR_MESSAGE,
+  NAME_UNVALID_ERR_MESSAGE,
 } from '../../utils/constants.js'
 
 function Profile({ handleSignOut, handleUpdateUserInfo, sumbitErrMessage, updateSumbitMessage }) {
@@ -28,6 +32,23 @@ function Profile({ handleSignOut, handleUpdateUserInfo, sumbitErrMessage, update
     setMessageShowed(false);
   }
   
+  const handleInputFocus = (e) => {
+    setMessageShowed(false);
+
+    const { name } = e.target;
+
+    setInputFocused({ ...isInputFocused,
+      [name]: true
+    })
+  }
+
+  // стейт фокуса инпутов для регуляции первичного рендера ошибок валидации,
+  // если в фокусе – начать отображение ошибок
+  const [isInputFocused, setInputFocused] = useState ({
+    name: false,
+    email: false,
+  });
+
   const [validationErrors, setValidationErrors] = useState ({
     name: {
       required: false,
@@ -38,10 +59,6 @@ function Profile({ handleSignOut, handleUpdateUserInfo, sumbitErrMessage, update
     email: {
       required: false,
       isEmail: false,
-    },
-    password: {
-      required: false,
-      minlength: false,
     },
   });
 
@@ -79,32 +96,40 @@ function Profile({ handleSignOut, handleUpdateUserInfo, sumbitErrMessage, update
     function handleSubmit(e) {
       e.preventDefault();
       
-      if (!name || !email){
+      if (!name || !email) {
         return;
       }
       if (name !== user.name || email !== user.email) {
-        handleUpdateUserInfo(name, email);
+        handleUpdateUserInfo({name, email});
         setMessageShowed(true);
       } 
     }
 
   return (
-      <form className="profile" name="name" onSubmit={handleSubmit} isDisabled={isFormValid}>
+      <form className="profile" name="name" onSubmit={handleSubmit}>
         <h2 className="profile__title">{`Привет, ${user.name}!`}</h2>
         <fieldset className="profile__form">
           <div className="profile__input-container">
             <label htmlFor="user-name" className="profile__input-label">Имя</label>
-            <input type="text" onChange={handleNameChange} name='name' value={name} autoComplete='off' id="user-name" className="profile__input-text" required />
-            <span id="email-error" className="profile__input-error"></span>
+            <input type="text" onFocus={handleInputFocus} onChange={handleNameChange} name='name' value={name} autoComplete='off' id="user-name" className="profile__input-text" required />
+            <span id="email-error" className="profile__input-error">
+              {isInputFocused.name && validationErrors.name.required && REQUIRED_ERR_MESSAGE}
+              {!validationErrors.name.required && validationErrors.name.minlength && MIN_LENGTH_ERR_MESSAGE}
+              {validationErrors.name.maxlength && MAX_LENGTH_ERR_MESSAGE}
+              {!validationErrors.name.minlength && validationErrors.name.validate && NAME_UNVALID_ERR_MESSAGE}
+            </span>
           </div>
           <div className="profile__input-container">
             <label htmlFor="user-email" className="profile__input-label">E-mail</label>
-            <input type="email" onChange={handleEmailChange} name='email' value={email} id="user-email" className="profile__input-text" autoComplete='off' required />
-            <span id="email-error" className="profile__input-error"></span>
+            <input type="email" onFocus={handleInputFocus} onChange={handleEmailChange} name='email' value={email} id="user-email" className="profile__input-text" autoComplete='off' required />
+            <span id="email-error" className="profile__input-error">
+              {isInputFocused.email && validationErrors.email.required && REQUIRED_ERR_MESSAGE}
+              {!validationErrors.email.required && validationErrors.email.isEmail && EMAIL_UNVALID_ERR_MESSAGE}
+            </span>
           </div>
           {isMessageShowed ? <FormSubmitErr errText={updateSumbitMessage ? updateSumbitMessage : sumbitErrMessage} ></FormSubmitErr> : null}
         </fieldset>
-        <button type="submit" className="profile__button-submit opacity opacity_useAt_button">Редактировать</button>
+        <button type="submit" disabled={isFormValid} className="profile__button-submit opacity opacity_useAt_button">Редактировать</button>
         <Link onClick={handleSignOut} className="profile__button-signout opacity opacity_useAt_button" to="/signin" >Выйти из аккаунта</Link>
       </form>
   )
