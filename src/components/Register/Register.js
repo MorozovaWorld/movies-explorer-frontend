@@ -11,13 +11,12 @@ import {
   NAME_UNVALID_ERR_MESSAGE,
 } from '../../utils/constants.js'
 
-function Register({ handleRegister, sumbitErrMessage, registerSumbitMessage }) {
+function Register({ handleRegister, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed }) {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
     password: '',
   });
-  const [isErrMessageShowed, setErrMessageShowed] = useState(false);
   const {name, email, password} = userData;
 
   const handleChange = useCallback((e) => {
@@ -37,11 +36,12 @@ function Register({ handleRegister, sumbitErrMessage, registerSumbitMessage }) {
     password: false,
   });
 
+  React.useEffect(() => {
+    setSubmitMessageDisplayed(false);
+  }, [setSubmitMessageDisplayed]); 
+  
   const handleInputFocus = (e) => {
-    setErrMessageShowed(false);
-
     const { name } = e.target;
-
     setInputFocused({ ...isInputFocused,
       [name]: true
     })
@@ -111,7 +111,6 @@ function Register({ handleRegister, sumbitErrMessage, registerSumbitMessage }) {
     }
 
     handleRegister(name, email, password);
-    setErrMessageShowed(true);
   }
   
   return (
@@ -141,7 +140,7 @@ function Register({ handleRegister, sumbitErrMessage, registerSumbitMessage }) {
           {isInputFocused.password && validationErrors.password.required && REQUIRED_ERR_MESSAGE}
           {!validationErrors.password.required && validationErrors.password.minlength && MIN_LENGTH_ERR_MESSAGE}
         </span>
-        {isErrMessageShowed ? <FormSubmitErr errText={registerSumbitMessage ? registerSumbitMessage : sumbitErrMessage}></FormSubmitErr> : null}
+        {isSubmitMessageDisplayed ? <FormSubmitErr isSubmitResultData={isSubmitResultData}></FormSubmitErr> : null}
       </div>
     </FormPage>
   )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import FormSubmitErr from '../FormSubmitErr/FormSubmitErr.js';
@@ -11,30 +11,28 @@ import {
   NAME_UNVALID_ERR_MESSAGE,
 } from '../../utils/constants.js'
 
-function Profile({ handleSignOut, handleUpdateUserInfo, sumbitErrMessage, updateSumbitMessage }) {
+function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed }) {
   const user = React.useContext(CurrentUserContext);
+
   const [name, setName] = useState('');
   const [email , setEmail ] = useState('');
-  const [isMessageShowed, setMessageShowed] = useState(false);
 
   React.useEffect(() => {
     setName(user.name);
     setEmail(user.email);
-  }, [user]); 
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-    setMessageShowed(false);
-  }
-
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-    setMessageShowed(false);
-  }
+    setSubmitMessageDisplayed(false);
+  }, [user, setSubmitMessageDisplayed]); 
   
-  const handleInputFocus = (e) => {
-    setMessageShowed(false);
+  const handleNameChange = useCallback((e) => {
+    setName(e.target.value);
+  }, [setName]);
 
+  const handleEmailChange = useCallback((e) => {
+    setEmail(e.target.value);
+  }, [setEmail]);
+
+  const handleInputFocus = (e) => {
     const { name } = e.target;
 
     setInputFocused({ ...isInputFocused,
@@ -100,8 +98,7 @@ function Profile({ handleSignOut, handleUpdateUserInfo, sumbitErrMessage, update
         return;
       }
       if (name !== user.name || email !== user.email) {
-        handleUpdateUserInfo({name, email});
-        setMessageShowed(true);
+        handleUpdateUserInfo(email, name);
       } 
     }
 
@@ -127,10 +124,10 @@ function Profile({ handleSignOut, handleUpdateUserInfo, sumbitErrMessage, update
               {!validationErrors.email.required && validationErrors.email.isEmail && EMAIL_UNVALID_ERR_MESSAGE}
             </span>
           </div>
-          {isMessageShowed ? <FormSubmitErr errText={updateSumbitMessage ? updateSumbitMessage : sumbitErrMessage} ></FormSubmitErr> : null}
+          {isSubmitMessageDisplayed ? <FormSubmitErr isSubmitResultData={isSubmitResultData}></FormSubmitErr> : null}
         </fieldset>
         <button type="submit" disabled={isFormValid} className="profile__button-submit opacity opacity_useAt_button">Редактировать</button>
-        <Link onClick={handleSignOut} className="profile__button-signout opacity opacity_useAt_button" to="/signin" >Выйти из аккаунта</Link>
+        <Link onClick={handleSignOut} className="profile__button-signout opacity opacity_useAt_button" to="/" >Выйти из аккаунта</Link>
       </form>
   )
 }

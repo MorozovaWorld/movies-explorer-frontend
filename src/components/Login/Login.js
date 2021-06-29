@@ -9,13 +9,18 @@ import {
   routesConfig,
 } from '../../utils/constants.js'
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed }) {
   const [userData, setUserData] = useState({
     email: '',
     password: '',
   });
 
   const {email, password} = userData;
+  // const [isErrMessageShowed, setErrMessageShowed] = useState(false);
+
+  React.useEffect(() => {
+    setSubmitMessageDisplayed(false);
+  }, [setSubmitMessageDisplayed]); 
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -34,8 +39,8 @@ function Login({ handleLogin }) {
   });
 
   const handleInputFocus = (e) => {
+    // setErrMessageShowed(false);
     const { name } = e.target;
-
     setInputFocused({ ...isInputFocused,
       [name]: true
     })
@@ -110,7 +115,7 @@ function Login({ handleLogin }) {
           {isInputFocused.password && validationErrors.password.required && REQUIRED_ERR_MESSAGE}
           {!validationErrors.password.required && validationErrors.password.minlength && MIN_LENGTH_ERR_MESSAGE}
         </span>
-        <FormSubmitErr errText=''></FormSubmitErr>
+        {isSubmitMessageDisplayed ? <FormSubmitErr isSubmitResultData={isSubmitResultData}></FormSubmitErr> : null}
       </div>
     </FormPage>
   )

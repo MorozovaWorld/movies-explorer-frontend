@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
+import { Route, Switch, withRouter, useHistory, Redirect } from 'react-router-dom';
 
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
 import Main from '../Main/Main.js';
@@ -20,8 +21,9 @@ import {
   USER_INFO_UPDATE_SUCCEED,
   EMAIL_CONFLICT_ERR_MESSAGE,
   BAD_REQUEST_ERR_MESSAGE,
-  EMAIL_NOT_FOUND_ERR_MESSAGE,
-  REGISTER_SUCCEED_MESSAGE
+  UNAUTHORIZED_ERR_MESSAGE,
+  REGISTER_SUCCEED_MESSAGE,
+  LOGIN_SUCCEED_MESSAGE
 } from '../../utils/constants.js'
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -41,8 +43,11 @@ function App( {location} ) {
   const [currentUser, setCurrentUser] = useState({name: '', email: ''});
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [sumbitErrMessage, setSumbitErrMessage] = useState(''); 
-  const [sumbitMessage, setSumbitMessage] = useState('');
+  const [isSubmitMessageDisplayed, setSubmitMessageDisplayed] = useState(false); 
+  const [isSubmitResultData, setSubmitResultData] = useState({
+    submitResultMessage: '',
+    submitResultMessageStyle: ''
+  });
 
   const [width, setWidth] = useState(window.innerWidth);
   const [isMobileNavigationOpen, setMobileNavigationOpen] = useState(false);
@@ -57,28 +62,22 @@ function App( {location} ) {
   const handleWindowResize = () => setWidth(window.innerWidth);
 
   useEffect(() => {
-    if (loggedIn) {
-      history.push(moviesUrl);
-    } else {
-      history.push(mainPageUrl);
-    }
-    }, [loggedIn, history, moviesUrl, mainPageUrl]);
+      if (loggedIn) {
+        history.push(moviesUrl);
+      }
+    }, [loggedIn, history, moviesUrl, ]);
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
-    if (jwt){
-      Promise.all([
-        // mainApi.getContent(jwt),
-        // mainApi.getInitialCards(jwt),
-        mainApi.getUserInfo(jwt)
-      ])
-      .then(([/* userContent, initialCardsData,  */userData]) => {
-        // setUserEmail(userContent.email);
-        setLoggedIn(true);
-        // setCards(initialCardsData);
-        setCurrentUser(userData);
-      })
-      .catch((err) => console.log(err))
+    if (jwt) {
+      mainApi.getUserInfo(jwt)
+        .then((userData) => {
+          setLoggedIn(true);
+          setCurrentUser(userData);
+        })
+        .catch((err) => console.log(err))
+    } else {
+      setCurrentUser({name: '', email: ''});
     }
   }
 
@@ -86,7 +85,7 @@ function App( {location} ) {
     tokenCheck();
     }, []
   );
-
+  
   useEffect(() => {
     window.onresize = () => {
       handleWindowResize();
@@ -119,11 +118,21 @@ function App( {location} ) {
   }
 
   const onSubmitFail = (message) => {
-    setSumbitErrMessage(message);
+    setSubmitResultData({
+      submitResultMessage: message,
+      submitResultMessageStyle: 'fail'
+    });
+
+    setSubmitMessageDisplayed(true);
   }
 
   const onSubmitSucceed = (message) => {
-    setSumbitMessage(message);
+    setSubmitResultData({
+      submitResultMessage: message,
+      submitResultMessageStyle: 'succeed'
+    });
+
+    setSubmitMessageDisplayed(true);
   }
 
   const onLogin = (email, password) => {
@@ -131,12 +140,13 @@ function App( {location} ) {
       .then((res) => {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
+          onSubmitSucceed(LOGIN_SUCCEED_MESSAGE)
           setLoggedIn(true);
           tokenCheck();
         }
         if (res.status === 401) {
-          onSubmitFail(EMAIL_NOT_FOUND_ERR_MESSAGE);
-          throw new Error(EMAIL_NOT_FOUND_ERR_MESSAGE);
+          onSubmitFail(UNAUTHORIZED_ERR_MESSAGE);
+          throw new Error(UNAUTHORIZED_ERR_MESSAGE);
         }
         if (res.status === 400) {
           onSubmitFail(BAD_REQUEST_ERR_MESSAGE);
@@ -163,9 +173,27 @@ function App( {location} ) {
       .catch(err => console.log(err));
   };
 
+  const onUpdateUserInfo  = (email, name) => {
+    mainApi.setUserInfo(email, name)
+      .then((res) => {
+        if (res.status === 409) {
+          onSubmitFail(EMAIL_CONFLICT_ERR_MESSAGE);
+          throw new Error(EMAIL_CONFLICT_ERR_MESSAGE);
+        }
+        if (res.status === 400) {
+          onSubmitFail(BAD_REQUEST_ERR_MESSAGE);
+          throw new Error(BAD_REQUEST_ERR_MESSAGE);
+        }
+        setCurrentUser({...currentUser, name: res.name, email: res.email });
+        onSubmitSucceed(USER_INFO_UPDATE_SUCCEED)
+      })
+      .catch((err) => console.log(err));
+  }
+
   const onSignOut = () => {
     setLoggedIn(false);
     localStorage.removeItem('jwt');
+    tokenCheck();
   };
 
   const moviesArrayCheck = (filteredMoviesArray) => {
@@ -194,24 +222,6 @@ function App( {location} ) {
     } else {
       onInitialMoviesSearch(movie)
     }
-  }
-
-  const onUpdateUserInfo  = ({name, email}) => {
-    mainApi.setUserInfo({name, email})
-      .then((res) => {
-        if (res.status === 409) {
-          onSubmitFail(EMAIL_CONFLICT_ERR_MESSAGE);
-          throw new Error(EMAIL_CONFLICT_ERR_MESSAGE);
-        }
-        if (res.status === 400) {
-          onSubmitFail(BAD_REQUEST_ERR_MESSAGE);
-          throw new Error(BAD_REQUEST_ERR_MESSAGE);
-        } else {
-          setCurrentUser({...currentUser, name: res.name, email: res.email });
-          onSubmitSucceed(USER_INFO_UPDATE_SUCCEED)
-        }
-      })
-      .catch((err) => console.log(err));
   }
 
   const handleCardClick = () => {
@@ -243,43 +253,56 @@ function App( {location} ) {
               <Main />
             </Route>
             <Route path={singInUrl}>
-              <Login handleLogin={onLogin} sumbitErrMessage={sumbitErrMessage} />
+              <Login
+                handleLogin={onLogin}
+                isSubmitResultData={isSubmitResultData}
+                isSubmitMessageDisplayed={isSubmitMessageDisplayed}
+                setSubmitMessageDisplayed={setSubmitMessageDisplayed}
+              />
             </Route>
             <Route path={signUpUrl}>
               <Register 
                 handleRegister={onRegister}
-                sumbitErrMessage={sumbitErrMessage}
-                registerSumbitMessage={sumbitMessage}
+                isSubmitResultData={isSubmitResultData}
+                isSubmitMessageDisplayed={isSubmitMessageDisplayed}
+                setSubmitMessageDisplayed={setSubmitMessageDisplayed}
               />
             </Route>
-            <Route path={moviesUrl}>
-              <Movies
-                width={width}
-                mobileBreakpoint768={breakpoint768}
-                mobileBreakpoint400={breakpoint400}
-                handleSearch={onSearchSubmit}
-                movies={moviesFilteredData}
-                onCardClick={handleCardClick}
-                onCardDelete={handleCardDelete}
-                onCardLike={handleCardSave}
-                isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
-                isAfterFilter={isAfterFilter}
-              />
-            </Route>
-            <Route path={savedMoviesUrl}>
-              <SavedMovies
-                width={width}
-                mobileBreakpoint768={breakpoint768}
-                mobileBreakpoint400={breakpoint400}
-              />
-            </Route>
-            <Route path={profileUrl}>
-              <Profile
-                handleSignOut={onSignOut}
-                handleUpdateUserInfo={onUpdateUserInfo}
-                sumbitErrMessage={sumbitErrMessage}
-                updateSumbitMessage={sumbitMessage}
-              />
+            <ProtectedRoute 
+              path={moviesUrl}
+              component={Movies}
+              width={width}
+              mobileBreakpoint768={breakpoint768}
+              mobileBreakpoint400={breakpoint400}
+              handleSearch={onSearchSubmit}
+              movies={moviesFilteredData}
+              onCardClick={handleCardClick}
+              onCardDelete={handleCardDelete}
+              onCardLike={handleCardSave}
+              isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
+              isAfterFilter={isAfterFilter}
+              loggedIn={loggedIn}
+            />
+            <ProtectedRoute 
+              path={savedMoviesUrl}
+              component={SavedMovies}
+              width={width}
+              mobileBreakpoint768={breakpoint768}
+              mobileBreakpoint400={breakpoint400}
+              loggedIn={loggedIn}
+            />
+            <ProtectedRoute 
+              path={profileUrl}
+              component={Profile}
+              handleSignOut={onSignOut}
+              handleUpdateUserInfo={onUpdateUserInfo}
+              isSubmitResultData={isSubmitResultData}
+              isSubmitMessageDisplayed={isSubmitMessageDisplayed}
+              setSubmitMessageDisplayed={setSubmitMessageDisplayed}
+              loggedIn={loggedIn}
+            />
+            <Route>
+              {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
             </Route>
             <Route path="*">
               <PageNotFound />

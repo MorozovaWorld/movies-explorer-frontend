@@ -51,7 +51,8 @@ export const KEYWORD_REQUIRED_ERR_MESSAGE = 'Нужно ввести ключе�
 export const NOTHING_IS_FINDED = 'Ничего не найдено';
 export const BAD_REQUEST_ERR_MESSAGE= 'Некорректно заполнено одно из полей';
 export const EMAIL_CONFLICT_ERR_MESSAGE= 'Пользователь с таким емейлом уже зарегистрирован';
-export const EMAIL_NOT_FOUND_ERR_MESSAGE= 'Пользователь с таким емейлом не найден';
+export const UNAUTHORIZED_ERR_MESSAGE= 'Неверный email или пароль';
 
 export const USER_INFO_UPDATE_SUCCEED = 'Профиль обновлен!';
 export const REGISTER_SUCCEED_MESSAGE = 'Вы успешно зарегистрировались!';
+export const LOGIN_SUCCEED_MESSAGE = 'Успешно!';

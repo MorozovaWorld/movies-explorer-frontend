@@ -63,17 +63,14 @@ class MainApi {
     .then(this._resProcess);
   }
 
-  setUserInfo({name, email}) {
+  setUserInfo(email, name) {
     return fetch(`${this._url}${this._usersUrl}${this._userUrl}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._token}`,
       },
-      body: JSON.stringify({
-        name: name,
-        email: email
-      })
+      body: JSON.stringify({ email, name })
     })
     .then((res) => res.ok ? res.json() : res);
   }
