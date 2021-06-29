@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import React from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Navigation({ isMobile, handleMobileMenuClose }) {
+function Navigation({ isTabletLayout, isMobileLayout, handleMobileMenuClose }) {
   const user = React.useContext(CurrentUserContext);
 
   return (
@@ -27,19 +27,19 @@ function Navigation({ isMobile, handleMobileMenuClose }) {
             to='/signin'>Войти</Link>
         </nav>
         : 
-        <nav className={'navigation' + (isMobile ? ' navigation_mobile' : '')}>
+        <nav className={'navigation' + (isTabletLayout || isMobileLayout ? ' navigation_mobile' : '')}>
           <div className='navigation__main-links'>
-            {isMobile ? (<NavLink
+            {isTabletLayout || isMobileLayout ? (<NavLink
               className='navigation__navBtn navigation__navBtn_mobile'
               to='/'
               onClick={handleMobileMenuClose} >Главная</NavLink>) : null}
             <NavLink
-              className={'navigation__navBtn opacity opacity_useAt_link' + (isMobile ? ' navigation__navBtn_mobile' : '')}
+              className={'navigation__navBtn opacity opacity_useAt_link' + (isTabletLayout || isMobileLayout ? ' navigation__navBtn_mobile' : '')}
               activeClassName='navigation__navBtn_status_active'
               to='/movies'
               onClick={handleMobileMenuClose}>Фильмы</NavLink>
             <NavLink
-              className={'navigation__navBtn opacity opacity_useAt_link' + (isMobile ? ' navigation__navBtn_mobile' : '')}
+              className={'navigation__navBtn opacity opacity_useAt_link' + (isTabletLayout || isMobileLayout ? ' navigation__navBtn_mobile' : '')}
               activeClassName='navigation__navBtn_status_active'
               to='/saved-movies'
               onClick={handleMobileMenuClose}>Сохранённые фильмы</NavLink>

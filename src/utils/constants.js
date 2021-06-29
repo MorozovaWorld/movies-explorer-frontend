@@ -42,6 +42,9 @@ export const routesConfig = {
   singInUrl: '/signin'
 };
 
+export const SCREEN_RESOLUTION_BREAKPOINT_769 = 769;
+export const SCREEN_RESOLUTION_BREAKPOINT_400 = 400;
+
 export const REQUIRED_ERR_MESSAGE = 'Поле не заполнено';
 export const MIN_LENGTH_ERR_MESSAGE = 'Минимальное количество символов: 2';
 export const MAX_LENGTH_ERR_MESSAGE = 'Максимальное количество символов: 30';

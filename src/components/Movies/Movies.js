@@ -1,22 +1,21 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({width, mobileBreakpoint768, mobileBreakpoint400, handleSearch, isMoviesArrayNotEmpty, onCardLike, onCardDelete, movies, isAfterFilter}) {
+function Movies({ isTabletLayout, isMobileLayout, handleSearch, isMoviesArrayNotEmpty, onCardLike, onCardDelete, movies, isAfterFilter, onCardClick }) {
   return (
     <main className="movies">
       <SearchForm handleSearch={handleSearch} />
       <MoviesCardList 
-        width={width}
-        breakpoint768={mobileBreakpoint768}
-        breakpoint400={mobileBreakpoint400}
+        isTabletLayout={isTabletLayout}
+        isMobileLayout={isMobileLayout}
         isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
-        onCardClick={onCardLike}
+        onCardClick={onCardClick}
         onCardDelete={onCardDelete}
         onCardLike={onCardLike}
         movies={movies}
         isAfterFilter={isAfterFilter}
       />
-      <button className="movies__more opacity opacity_useAt_button" type="button">Ещё</button>
+      {isMoviesArrayNotEmpty && <button className="movies__more opacity opacity_useAt_button" type="button">Ещё</button>}
     </main>
   );
 }

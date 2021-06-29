@@ -1,11 +1,19 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({width, mobileBreakpoint768, mobileBreakpoint400}) {
+function SavedMovies({ isTabletLayout, isMobileLayout, handleSearch, isMoviesArrayNotEmpty, onCardDelete, movies, isAfterFilter, onCardClick }) {
   return (
     <main className="movies">
-      <SearchForm />
-      <MoviesCardList width={width} breakpoint768={mobileBreakpoint768} breakpoint400={mobileBreakpoint400} />
+      <SearchForm handleSearch={handleSearch} />
+      <MoviesCardList
+        isTabletLayout={isTabletLayout}
+        isMobileLayout={isMobileLayout}
+        isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
+        onCardDelete={onCardDelete}
+        onCardClick={onCardClick}
+        movies={movies}
+        isAfterFilter={isAfterFilter}
+      />
     </main>
   );
 }

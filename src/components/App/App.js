@@ -23,7 +23,9 @@ import {
   BAD_REQUEST_ERR_MESSAGE,
   UNAUTHORIZED_ERR_MESSAGE,
   REGISTER_SUCCEED_MESSAGE,
-  LOGIN_SUCCEED_MESSAGE
+  LOGIN_SUCCEED_MESSAGE,
+  SCREEN_RESOLUTION_BREAKPOINT_769,
+  SCREEN_RESOLUTION_BREAKPOINT_400
 } from '../../utils/constants.js'
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -49,15 +51,15 @@ function App( {location} ) {
     submitResultMessageStyle: ''
   });
 
-  const [width, setWidth] = useState(window.innerWidth);
   const [isMobileNavigationOpen, setMobileNavigationOpen] = useState(false);
+
+  const [width, setWidth] = useState(window.innerWidth);
+  const [isTabletLayout, setTabletLayout] = useState(false);
   const [isMobileLayout, setMobileLayout] = useState(false);
+
   const [moviesFilteredData, setMoviesFilteredData] = useState([]);
   const [isMoviesArrayNotEmpty, setMoviesArrayNotEmpty] = useState(false);
   const [isAfterFilter, setAfterFilter] = useState(false);
-  
-  const breakpoint768 = 769;
-  const breakpoint400 = 400;
 
   const handleWindowResize = () => setWidth(window.innerWidth);
 
@@ -65,7 +67,7 @@ function App( {location} ) {
       if (loggedIn) {
         history.push(moviesUrl);
       }
-    }, [loggedIn, history, moviesUrl, ]);
+    }, [loggedIn, history, moviesUrl]);
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
@@ -101,9 +103,15 @@ function App( {location} ) {
   }, [moviesFilteredData]);
 
   useEffect(() => {
-    if (width < breakpoint768) {
+    if (width < SCREEN_RESOLUTION_BREAKPOINT_400) {
       setMobileLayout(true);
+      setTabletLayout(false);
+    }
+    else if (width < SCREEN_RESOLUTION_BREAKPOINT_769 && width > SCREEN_RESOLUTION_BREAKPOINT_400) {
+      setTabletLayout(true);
+      setMobileLayout(false);
     } else {
+      setTabletLayout(false);
       setMobileLayout(false);
 
       if(isMobileNavigationOpen) {
@@ -111,7 +119,7 @@ function App( {location} ) {
       }
     }
     
-  }, [width, isMobileLayout, isMobileNavigationOpen]);
+  }, [width, isMobileNavigationOpen]);
 
   const toggleBurgerMenuOpen = () => {
     setMobileNavigationOpen(!isMobileNavigationOpen);
@@ -245,7 +253,8 @@ function App( {location} ) {
             <Header 
               onBurgerMenuClick={toggleBurgerMenuOpen}
               isMobileNavigationOpen={isMobileNavigationOpen}
-              isMobile={isMobileLayout}
+              isTabletLayout={isTabletLayout}
+              isMobileLayout={isMobileLayout}
           /> : null
           }
           <Switch>
@@ -272,8 +281,6 @@ function App( {location} ) {
               path={moviesUrl}
               component={Movies}
               width={width}
-              mobileBreakpoint768={breakpoint768}
-              mobileBreakpoint400={breakpoint400}
               handleSearch={onSearchSubmit}
               movies={moviesFilteredData}
               onCardClick={handleCardClick}
@@ -282,14 +289,16 @@ function App( {location} ) {
               isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
               isAfterFilter={isAfterFilter}
               loggedIn={loggedIn}
+              isTabletLayout={isTabletLayout}
+              isMobileLayout={isMobileLayout}
             />
             <ProtectedRoute 
               path={savedMoviesUrl}
               component={SavedMovies}
               width={width}
-              mobileBreakpoint768={breakpoint768}
-              mobileBreakpoint400={breakpoint400}
               loggedIn={loggedIn}
+              isTabletLayout={isTabletLayout}
+              isMobileLayout={isMobileLayout}
             />
             <ProtectedRoute 
               path={profileUrl}
@@ -311,8 +320,10 @@ function App( {location} ) {
           <Footer />
           <MobileNavigation 
             isOpen={isMobileNavigationOpen}
-            isMobile={isMobileLayout}
-            handleMobileMenuClose={toggleBurgerMenuOpen} />
+            isTabletLayout={isTabletLayout}
+            isMobileLayout={isMobileLayout}
+            handleMobileMenuClose={toggleBurgerMenuOpen} 
+          />
         </div>
       </div>
     </CurrentUserContext.Provider>
