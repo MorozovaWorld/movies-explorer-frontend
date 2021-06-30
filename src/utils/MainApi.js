@@ -6,7 +6,7 @@ class MainApi {
 
     this._url = config.baseUrl;
     this._headers = config.headers;
-    this._cardsUrl = config.cardsUrl;
+    this._moviesUrl = config.moviesUrl;
     this._likesUrl = config.likesUrl;
     this._usersUrl = config.usersUrl;
     this._userUrl = config.userUrl;
@@ -89,8 +89,8 @@ class MainApi {
     .then(this._resProcess);
   } */
 
-/*   getInitialCards(token) {
-    return fetch(`${this._url}${this._cardsUrl}`, {
+  getSavedMovies(token) {
+    return fetch(`${this._url}${this._moviesUrl}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -98,22 +98,31 @@ class MainApi {
       },
     })
     .then(this._resProcess);
-  }; */
-
-/*   addCard(data) {
-    return fetch(`${this._url}${this._cardsUrl}`, {
+  };
+  
+  saveMovie(data) {
+    return fetch(`${this._url}${this._moviesUrl}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._token}`,
       },
       body: JSON.stringify({
-        name: data.name,
-        link: data.link
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: `${'https://api.nomoreparties.co'}${data.image.url}`,
+        trailer: data.trailerLink,
+        thumbnail: `${'https://api.nomoreparties.co'}${data.image.formats.thumbnail.url}`,
+        movieId: data.id.toString(),
+        nameRU: data.nameRU,
+        nameEN: data.nameEN
       })
     })
     .then(this._resProcess);
-  }; */
+  };
 
 /*   deleteCard(cardId) {
     return fetch(`${this._url}${this._cardsUrl}/${cardId}`, {
@@ -159,7 +168,7 @@ const mainApi = new MainApi({
   singinUrl: '/signin',
 
   baseUrl: `${window.location.protocol}${'//api.movies-morozova.nomoredomains.club' || '//localhost:3001'}`,
-  // cardsUrl: '/cards',
+  moviesUrl: '/movies',
   usersUrl: '/users',
   userUrl: '/me',
   // avatarUrl: '/me/avatar',

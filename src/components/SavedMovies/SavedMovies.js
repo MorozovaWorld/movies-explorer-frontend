@@ -1,7 +1,8 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ isTabletLayout, isMobileLayout, handleSearch, isMoviesArrayNotEmpty, onCardDelete, movies, isAfterFilter, onCardClick }) {
+function SavedMovies({ isTabletLayout, isMobileLayout, handleSearch, isMoviesArrayNotEmpty, onCardDelete, moviesSavedData, isAfterFilter, onCardClick }) {
+
   return (
     <main className="movies">
       <SearchForm handleSearch={handleSearch} />
@@ -11,7 +12,7 @@ function SavedMovies({ isTabletLayout, isMobileLayout, handleSearch, isMoviesArr
         isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
         onCardDelete={onCardDelete}
         onCardClick={onCardClick}
-        movies={movies}
+        moviesSavedData={moviesSavedData}
         isAfterFilter={isAfterFilter}
       />
     </main>

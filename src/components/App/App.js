@@ -58,18 +58,19 @@ function App( {location} ) {
   const [isMobileLayout, setMobileLayout] = useState(false);
 
   const [moviesFilteredData, setMoviesFilteredData] = useState([]);
+  const [moviesSavedData, setMoviesSavedData] = useState([]);
   const [isMoviesArrayNotEmpty, setMoviesArrayNotEmpty] = useState(false);
   const [isAfterFilter, setAfterFilter] = useState(false);
 
   const handleWindowResize = () => setWidth(window.innerWidth);
-
+  
   useEffect(() => {
       if (loggedIn) {
         history.push(moviesUrl);
       }
     }, [loggedIn, history, moviesUrl]);
 
-  const tokenCheck = () => {
+/*   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       mainApi.getUserInfo(jwt)
@@ -81,8 +82,31 @@ function App( {location} ) {
     } else {
       setCurrentUser({name: '', email: ''});
     }
-  }
+  } */
 
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      Promise.all([
+        mainApi.getUserInfo(jwt),
+        mainApi.getSavedMovies(jwt),
+      ])
+      .then(([userData, savedMovies]) => {
+        setLoggedIn(true);
+        setCurrentUser(userData);
+        setMoviesSavedData(savedMovies);
+        
+        console.log(`in tokenCheck, savedMovies: ${Object.values(savedMovies)[0].nameRU}`)
+/*         if(savedMovies.length > 0) {
+          setMoviesArrayNotEmpty(true);
+        } else {setMoviesArrayNotEmpty(false);} */
+      })
+      .catch((err) => console.log(err))
+    } else {
+      setCurrentUser({name: '', email: ''});
+    }
+  }
+  
   useEffect(() => {
     tokenCheck();
     }, []
@@ -219,7 +243,7 @@ function App( {location} ) {
       localStorage.setItem("initialMoviesObject", JSON.stringify(res));
       handleFilter(movie, moviesArrayCheck);
     })
-    .catch(err => alert(err));
+    .catch(err => console.log(err));
   }
 
   const onSearchSubmit = (movie) => {
@@ -240,9 +264,29 @@ function App( {location} ) {
     console.log('in onCardDelete')
   };
 
-  const handleCardSave = () => {
-    console.log('in onCardLike')
+  const handleCardSave = (movie) => {
+    
+    mainApi.saveMovie(movie)
+      .then((res) => {
+        setMoviesSavedData([...moviesSavedData, res]);
+      })
+      .catch(err => console.log(err));
   };
+
+/*   function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i === currentUser._id);
+
+    !isLiked ?
+    api.likeCard(card).then((newCard) => {
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      setCards(newCards);
+    }).catch((err) => console.log(err)) :
+    api.dislikeCard(card).then((newCard) => {
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      setCards(newCards);
+    }).catch((err) => console.log(err));
+  } */
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -285,7 +329,7 @@ function App( {location} ) {
               movies={moviesFilteredData}
               onCardClick={handleCardClick}
               onCardDelete={handleCardDelete}
-              onCardLike={handleCardSave}
+              onCardSave={handleCardSave}
               isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
               isAfterFilter={isAfterFilter}
               loggedIn={loggedIn}
@@ -299,6 +343,7 @@ function App( {location} ) {
               loggedIn={loggedIn}
               isTabletLayout={isTabletLayout}
               isMobileLayout={isMobileLayout}
+              moviesSavedData={moviesSavedData}
             />
             <ProtectedRoute 
               path={profileUrl}
