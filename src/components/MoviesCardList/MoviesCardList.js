@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { NOTHING_IS_FINDED, routesConfig } from '../../utils/constants';
 import { Switch, Route } from 'react-router-dom';
 
-function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData, onCardClick, onCardDelete, onCardSave, isMoviesArrayNotEmpty, isAfterFilter }) {
+function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData, onCardClick, onMovieDelete, onCardSave, isMoviesArrayNotEmpty, isAfterFilter }) {
 
   const [moviesDisplayedList, setMoviesDisplayedList] = useState([]);
   const [savedMoviesDisplayedList, setSavedMoviesDisplayedList] = useState([]);
@@ -13,13 +13,12 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
     savedMoviesUrl,
   } = routesConfig;
 
-  console.log(savedMoviesDisplayedList)
-
   useEffect(() => {
     if (movies) {
       isMobileLayout && !isTabletLayout && setMoviesDisplayedList(movies.slice(0, 5));
       isTabletLayout && !isMobileLayout && setMoviesDisplayedList(movies.slice(0, 8));
       !isTabletLayout && !isMobileLayout && setMoviesDisplayedList(movies.slice(0, 16));
+
     }
     if (moviesSavedData) {
       isMobileLayout && !isTabletLayout && setSavedMoviesDisplayedList(moviesSavedData.slice(0, 5));
@@ -37,14 +36,12 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
             {
               moviesDisplayedList.map(movie =>
                 <MoviesCard 
-                  // imgSrc={`${'https://api.nomoreparties.co'}${movie.image.url}`}
                   key={movie.id}
                   onCardClick={onCardClick}
                   onCardSave={onCardSave}
-                  onCardDelete={onCardDelete}
-                  //movieTitle={movie.nameRU}
-                  // movieTime={movie.duration}
+                  onMovieDelete={onMovieDelete}
                   movie={movie}
+                  moviesSavedData={moviesSavedData}
                 />
               )
             }
@@ -60,7 +57,7 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
                     key={movie._id}
                     onCardClick={onCardClick}
                     onCardSave={onCardSave}
-                    onCardDelete={onCardDelete}
+                    onMovieDelete={onMovieDelete}
                     movie={movie}
                   />
                 )

@@ -70,20 +70,6 @@ function App( {location} ) {
       }
     }, [loggedIn, history, moviesUrl]);
 
-/*   const tokenCheck = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      mainApi.getUserInfo(jwt)
-        .then((userData) => {
-          setLoggedIn(true);
-          setCurrentUser(userData);
-        })
-        .catch((err) => console.log(err))
-    } else {
-      setCurrentUser({name: '', email: ''});
-    }
-  } */
-
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
@@ -95,11 +81,6 @@ function App( {location} ) {
         setLoggedIn(true);
         setCurrentUser(userData);
         setMoviesSavedData(savedMovies);
-        
-        console.log(`in tokenCheck, savedMovies: ${Object.values(savedMovies)[0].nameRU}`)
-/*         if(savedMovies.length > 0) {
-          setMoviesArrayNotEmpty(true);
-        } else {setMoviesArrayNotEmpty(false);} */
       })
       .catch((err) => console.log(err))
     } else {
@@ -265,7 +246,6 @@ function App( {location} ) {
   };
 
   const handleCardSave = (movie) => {
-    
     mainApi.saveMovie(movie)
       .then((res) => {
         setMoviesSavedData([...moviesSavedData, res]);
@@ -273,20 +253,14 @@ function App( {location} ) {
       .catch(err => console.log(err));
   };
 
-/*   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i === currentUser._id);
-
-    !isLiked ?
-    api.likeCard(card).then((newCard) => {
-      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-      setCards(newCards);
-    }).catch((err) => console.log(err)) :
-    api.dislikeCard(card).then((newCard) => {
-      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-      setCards(newCards);
-    }).catch((err) => console.log(err));
-  } */
-
+  const handleMovieDelete = (movie) => {
+    mainApi.deleteMovie(movie._id)
+      .then(() => {
+        const newMovies = moviesSavedData.filter(c => c._id !== movie._id);
+        setMoviesSavedData(newMovies);
+      })
+      .catch(err => console.log(err));
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -335,6 +309,8 @@ function App( {location} ) {
               loggedIn={loggedIn}
               isTabletLayout={isTabletLayout}
               isMobileLayout={isMobileLayout}
+              moviesSavedData={moviesSavedData}
+              onMovieDelete={handleMovieDelete}
             />
             <ProtectedRoute 
               path={savedMoviesUrl}
@@ -344,6 +320,7 @@ function App( {location} ) {
               isTabletLayout={isTabletLayout}
               isMobileLayout={isMobileLayout}
               moviesSavedData={moviesSavedData}
+              onMovieDelete={handleMovieDelete}
             />
             <ProtectedRoute 
               path={profileUrl}

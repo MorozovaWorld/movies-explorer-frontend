@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import saveIconUnclicked from '../../images/save-icon.svg';
 import saveIconClicked from '../../images/save-icon-clicked.svg';
 import deleteCardIcon from '../../images/delete-card-icon.svg';
 import { routesConfig } from '../../utils/constants';
 
-function MoviesCard({ movie, onCardSave }) {
+function MoviesCard({ movie, onCardSave, onMovieDelete, moviesSavedData }) {
   const location = useLocation();
   const locationUrl = location.pathname;
 
@@ -13,23 +13,37 @@ function MoviesCard({ movie, onCardSave }) {
     moviesUrl,
     savedMoviesUrl,
   } = routesConfig;
-  
+
   const [movieSaved, setMovieSaved] = useState(false);
 
-  // const isSaved = card.likes.some(i => i === user._id);
+  useEffect(() => {
+    if (moviesSavedData) {
+      moviesSavedData.forEach((item) => {
+        if (movie.id.toString() === item.movieId) {
+          setMovieSaved(true);
+        }
+      })
+    }
+  }, [moviesSavedData, movie.id]);
+
   const saveIcon = movieSaved ? saveIconClicked : saveIconUnclicked;
 
   const handleCardSave = () => {
-    onCardSave({...movie});
-    if(movieSaved) {
-      return setMovieSaved(false);
+    if (!movieSaved) {
+      onCardSave({...movie});
+    } else {
+      const movieToDelete = moviesSavedData.find(i => i.movieId === movie.id.toString());
+      onMovieDelete(movieToDelete)
+      setMovieSaved(false);
     }
-    return setMovieSaved(true);
+  };
+
+  const handleCardDelete = () => {
+    onMovieDelete({...movie});
   };
 
   return (
     <li className="moviesCard">
-      
         {locationUrl === moviesUrl ? 
           <>
             <img src={`${'https://api.nomoreparties.co'}${movie.image.url}`} alt="постер к фильму" className="moviesCard__image" />
@@ -46,7 +60,7 @@ function MoviesCard({ movie, onCardSave }) {
             <img src={movie.image} alt="постер к фильму" className="moviesCard__image" />
             <div className="moviesCard__info">
               <h2 className="moviesCard__title">{movie.nameRU}</h2>
-              <button type="button" className="moviesCard__icon moviesCard__icon_display_none" onClick={() => {handleCardSave()}}>
+              <button type="button" className="moviesCard__icon moviesCard__icon_display_none" onClick={() => {handleCardDelete({...movie})}}>
                 <img src={deleteCardIcon} alt="иконка удаления карточки фильма из списка сохраненных" className="moviesCard__delete-icon" />
               </button>
             </div>

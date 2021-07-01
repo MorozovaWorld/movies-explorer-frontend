@@ -124,8 +124,8 @@ class MainApi {
     .then(this._resProcess);
   };
 
-/*   deleteCard(cardId) {
-    return fetch(`${this._url}${this._cardsUrl}/${cardId}`, {
+  deleteMovie(movieId) {
+    return fetch(`${this._url}${this._moviesUrl}/${movieId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ class MainApi {
       },
     })
     .then(this._resProcess);
-  } */
+  }
 
   likeCard(card) {
     return fetch(`${this._url}${this._cardsUrl}/likes/${card._id}`, {
