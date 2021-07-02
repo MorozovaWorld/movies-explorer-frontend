@@ -1,9 +1,9 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NOTHING_IS_FINDED, routesConfig } from '../../utils/constants';
 import { Switch, Route } from 'react-router-dom';
 
-function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData, onCardClick, onMovieDelete, onCardSave, isMoviesArrayNotEmpty, isAfterFilter }) {
+function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData, onCardClick, onMovieDelete, onCardSave, isMoviesArrayNotEmpty, savedMoviesFilteredData, isAfterFilter, isAfterSavedFilter }) {
 
   const [moviesDisplayedList, setMoviesDisplayedList] = useState([]);
   const [savedMoviesDisplayedList, setSavedMoviesDisplayedList] = useState([]);
@@ -13,19 +13,17 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
     savedMoviesUrl,
   } = routesConfig;
 
-  useEffect(() => {
-    if (movies) {
-      isMobileLayout && !isTabletLayout && setMoviesDisplayedList(movies.slice(0, 5));
-      isTabletLayout && !isMobileLayout && setMoviesDisplayedList(movies.slice(0, 8));
-      !isTabletLayout && !isMobileLayout && setMoviesDisplayedList(movies.slice(0, 16));
+  const handleSetMoviesDisplayed = useCallback((mov, setterFunction) => {
+    isMobileLayout && !isTabletLayout && setterFunction(mov.slice(0, 5));
+    isTabletLayout && !isMobileLayout && setterFunction(mov.slice(0, 8));
+    !isTabletLayout && !isMobileLayout && setterFunction(mov.slice(0, 16));
+  }, [isMobileLayout, isTabletLayout])
 
-    }
-    if (moviesSavedData) {
-      isMobileLayout && !isTabletLayout && setSavedMoviesDisplayedList(moviesSavedData.slice(0, 5));
-      isTabletLayout && !isMobileLayout && setSavedMoviesDisplayedList(moviesSavedData.slice(0, 8));
-      !isTabletLayout && !isMobileLayout && setSavedMoviesDisplayedList(moviesSavedData.slice(0, 16));
-    }
-  }, [isMobileLayout, isTabletLayout, movies, moviesSavedData]);
+  useEffect(() => {
+    movies && handleSetMoviesDisplayed(movies, setMoviesDisplayedList);
+    moviesSavedData && handleSetMoviesDisplayed(moviesSavedData, setSavedMoviesDisplayedList);
+    savedMoviesFilteredData && savedMoviesFilteredData.length > 0 && handleSetMoviesDisplayed(savedMoviesFilteredData, setSavedMoviesDisplayedList);
+  },[handleSetMoviesDisplayed, movies, moviesSavedData, savedMoviesFilteredData]);
 
   return (
     <section className="moviesCardList">
@@ -50,6 +48,8 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
           {!isMoviesArrayNotEmpty && isAfterFilter && NOTHING_IS_FINDED}
         </Route>
         <Route path={savedMoviesUrl}>
+          { ((!savedMoviesFilteredData) && isAfterSavedFilter) ?
+            NOTHING_IS_FINDED :
             <ul className="moviesCardList__list">
               {
                 savedMoviesDisplayedList.map(movie =>
@@ -63,6 +63,7 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
                 )
               }
             </ul>
+          }
         </Route>
       </Switch>
     </section>

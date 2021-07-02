@@ -5,6 +5,11 @@ const filterIt = (arr, searchKey) => {
   });
 }
 
+export const handleSavedFilter = (value, data, callback) => {
+  const result = filterIt(data, value);
+  callback(result);
+}
+
 export const handleFilter = (value, callback) => {
   const data = JSON.parse(localStorage.getItem("initialMoviesObject"));
   

@@ -15,7 +15,7 @@ import PageNotFound from '../PageNotFound/PageNotFound.js';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import mainApi from '../../utils/MainApi'
 import moviesApi from '../../utils/MoviesApi'
-import { handleFilter } from '../../utils/functions';
+import { handleFilter, handleSavedFilter } from '../../utils/functions';
 import {
   routesConfig,
   USER_INFO_UPDATE_SUCCEED,
@@ -58,9 +58,13 @@ function App( {location} ) {
   const [isMobileLayout, setMobileLayout] = useState(false);
 
   const [moviesFilteredData, setMoviesFilteredData] = useState([]);
+  const [savedMoviesFilteredData, setSavedMoviesFilteredData] = useState([]);
+  
   const [moviesSavedData, setMoviesSavedData] = useState([]);
   const [isMoviesArrayNotEmpty, setMoviesArrayNotEmpty] = useState(false);
+
   const [isAfterFilter, setAfterFilter] = useState(false);
+  const [isAfterSavedFilter, setAfterSavedFilter] = useState(false);
 
   const handleWindowResize = () => setWidth(window.innerWidth);
   
@@ -218,6 +222,15 @@ function App( {location} ) {
     }
   }
 
+  const moviesSavedArrayCheck = (filteredSavedMoviesArray) => {
+    if(filteredSavedMoviesArray.length > 0) {
+      setSavedMoviesFilteredData(filteredSavedMoviesArray);
+    } else {
+      setSavedMoviesFilteredData(null)
+      setAfterSavedFilter(true)
+    }
+  }
+
   const onInitialMoviesSearch = (movie) => {
     moviesApi.getInitialContent()
     .then((res) => {
@@ -237,12 +250,12 @@ function App( {location} ) {
     }
   }
 
+  const onSavedSearchSubmit = (movie) => {
+    handleSavedFilter(movie, moviesSavedData, moviesSavedArrayCheck);
+  }
+
   const handleCardClick = () => {
     console.log('in onCardClick')
-  };
-
-  const handleCardDelete = () => {
-    console.log('in onCardDelete')
   };
 
   const handleCardSave = (movie) => {
@@ -302,7 +315,6 @@ function App( {location} ) {
               handleSearch={onSearchSubmit}
               movies={moviesFilteredData}
               onCardClick={handleCardClick}
-              onCardDelete={handleCardDelete}
               onCardSave={handleCardSave}
               isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
               isAfterFilter={isAfterFilter}
@@ -321,6 +333,9 @@ function App( {location} ) {
               isMobileLayout={isMobileLayout}
               moviesSavedData={moviesSavedData}
               onMovieDelete={handleMovieDelete}
+              handleSearch={onSavedSearchSubmit}
+              savedMoviesFilteredData={savedMoviesFilteredData}
+              isAfterSavedFilter={isAfterSavedFilter}
             />
             <ProtectedRoute 
               path={profileUrl}
