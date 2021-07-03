@@ -1,18 +1,21 @@
 
-const filterIt = (arr, searchKey) => {
+const filterIt = (arr, isChecked, searchKey) => {
   return arr.filter((obj) => { 
-    return obj.nameRU.includes(searchKey) ||  (obj.nameEN !== null && obj.nameEN.includes(searchKey))
+    if(isChecked) {
+      return (obj.nameRU !== null && obj.nameRU.includes(searchKey) && obj.duration <= 40) ||  (obj.nameEN !== null && obj.nameEN.includes(searchKey) && obj.duration <= 40)
+    }
+    return (obj.nameRU !== null && obj.nameRU.includes(searchKey)) ||  (obj.nameEN !== null && obj.nameEN.includes(searchKey))
   });
 }
 
-export const handleSavedFilter = (value, data, callback) => {
-  const result = filterIt(data, value);
+export const handleSavedFilter = (value, data, isChecked, callback) => {
+  const result = filterIt(data, isChecked, value);
   callback(result);
 }
 
-export const handleFilter = (value, callback) => {
+export const handleFilter = (value, isChecked, callback) => {
   const data = JSON.parse(localStorage.getItem("initialMoviesObject"));
   
-  const result = filterIt(data, value);
+  const result = filterIt(data, isChecked, value);
   callback(result);
 }

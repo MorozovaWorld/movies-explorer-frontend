@@ -3,8 +3,21 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { NOTHING_IS_FINDED, routesConfig } from '../../utils/constants';
 import { Switch, Route } from 'react-router-dom';
 
-function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData, onCardClick, onMovieDelete, onCardSave, isMoviesArrayNotEmpty, savedMoviesFilteredData, isAfterFilter, isAfterSavedFilter }) {
-
+function MoviesCardList({
+    isTabletLayout,
+    isMobileLayout,
+    movies,
+    moviesSavedData,
+    onCardClick,
+    onMovieDelete,
+    onCardSave,
+    isMoviesArrayNotEmpty, 
+    savedMoviesFilteredData,
+    isAfterFilter,
+    isAfterSavedFilter,
+    onImageClick
+  })
+{
   const [moviesDisplayedList, setMoviesDisplayedList] = useState([]);
   const [savedMoviesDisplayedList, setSavedMoviesDisplayedList] = useState([]);
 
@@ -25,6 +38,7 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
     savedMoviesFilteredData && savedMoviesFilteredData.length > 0 && handleSetMoviesDisplayed(savedMoviesFilteredData, setSavedMoviesDisplayedList);
   },[handleSetMoviesDisplayed, movies, moviesSavedData, savedMoviesFilteredData]);
 
+
   return (
     <section className="moviesCardList">
       <Switch>
@@ -40,6 +54,7 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
                   onMovieDelete={onMovieDelete}
                   movie={movie}
                   moviesSavedData={moviesSavedData}
+                  onImageClick={onImageClick}
                 />
               )
             }
@@ -59,6 +74,7 @@ function MoviesCardList({isTabletLayout, isMobileLayout, movies, moviesSavedData
                     onCardSave={onCardSave}
                     onMovieDelete={onMovieDelete}
                     movie={movie}
+                    onImageClick={onImageClick}
                   />
                 )
               }

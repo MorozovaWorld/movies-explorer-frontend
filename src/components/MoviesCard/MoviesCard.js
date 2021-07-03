@@ -46,7 +46,9 @@ function MoviesCard({ movie, onCardSave, onMovieDelete, moviesSavedData }) {
     <li className="moviesCard">
         {locationUrl === moviesUrl ? 
           <>
-            <img src={`${'https://api.nomoreparties.co'}${movie.image.url}`} alt="постер к фильму" className="moviesCard__image" />
+            <a href={movie.trailerLink} rel='noreferrer' className="opacity opacity_useAt_link" target="_blank">
+              <img src={`${'https://api.nomoreparties.co'}${movie.image.url}`} alt="постер к фильму" className="moviesCard__image" />
+            </a>
             <div className="moviesCard__info">
               <h2 className="moviesCard__title">{movie.nameRU}</h2>
               <button type="button" className="moviesCard__icon  opacity opacity_useAt_button" onClick={() => {handleCardSave({...movie})}}>
@@ -57,7 +59,9 @@ function MoviesCard({ movie, onCardSave, onMovieDelete, moviesSavedData }) {
         : null}
         {locationUrl === savedMoviesUrl ? 
           <>
-            <img src={movie.image} alt="постер к фильму" className="moviesCard__image" />
+            <a href={movie.trailer} rel='noreferrer' className="opacity opacity_useAt_link" target="_blank">
+              <img src={movie.image} alt="постер к фильму" className="moviesCard__image" />
+            </a>
             <div className="moviesCard__info">
               <h2 className="moviesCard__title">{movie.nameRU}</h2>
               <button type="button" className="moviesCard__icon moviesCard__icon_display_none" onClick={() => {handleCardDelete({...movie})}}>

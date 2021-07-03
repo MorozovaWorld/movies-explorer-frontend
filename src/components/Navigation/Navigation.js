@@ -5,7 +5,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Navigation({ isTabletLayout, isMobileLayout, handleMobileMenuClose }) {
   const user = React.useContext(CurrentUserContext);
-
+  
   return (
     <>
       {user.name === '' ? 

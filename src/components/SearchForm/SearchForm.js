@@ -3,7 +3,11 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-icon.svg';
 import { KEYWORD_REQUIRED_ERR_MESSAGE } from '../../utils/constants'
 
-function SearchForm({handleSearch}) {
+function SearchForm({
+  handleSearch,
+  handleFilterCheckbox,
+}) 
+{
   const [movie, setMovie] = useState('');
   const [isValid, setIsValid] = React.useState(true);
   const [isErrDisplayed, setErrDisplayed] = React.useState(false);
@@ -33,8 +37,8 @@ function SearchForm({handleSearch}) {
   }
 
   return (
-    <section className="searchForm" onSubmit={handleSubmit}>
-      <form className="searchForm_form" name="search">
+    <section className="searchForm">
+      <form className="searchForm_form" name="search" onSubmit={handleSubmit}>
         <fieldset className="searchForm__fieldset">
           <label className="searchForm__label" htmlFor="movie"><img src={searchIcon} alt="иконка поиска фильма" className="searchForm__label-icon" /></label>
           <input type="string" onChange={handleChange} name='movie' value={movie} id="movie" placeholder="Фильм" className="searchForm__input" autoComplete='off' />
@@ -44,7 +48,9 @@ function SearchForm({handleSearch}) {
         </fieldset>
         <button type="submit" className="searchForm__button opacity opacity_useAt_button">Найти</button>
       </form>
-      <FilterCheckbox />
+      <FilterCheckbox
+        handleFilterCheckbox={handleFilterCheckbox}
+      />
     </section>
   );
 }

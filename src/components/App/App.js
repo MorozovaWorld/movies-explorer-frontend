@@ -66,6 +66,8 @@ function App( {location} ) {
   const [isAfterFilter, setAfterFilter] = useState(false);
   const [isAfterSavedFilter, setAfterSavedFilter] = useState(false);
 
+  const [isChecked, setChecked] = useState(false);
+
   const handleWindowResize = () => setWidth(window.innerWidth);
   
   useEffect(() => {
@@ -235,7 +237,7 @@ function App( {location} ) {
     moviesApi.getInitialContent()
     .then((res) => {
       localStorage.setItem("initialMoviesObject", JSON.stringify(res));
-      handleFilter(movie, moviesArrayCheck);
+      handleFilter(movie, isChecked, moviesArrayCheck);
     })
     .catch(err => console.log(err));
   }
@@ -244,22 +246,32 @@ function App( {location} ) {
     const localStoragedMoviesLength = localStorage.getItem("initialMoviesObject");
 
     if(localStoragedMoviesLength) {
-      handleFilter(movie, moviesArrayCheck);
+      handleFilter(movie, isChecked, moviesArrayCheck);
     } else {
       onInitialMoviesSearch(movie)
     }
   }
 
   const onSavedSearchSubmit = (movie) => {
-    handleSavedFilter(movie, moviesSavedData, moviesSavedArrayCheck);
+    handleSavedFilter(movie, moviesSavedData, isChecked, moviesSavedArrayCheck);
   }
 
-  const handleCardClick = () => {
-    console.log('in onCardClick')
-  };
+  const onFilterCheckbox = (boolean) => {
+    setChecked(boolean);
+  }
 
   const handleCardSave = (movie) => {
-    mainApi.saveMovie(movie)
+    const obj = {};
+
+    for (let key in movie) {
+      if(movie[key] === null) {
+        obj[key] = 'null';
+      } else {
+        obj[key] = movie[key];
+      };
+    }
+
+    mainApi.saveMovie(obj)
       .then((res) => {
         setMoviesSavedData([...moviesSavedData, res]);
       })
@@ -314,7 +326,6 @@ function App( {location} ) {
               width={width}
               handleSearch={onSearchSubmit}
               movies={moviesFilteredData}
-              onCardClick={handleCardClick}
               onCardSave={handleCardSave}
               isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
               isAfterFilter={isAfterFilter}
@@ -323,6 +334,7 @@ function App( {location} ) {
               isMobileLayout={isMobileLayout}
               moviesSavedData={moviesSavedData}
               onMovieDelete={handleMovieDelete}
+              handleFilterCheckbox={onFilterCheckbox}
             />
             <ProtectedRoute 
               path={savedMoviesUrl}
@@ -336,6 +348,7 @@ function App( {location} ) {
               handleSearch={onSavedSearchSubmit}
               savedMoviesFilteredData={savedMoviesFilteredData}
               isAfterSavedFilter={isAfterSavedFilter}
+              handleFilterCheckbox={onFilterCheckbox}
             />
             <ProtectedRoute 
               path={profileUrl}
