@@ -15,7 +15,10 @@ function MoviesCardList({
     savedMoviesFilteredData,
     isAfterFilter,
     isAfterSavedFilter,
-    onImageClick
+    onImageClick,
+    numShow,
+    numShowTablet,
+    numShowMobile
   })
 {
   const [moviesDisplayedList, setMoviesDisplayedList] = useState([]);
@@ -27,16 +30,22 @@ function MoviesCardList({
   } = routesConfig;
 
   const handleSetMoviesDisplayed = useCallback((mov, setterFunction) => {
-    isMobileLayout && !isTabletLayout && setterFunction(mov.slice(0, 5));
-    isTabletLayout && !isMobileLayout && setterFunction(mov.slice(0, 8));
-    !isTabletLayout && !isMobileLayout && setterFunction(mov.slice(0, 16));
+    isMobileLayout && !isTabletLayout && setterFunction(mov.slice(0, numShowMobile));
+    isTabletLayout && !isMobileLayout && setterFunction(mov.slice(0, numShowTablet));
+    !isTabletLayout && !isMobileLayout && setterFunction(mov.slice(0, numShow));
+  }, [isMobileLayout, isTabletLayout, numShowTablet, numShow, numShowMobile])
+
+  const handleSetSavedMoviesDisplayed = useCallback((movSaved, setterFunction) => {
+    isMobileLayout && !isTabletLayout && setterFunction(movSaved);
+    isTabletLayout && !isMobileLayout && setterFunction(movSaved);
+    !isTabletLayout && !isMobileLayout && setterFunction(movSaved);
   }, [isMobileLayout, isTabletLayout])
 
   useEffect(() => {
     movies && handleSetMoviesDisplayed(movies, setMoviesDisplayedList);
-    moviesSavedData && handleSetMoviesDisplayed(moviesSavedData, setSavedMoviesDisplayedList);
-    savedMoviesFilteredData && savedMoviesFilteredData.length > 0 && handleSetMoviesDisplayed(savedMoviesFilteredData, setSavedMoviesDisplayedList);
-  },[handleSetMoviesDisplayed, movies, moviesSavedData, savedMoviesFilteredData]);
+    moviesSavedData && handleSetSavedMoviesDisplayed(moviesSavedData, setSavedMoviesDisplayedList);
+    savedMoviesFilteredData && savedMoviesFilteredData.length > 0 && handleSetSavedMoviesDisplayed(savedMoviesFilteredData, setSavedMoviesDisplayedList);
+  },[handleSetMoviesDisplayed, movies, moviesSavedData, savedMoviesFilteredData, handleSetSavedMoviesDisplayed]);
 
 
   return (

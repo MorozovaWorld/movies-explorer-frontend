@@ -6,6 +6,7 @@ import { KEYWORD_REQUIRED_ERR_MESSAGE } from '../../utils/constants'
 function SearchForm({
   handleSearch,
   handleFilterCheckbox,
+  handleNumShowSetInitial
 }) 
 {
   const [movie, setMovie] = useState('');
@@ -28,7 +29,8 @@ function SearchForm({
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    handleNumShowSetInitial();
+    
     if(isValid) {
       handleSearch(movie);
     } else {
