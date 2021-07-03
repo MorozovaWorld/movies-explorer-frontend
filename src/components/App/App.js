@@ -44,6 +44,7 @@ function App( {location} ) {
 
   const [currentUser, setCurrentUser] = useState({name: '', email: ''});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isFetching, setFetching] = useState(false);
 
   const [isSubmitMessageDisplayed, setSubmitMessageDisplayed] = useState(false); 
   const [isSubmitResultData, setSubmitResultData] = useState({
@@ -59,13 +60,11 @@ function App( {location} ) {
 
   const [moviesFilteredData, setMoviesFilteredData] = useState([]);
   const [savedMoviesFilteredData, setSavedMoviesFilteredData] = useState([]);
-  
   const [moviesSavedData, setMoviesSavedData] = useState([]);
-  const [isMoviesArrayNotEmpty, setMoviesArrayNotEmpty] = useState(false);
 
+  const [isMoviesArrayNotEmpty, setMoviesArrayNotEmpty] = useState(false);
   const [isAfterFilter, setAfterFilter] = useState(false);
   const [isAfterSavedFilter, setAfterSavedFilter] = useState(false);
-
   const [isChecked, setChecked] = useState(false);
 
   const handleWindowResize = () => setWidth(window.innerWidth);
@@ -87,8 +86,13 @@ function App( {location} ) {
         setLoggedIn(true);
         setCurrentUser(userData);
         setMoviesSavedData(savedMovies);
+
+        setFetching(false);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setFetching(false);
+        console.log(err)
+      })
     } else {
       setCurrentUser({name: '', email: ''});
     }
@@ -155,6 +159,8 @@ function App( {location} ) {
   }
 
   const onLogin = (email, password) => {
+    setFetching(true);
+
     mainApi.authorize(email, password)
       .then((res) => {
         if (res.token) {
@@ -172,10 +178,15 @@ function App( {location} ) {
           throw new Error(BAD_REQUEST_ERR_MESSAGE);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        setFetching(false);
+        console.log(err)
+      });
   };
 
   const onRegister = (name, email, password) => {
+    setFetching(true);
+
     mainApi.register(name, email, password)
       .then((res) => {
         if (res.status === 400) {
@@ -188,11 +199,17 @@ function App( {location} ) {
         }
         onSubmitSucceed(REGISTER_SUCCEED_MESSAGE)
         onLogin(email, password);
+        setFetching(false);
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        setFetching(false);
+        console.log(err)
+      });
   };
 
   const onUpdateUserInfo  = (email, name) => {
+    setFetching(true);
+
     mainApi.setUserInfo(email, name)
       .then((res) => {
         if (res.status === 409) {
@@ -204,23 +221,33 @@ function App( {location} ) {
           throw new Error(BAD_REQUEST_ERR_MESSAGE);
         }
         setCurrentUser({...currentUser, name: res.name, email: res.email });
-        onSubmitSucceed(USER_INFO_UPDATE_SUCCEED)
+        onSubmitSucceed(USER_INFO_UPDATE_SUCCEED);
+
+        setFetching(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setFetching(false);
+        console.log(err)
+      });
   }
 
   const onSignOut = () => {
+    setMoviesFilteredData([]);
     setLoggedIn(false);
     localStorage.removeItem('jwt');
+    localStorage.removeItem('initialMoviesObject');
+    console.log('удали потом')
     tokenCheck();
   };
 
   const moviesArrayCheck = (filteredMoviesArray) => {
     if(filteredMoviesArray.length > 0) {
       setMoviesFilteredData(filteredMoviesArray);
+      setFetching(false);
     } else {
       setMoviesArrayNotEmpty(false);
       setAfterFilter(true);
+      setFetching(false);
     }
   }
 
@@ -243,6 +270,7 @@ function App( {location} ) {
   }
 
   const onSearchSubmit = (movie) => {
+    setFetching(true);
     const localStoragedMoviesLength = localStorage.getItem("initialMoviesObject");
 
     if(localStoragedMoviesLength) {
@@ -310,6 +338,7 @@ function App( {location} ) {
                 isSubmitResultData={isSubmitResultData}
                 isSubmitMessageDisplayed={isSubmitMessageDisplayed}
                 setSubmitMessageDisplayed={setSubmitMessageDisplayed}
+                isFetching={isFetching}
               />
             </Route>
             <Route path={signUpUrl}>
@@ -318,6 +347,7 @@ function App( {location} ) {
                 isSubmitResultData={isSubmitResultData}
                 isSubmitMessageDisplayed={isSubmitMessageDisplayed}
                 setSubmitMessageDisplayed={setSubmitMessageDisplayed}
+                isFetching={isFetching}
               />
             </Route>
             <ProtectedRoute 
@@ -335,6 +365,7 @@ function App( {location} ) {
               moviesSavedData={moviesSavedData}
               onMovieDelete={handleMovieDelete}
               handleFilterCheckbox={onFilterCheckbox}
+              isFetching={isFetching}
             />
             <ProtectedRoute 
               path={savedMoviesUrl}
@@ -359,6 +390,7 @@ function App( {location} ) {
               isSubmitMessageDisplayed={isSubmitMessageDisplayed}
               setSubmitMessageDisplayed={setSubmitMessageDisplayed}
               loggedIn={loggedIn}
+              isFetching={isFetching}
             />
             <Route>
               {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}

@@ -1,8 +1,9 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import React, { useState, useEffect } from 'react';
+import Preloader from '../Preloader/Preloader'
 
-function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, movies, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch }) {
+function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, movies, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch, isFetching }) {
   
   const [numShowMobile, setNumShowMobile] = useState(5);
   const [numShowTablet, setNumShowTablet] = useState(8);
@@ -30,7 +31,7 @@ function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardS
     setNumShowTablet(prevCount => prevCount + 2);
   }
 
-  const onSeachSubmit = () => {
+  const onSearchSubmit = () => {
     setNumShow(16);
     setNumShowMobile(5);
     setNumShowTablet(8);
@@ -41,23 +42,28 @@ function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardS
       <SearchForm 
         handleFilterCheckbox={handleFilterCheckbox}
         handleSearch={handleSearch}
-        handleNumShowSetInitial={onSeachSubmit}
+        handleNumShowSetInitial={onSearchSubmit}
       />
-      <MoviesCardList 
-        isTabletLayout={isTabletLayout}
-        isMobileLayout={isMobileLayout}
-        isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
-        onCardClick={onCardClick}
-        onCardSave={onCardSave}
-        movies={movies}
-        isAfterFilter={isAfterFilter}
-        moviesSavedData={moviesSavedData}
-        onMovieDelete={onMovieDelete}
-        numShowMobile={numShowMobile}
-        numShowTablet={numShowTablet}
-        numShow={numShow}
-      />
-      {isMoviesArrayNotEmpty && isButtonShow && <button className="movies__more opacity opacity_useAt_button" type="button" onClick={handleNumShow} >Ещё</button>}
+      {
+        isFetching ? <Preloader /> :
+          <>
+            <MoviesCardList 
+              isTabletLayout={isTabletLayout}
+              isMobileLayout={isMobileLayout}
+              isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
+              onCardClick={onCardClick}
+              onCardSave={onCardSave}
+              movies={movies}
+              isAfterFilter={isAfterFilter}
+              moviesSavedData={moviesSavedData}
+              onMovieDelete={onMovieDelete}
+              numShowMobile={numShowMobile}
+              numShowTablet={numShowTablet}
+              numShow={numShow}
+            />
+            {isMoviesArrayNotEmpty && isButtonShow && <button className="movies__more opacity opacity_useAt_button" type="button" onClick={handleNumShow} >Ещё</button>}
+          </>
+      }
     </main>
   );
 }

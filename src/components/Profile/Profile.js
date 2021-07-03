@@ -9,9 +9,10 @@ import {
   MAX_LENGTH_ERR_MESSAGE,
   EMAIL_UNVALID_ERR_MESSAGE,
   NAME_UNVALID_ERR_MESSAGE,
-} from '../../utils/constants.js'
+} from '../../utils/constants.js';
+import Preloader from '../Preloader/Preloader'
 
-function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed }) {
+function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed, isFetching }) {
   const user = React.useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
@@ -106,25 +107,30 @@ function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSu
       <form className="profile" name="name" onSubmit={handleSubmit}>
         <h2 className="profile__title">{`Привет, ${user.name}!`}</h2>
         <fieldset className="profile__form">
-          <div className="profile__input-container">
-            <label htmlFor="user-name" className="profile__input-label">Имя</label>
-            <input type="text" onFocus={handleInputFocus} onChange={handleNameChange} name='name' value={name} autoComplete='off' id="user-name" className="profile__input-text" required />
-            <span id="email-error" className="profile__input-error">
-              {isInputFocused.name && validationErrors.name.required && REQUIRED_ERR_MESSAGE}
-              {!validationErrors.name.required && validationErrors.name.minlength && MIN_LENGTH_ERR_MESSAGE}
-              {validationErrors.name.maxlength && MAX_LENGTH_ERR_MESSAGE}
-              {!validationErrors.name.minlength && validationErrors.name.validate && NAME_UNVALID_ERR_MESSAGE}
-            </span>
-          </div>
-          <div className="profile__input-container">
-            <label htmlFor="user-email" className="profile__input-label">E-mail</label>
-            <input type="email" onFocus={handleInputFocus} onChange={handleEmailChange} name='email' value={email} id="user-email" className="profile__input-text" autoComplete='off' required />
-            <span id="email-error" className="profile__input-error">
-              {isInputFocused.email && validationErrors.email.required && REQUIRED_ERR_MESSAGE}
-              {!validationErrors.email.required && validationErrors.email.isEmail && EMAIL_UNVALID_ERR_MESSAGE}
-            </span>
-          </div>
-          {isSubmitMessageDisplayed ? <FormSubmitErr isSubmitResultData={isSubmitResultData}></FormSubmitErr> : null}
+        {
+          isFetching ? <Preloader /> :
+          <>
+            <div className="profile__input-container">
+              <label htmlFor="user-name" className="profile__input-label">Имя</label>
+              <input type="text" onFocus={handleInputFocus} onChange={handleNameChange} name='name' value={name} autoComplete='off' id="user-name" className="profile__input-text" required />
+              <span id="email-error" className="profile__input-error">
+                {isInputFocused.name && validationErrors.name.required && REQUIRED_ERR_MESSAGE}
+                {!validationErrors.name.required && validationErrors.name.minlength && MIN_LENGTH_ERR_MESSAGE}
+                {validationErrors.name.maxlength && MAX_LENGTH_ERR_MESSAGE}
+                {!validationErrors.name.minlength && validationErrors.name.validate && NAME_UNVALID_ERR_MESSAGE}
+              </span>
+            </div>
+            <div className="profile__input-container">
+              <label htmlFor="user-email" className="profile__input-label">E-mail</label>
+              <input type="email" onFocus={handleInputFocus} onChange={handleEmailChange} name='email' value={email} id="user-email" className="profile__input-text" autoComplete='off' required />
+              <span id="email-error" className="profile__input-error">
+                {isInputFocused.email && validationErrors.email.required && REQUIRED_ERR_MESSAGE}
+                {!validationErrors.email.required && validationErrors.email.isEmail && EMAIL_UNVALID_ERR_MESSAGE}
+              </span>
+            </div>
+            {isSubmitMessageDisplayed ? <FormSubmitErr isSubmitResultData={isSubmitResultData}></FormSubmitErr> : null}
+          </>
+        }
         </fieldset>
         <button type="submit" disabled={isFormValid} className="profile__button-submit opacity opacity_useAt_button">Редактировать</button>
         <Link onClick={handleSignOut} className="profile__button-signout opacity opacity_useAt_button" to="/" >Выйти из аккаунта</Link>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-icon.svg';
-import { KEYWORD_REQUIRED_ERR_MESSAGE } from '../../utils/constants'
+import { KEYWORD_REQUIRED_ERR_MESSAGE, routesConfig } from '../../utils/constants'
 
 function SearchForm({
   handleSearch,
@@ -9,6 +10,7 @@ function SearchForm({
   handleNumShowSetInitial
 }) 
 {
+  const location = useLocation();
   const [movie, setMovie] = useState('');
   const [isValid, setIsValid] = React.useState(true);
   const [isErrDisplayed, setErrDisplayed] = React.useState(false);
@@ -29,8 +31,9 @@ function SearchForm({
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleNumShowSetInitial();
-    
+    if (location.pathname === routesConfig.moviesUrl) {
+      handleNumShowSetInitial();
+    }
     if(isValid) {
       handleSearch(movie);
     } else {

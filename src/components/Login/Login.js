@@ -7,9 +7,10 @@ import {
   MIN_LENGTH_ERR_MESSAGE,
   EMAIL_UNVALID_ERR_MESSAGE,
   routesConfig,
-} from '../../utils/constants.js'
+} from '../../utils/constants.js';
+import Preloader from '../Preloader/Preloader';
 
-function Login({ handleLogin, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed }) {
+function Login({ handleLogin, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed, isFetching }) {
   const [userData, setUserData] = useState({
     email: '',
     password: '',
@@ -100,23 +101,28 @@ function Login({ handleLogin, isSubmitResultData, isSubmitMessageDisplayed, setS
 
   return (
     <FormPage title='Рады видеть!' btnText="Войти" linkText="Регистрация" linkReason="Ещё не зарегистрированы?" linkUrl={routesConfig.signUpUrl} isDisabled={isFormValid} handleSubmit={handleSubmit}>
-      <div className="formPage__input-container">
-        <label htmlFor="user-email" className="formPage__input-label">E-mail</label>
-        <input type="email" onFocus={handleInputFocus} onChange={handleChange} name='email' value={email} id="user-email" className="formPage__input-text" autoComplete='off' required />
-        <span id="email-error" className="formPage__input-error">
-          {isInputFocused.email && validationErrors.email.required && REQUIRED_ERR_MESSAGE}
-          {!validationErrors.email.required && validationErrors.email.isEmail && EMAIL_UNVALID_ERR_MESSAGE}
-        </span>
-      </div>
-      <div className="formPage__input-container">
-        <label htmlFor="user-password" className="formPage__input-label">Пароль</label>
-        <input type="password" onFocus={handleInputFocus} onChange={handleChange} name='password' value={password} autoComplete='off' id="user-password" className="formPage__input-text" required />
-        <span id="password-error" className="formPage__input-error">
-          {isInputFocused.password && validationErrors.password.required && REQUIRED_ERR_MESSAGE}
-          {!validationErrors.password.required && validationErrors.password.minlength && MIN_LENGTH_ERR_MESSAGE}
-        </span>
-        {isSubmitMessageDisplayed ? <FormSubmitErr isSubmitResultData={isSubmitResultData}></FormSubmitErr> : null}
-      </div>
+      {
+        isFetching ? <Preloader /> :
+        <>
+          <div className="formPage__input-container">
+            <label htmlFor="user-email" className="formPage__input-label">E-mail</label>
+            <input type="email" onFocus={handleInputFocus} onChange={handleChange} name='email' value={email} id="user-email" className="formPage__input-text" autoComplete='off' required />
+            <span id="email-error" className="formPage__input-error">
+              {isInputFocused.email && validationErrors.email.required && REQUIRED_ERR_MESSAGE}
+              {!validationErrors.email.required && validationErrors.email.isEmail && EMAIL_UNVALID_ERR_MESSAGE}
+            </span>
+          </div>
+          <div className="formPage__input-container">
+            <label htmlFor="user-password" className="formPage__input-label">Пароль</label>
+            <input type="password" onFocus={handleInputFocus} onChange={handleChange} name='password' value={password} autoComplete='off' id="user-password" className="formPage__input-text" required />
+            <span id="password-error" className="formPage__input-error">
+              {isInputFocused.password && validationErrors.password.required && REQUIRED_ERR_MESSAGE}
+              {!validationErrors.password.required && validationErrors.password.minlength && MIN_LENGTH_ERR_MESSAGE}
+            </span>
+            {isSubmitMessageDisplayed ? <FormSubmitErr isSubmitResultData={isSubmitResultData}></FormSubmitErr> : null}
+          </div>
+        </>
+      }
     </FormPage>
   )
 }
