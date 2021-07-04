@@ -7,7 +7,8 @@ import { KEYWORD_REQUIRED_ERR_MESSAGE, routesConfig } from '../../utils/constant
 function SearchForm({
   handleSearch,
   handleFilterCheckbox,
-  handleNumShowSetInitial
+  handleNumShowSetInitial,
+  isChecked
 }) 
 {
   const location = useLocation();
@@ -55,6 +56,8 @@ function SearchForm({
       </form>
       <FilterCheckbox
         handleFilterCheckbox={handleFilterCheckbox}
+        word={movie}
+        isChecked={isChecked}
       />
     </section>
   );

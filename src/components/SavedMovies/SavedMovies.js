@@ -1,13 +1,14 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onMovieDelete, moviesSavedData, onCardClick, savedMoviesFilteredData, isAfterSavedFilter, handleFilterCheckbox, handleSearch }) {
+function SavedMovies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onMovieDelete, moviesSavedData, onCardClick, savedMoviesFilteredData, isAfterSavedFilter, handleFilterCheckbox, handleSearch, isChecked }) {
   
   return (
     <main className="movies">
       <SearchForm
         handleFilterCheckbox={handleFilterCheckbox}
         handleSearch={handleSearch}
+        isChecked={isChecked}
       />
       <MoviesCardList
         isTabletLayout={isTabletLayout}

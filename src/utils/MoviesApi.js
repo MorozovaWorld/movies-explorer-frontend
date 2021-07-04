@@ -18,10 +18,6 @@ class MoviesApi {
   }
 }
 
-/* const moviesApi = new MoviesApi({
-  baseUrl: `${window.location.protocol}${'//api.nomoreparties.co/beatfilm-movies'}`,
-}); */
-
 const moviesApi = new MoviesApi({
   baseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
 });

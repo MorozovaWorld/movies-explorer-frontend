@@ -3,7 +3,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import React, { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader'
 
-function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, movies, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch, isFetching }) {
+function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, movies, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch, isFetching, isChecked }) {
   
   const [numShowMobile, setNumShowMobile] = useState(5);
   const [numShowTablet, setNumShowTablet] = useState(8);
@@ -43,6 +43,7 @@ function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardS
         handleFilterCheckbox={handleFilterCheckbox}
         handleSearch={handleSearch}
         handleNumShowSetInitial={onSearchSubmit}
+        isChecked={isChecked}
       />
       {
         isFetching ? <Preloader /> :

@@ -5,12 +5,9 @@ class MainApi {
     this._singinUrl = config.singinUrl;
 
     this._url = config.baseUrl;
-    this._headers = config.headers;
     this._moviesUrl = config.moviesUrl;
-    this._likesUrl = config.likesUrl;
     this._usersUrl = config.usersUrl;
     this._userUrl = config.userUrl;
-    this._avatarUrl = config.avatarUrl;
     this._token = localStorage.getItem('jwt');
   }
 
@@ -36,17 +33,6 @@ class MainApi {
     })
     .then((res) => res.ok ? res.json() : res);
   }
-
-/*   getContent(token) {
-    return fetch(`${this._authUrl}/users/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      }
-    })
-    .then(this._resProcess);
-  } */
 
   _resProcess(res) {
     return res.ok ? res.json() : Promise.reject(new Error(`Ошибка: ${res.status}, ${res.statusText}`));
@@ -74,20 +60,6 @@ class MainApi {
     })
     .then((res) => res.ok ? res.json() : res);
   }
-
-/*   setUserAvatar(data) {
-    return fetch(`${this._url}${this._usersUrl}${this._avatarUrl}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this._token}`,
-      },
-      body: JSON.stringify({
-        avatar: data.link,
-      })
-    })
-    .then(this._resProcess);
-  } */
 
   getSavedMovies(token) {
     return fetch(`${this._url}${this._moviesUrl}`, {
@@ -134,32 +106,6 @@ class MainApi {
     })
     .then(this._resProcess);
   }
-
-  likeCard(card) {
-    return fetch(`${this._url}${this._cardsUrl}/likes/${card._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this._token}`,
-      },
-      body: JSON.stringify({
-        likes: card.owner
-      })
-    })
-    .then(this._resProcess);
-  }
-
-  dislikeCard(card) {
-    return fetch(`${this._url}${this._cardsUrl}/likes/${card._id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this._token}`,
-      },
-    })
-    .then(this._resProcess);
-  }
-
 }
 
 const mainApi = new MainApi({
@@ -171,7 +117,6 @@ const mainApi = new MainApi({
   moviesUrl: '/movies',
   usersUrl: '/users',
   userUrl: '/me',
-  // avatarUrl: '/me/avatar',
 });
 
 export default mainApi;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, withRouter, useHistory, Redirect } from 'react-router-dom';
+import { Route, Switch, withRouter, useHistory, Redirect, useLocation } from 'react-router-dom';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header.js';
@@ -15,7 +15,7 @@ import PageNotFound from '../PageNotFound/PageNotFound.js';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import mainApi from '../../utils/MainApi'
 import moviesApi from '../../utils/MoviesApi'
-import { handleFilter, handleSavedFilter } from '../../utils/functions';
+import { handleFilter } from '../../utils/functions';
 import {
   routesConfig,
   USER_INFO_UPDATE_SUCCEED,
@@ -30,7 +30,7 @@ import {
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function App( {location} ) {
+function App() {
   const { 
     mainPageUrl,
     moviesUrl,
@@ -40,7 +40,8 @@ function App( {location} ) {
     singInUrl 
   } = routesConfig;
 
-  const history = useHistory(); 
+  const history = useHistory();
+  const location = useLocation();
 
   const [currentUser, setCurrentUser] = useState({name: '', email: ''});
   const [loggedIn, setLoggedIn] = useState(false);
@@ -264,28 +265,67 @@ function App( {location} ) {
     moviesApi.getInitialContent()
     .then((res) => {
       localStorage.setItem("initialMoviesObject", JSON.stringify(res));
-      handleFilter(movie, isChecked, moviesArrayCheck);
+
+      handleFilter(movie, res, isChecked, moviesArrayCheck);
     })
     .catch(err => console.log(err));
   }
 
   const onSearchSubmit = (movie) => {
     setFetching(true);
-    const localStoragedMoviesLength = localStorage.getItem("initialMoviesObject");
+    const localStoragedMovies = JSON.parse(localStorage.getItem("initialMoviesObject"));
 
-    if(localStoragedMoviesLength) {
-      handleFilter(movie, isChecked, moviesArrayCheck);
+    if(localStoragedMovies) {
+      handleFilter(movie, localStoragedMovies, isChecked, moviesArrayCheck);
     } else {
       onInitialMoviesSearch(movie)
     }
   }
 
   const onSavedSearchSubmit = (movie) => {
-    handleSavedFilter(movie, moviesSavedData, isChecked, moviesSavedArrayCheck);
+    handleFilter(movie, moviesSavedData, isChecked, moviesSavedArrayCheck);
   }
 
-  const onFilterCheckbox = (boolean) => {
+  const handleCheckboxFilter = (boolean, word) => {
     setChecked(boolean);
+
+    const mov = location.pathname === moviesUrl;
+    const savedMov = location.pathname === savedMoviesUrl;
+
+    if(mov && moviesFilteredData.length > 0) {
+      if(boolean) {
+        onFilterChecked(boolean, word)
+      } else {
+        onFilterChecked(boolean, word)
+      }
+    }
+    else if(savedMov && moviesSavedData.length > 0) {
+      if(boolean) {
+        onFilterSavedChecked(boolean, word, moviesSavedData)
+      } else {
+        onFilterSavedChecked(boolean, word, moviesSavedData)
+      }
+    }
+    else if(savedMov && savedMoviesFilteredData.length > 0) {
+      if(boolean) {
+        onFilterSavedChecked(boolean, word, savedMoviesFilteredData)
+      } else {
+        onFilterSavedChecked(boolean, word, savedMoviesFilteredData)
+      }
+    }
+  }
+
+  const onFilterChecked = (boolean, word) => {
+      setFetching(true);
+      const localStoragedMovies = JSON.parse(localStorage.getItem("initialMoviesObject"));
+  
+      handleFilter(word, localStoragedMovies, boolean, moviesArrayCheck);
+  }
+
+  const onFilterSavedChecked = (boolean, word, arrayToFilter) => {
+      setFetching(true);
+  
+      handleFilter(word, arrayToFilter, boolean, moviesSavedArrayCheck);
   }
 
   const handleCardSave = (movie) => {
@@ -364,8 +404,9 @@ function App( {location} ) {
               isMobileLayout={isMobileLayout}
               moviesSavedData={moviesSavedData}
               onMovieDelete={handleMovieDelete}
-              handleFilterCheckbox={onFilterCheckbox}
+              handleFilterCheckbox={handleCheckboxFilter}
               isFetching={isFetching}
+              isChecked={isChecked}
             />
             <ProtectedRoute 
               path={savedMoviesUrl}
@@ -379,7 +420,8 @@ function App( {location} ) {
               handleSearch={onSavedSearchSubmit}
               savedMoviesFilteredData={savedMoviesFilteredData}
               isAfterSavedFilter={isAfterSavedFilter}
-              handleFilterCheckbox={onFilterCheckbox}
+              handleFilterCheckbox={handleCheckboxFilter}
+              isChecked={isChecked}
             />
             <ProtectedRoute 
               path={profileUrl}
