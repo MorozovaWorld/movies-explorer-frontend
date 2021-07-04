@@ -141,6 +141,12 @@ function App() {
     setMobileNavigationOpen(!isMobileNavigationOpen);
   }
 
+  const handleSetDefault = () => {
+    setMoviesFilteredData([]);
+    setSavedMoviesFilteredData([]);
+    setChecked(false)
+  }
+
   const onSubmitFail = (message) => {
     setSubmitResultData({
       submitResultMessage: message,
@@ -255,9 +261,11 @@ function App() {
   const moviesSavedArrayCheck = (filteredSavedMoviesArray) => {
     if(filteredSavedMoviesArray.length > 0) {
       setSavedMoviesFilteredData(filteredSavedMoviesArray);
+      setFetching(false);
     } else {
-      setSavedMoviesFilteredData(null)
-      setAfterSavedFilter(true)
+      setSavedMoviesFilteredData([])
+      setAfterSavedFilter(true);
+      setFetching(false);
     }
   }
 
@@ -332,7 +340,7 @@ function App() {
     const obj = {};
 
     for (let key in movie) {
-      if(movie[key] === null) {
+      if(movie[key] === null || movie[key] === '') {
         obj[key] = 'null';
       } else {
         obj[key] = movie[key];
@@ -366,6 +374,7 @@ function App() {
               isMobileNavigationOpen={isMobileNavigationOpen}
               isTabletLayout={isTabletLayout}
               isMobileLayout={isMobileLayout}
+              handleSetDefault={handleSetDefault}
           /> : null
           }
           <Switch>

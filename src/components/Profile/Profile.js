@@ -85,11 +85,11 @@ function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSu
 
     // общая проверка валидности формы для активации кнопки сабмита
     useEffect(function validateInputs() {
-      const isNameValid = Object.values(validationErrors.name).some(Boolean);
-      const isEmailValid = Object.values(validationErrors.email).some(Boolean);
+      const isNameValid = Object.values(validationErrors.name).some(Boolean) && name !== user.name;
+      const isEmailValid = Object.values(validationErrors.email).some(Boolean) && email !== user.email;
   
       setFormValid((isNameValid || isEmailValid));
-    }, [validationErrors.name, validationErrors.email, setFormValid])
+    }, [validationErrors.name, validationErrors.email, setFormValid, name, email, user.name, user.email])
   
     
     function handleSubmit(e) {
@@ -98,9 +98,7 @@ function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSu
       if (!name || !email) {
         return;
       }
-      if (name !== user.name || email !== user.email) {
-        handleUpdateUserInfo(email, name);
-      } 
+      handleUpdateUserInfo(email, name);
     }
 
   return (

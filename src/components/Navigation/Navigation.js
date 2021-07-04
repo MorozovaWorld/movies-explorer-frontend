@@ -3,9 +3,18 @@ import { Link, NavLink } from 'react-router-dom';
 import React from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Navigation({ isTabletLayout, isMobileLayout, handleMobileMenuClose }) {
+function Navigation({ isTabletLayout, isMobileLayout, handleMobileMenuClose, handleSetDefault }) {
   const user = React.useContext(CurrentUserContext);
   
+  const handleLinkClick = () => {
+    if(isTabletLayout || isMobileLayout) {
+      handleMobileMenuClose();
+    }
+    if(!isTabletLayout && !isMobileLayout) {
+      handleSetDefault();
+    }
+  }
+
   return (
     <>
       {user.name === '' ? 
@@ -32,17 +41,17 @@ function Navigation({ isTabletLayout, isMobileLayout, handleMobileMenuClose }) {
             {isTabletLayout || isMobileLayout ? (<NavLink
               className='navigation__navBtn navigation__navBtn_mobile'
               to='/'
-              onClick={handleMobileMenuClose} >Главная</NavLink>) : null}
+              onClick={handleLinkClick} >Главная</NavLink>) : null}
             <NavLink
               className={'navigation__navBtn opacity opacity_useAt_link' + (isTabletLayout || isMobileLayout ? ' navigation__navBtn_mobile' : '')}
               activeClassName='navigation__navBtn_status_active'
               to='/movies'
-              onClick={handleMobileMenuClose}>Фильмы</NavLink>
+              onClick={handleLinkClick}>Фильмы</NavLink>
             <NavLink
               className={'navigation__navBtn opacity opacity_useAt_link' + (isTabletLayout || isMobileLayout ? ' navigation__navBtn_mobile' : '')}
               activeClassName='navigation__navBtn_status_active'
               to='/saved-movies'
-              onClick={handleMobileMenuClose}>Сохранённые фильмы</NavLink>
+              onClick={handleLinkClick}>Сохранённые фильмы</NavLink>
           </div>
           <div
             className='navigation_account-links'>
@@ -53,14 +62,14 @@ function Navigation({ isTabletLayout, isMobileLayout, handleMobileMenuClose }) {
                 opacity
                 opacity_useAt_link'
                 to='/profile'
-                onClick={handleMobileMenuClose}>Аккаунт</NavLink>
+                onClick={handleLinkClick}>Аккаунт</NavLink>
             <Link
               className='
                 navigation__accountIcon
                 opacity
                 opacity_useAt_link'
               to='/profile'
-              onClick={handleMobileMenuClose}><img src={accountIcon} alt='иконка перехода на страницу о проекте' /></Link>
+              onClick={handleLinkClick}><img src={accountIcon} alt='иконка перехода на страницу о проекте' /></Link>
           </div>
         </nav> 
     }
