@@ -14,9 +14,12 @@ import Preloader from '../Preloader/Preloader'
 
 function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed, isFetching }) {
   const user = React.useContext(CurrentUserContext);
+//console.log(user.name);
+//console.log(user.email);
 
-  const [name, setName] = useState('');
-  const [email , setEmail ] = useState('');
+
+  const [name, setName] = useState(`${user.name}`);
+  const [email , setEmail ] = useState(`${user.email}`);
 
   React.useEffect(() => {
     setName(user.name);
@@ -85,8 +88,8 @@ function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSu
 
     // общая проверка валидности формы для активации кнопки сабмита
     useEffect(function validateInputs() {
-      const isNameValid = Object.values(validationErrors.name).some(Boolean) && name !== user.name;
-      const isEmailValid = Object.values(validationErrors.email).some(Boolean) && email !== user.email;
+      const isNameValid = Object.values(validationErrors.name).some(Boolean);
+      const isEmailValid = Object.values(validationErrors.email).some(Boolean);
   
       setFormValid((isNameValid || isEmailValid));
     }, [validationErrors.name, validationErrors.email, setFormValid, name, email, user.name, user.email])
@@ -98,7 +101,9 @@ function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSu
       if (!name || !email) {
         return;
       }
-      handleUpdateUserInfo(email, name);
+      if(name !== user.name || email !== user.email) {
+        handleUpdateUserInfo(email, name);
+      }
     }
 
   return (

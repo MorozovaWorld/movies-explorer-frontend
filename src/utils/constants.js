@@ -55,6 +55,7 @@ export const NOTHING_IS_FINDED = 'Ничего не найдено';
 export const BAD_REQUEST_ERR_MESSAGE= 'Некорректно заполнено одно из полей';
 export const EMAIL_CONFLICT_ERR_MESSAGE= 'Пользователь с таким емейлом уже зарегистрирован';
 export const UNAUTHORIZED_ERR_MESSAGE= 'Неверный email или пароль';
+export const CONNECTION_ERR_MESSAGE= 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 
 export const USER_INFO_UPDATE_SUCCEED = 'Профиль обновлен!';
 export const REGISTER_SUCCEED_MESSAGE = 'Вы успешно зарегистрировались!';

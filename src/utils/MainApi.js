@@ -11,6 +11,10 @@ class MainApi {
     this._token = localStorage.getItem('jwt');
   }
 
+  _getToken = () => {
+    this._token = localStorage.getItem("jwt");
+  };
+
   register(name, email, password) {
     return fetch(`${this._authUrl}${this._singupUrl}`, {
       method: 'POST',
@@ -50,6 +54,10 @@ class MainApi {
   }
 
   setUserInfo(email, name) {
+    if (this._token === null) {
+      this._getToken()
+    }
+
     return fetch(`${this._url}${this._usersUrl}${this._userUrl}`, {
       method: 'PATCH',
       headers: {
@@ -73,6 +81,10 @@ class MainApi {
   };
   
   saveMovie(data) {
+    if (this._token === null) {
+      this._getToken()
+    }
+
     return fetch(`${this._url}${this._moviesUrl}`, {
       method: 'POST',
       headers: {

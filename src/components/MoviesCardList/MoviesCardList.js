@@ -2,6 +2,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import React, { useState, useEffect, useCallback } from 'react';
 import { NOTHING_IS_FINDED, routesConfig } from '../../utils/constants';
 import { Switch, Route } from 'react-router-dom';
+import {CONNECTION_ERR_MESSAGE} from '../../utils/constants'
 
 function MoviesCardList({
     isTabletLayout,
@@ -18,7 +19,9 @@ function MoviesCardList({
     onImageClick,
     numShow,
     numShowTablet,
-    numShowMobile
+    numShowMobile,
+    isFetching,
+    isFail
   })
 {
   const [moviesDisplayedList, setMoviesDisplayedList] = useState([]);
@@ -47,11 +50,11 @@ function MoviesCardList({
     savedMoviesFilteredData && savedMoviesFilteredData.length > 0 && handleSetSavedMoviesDisplayed(savedMoviesFilteredData, setSavedMoviesDisplayedList);
   },[handleSetMoviesDisplayed, movies, moviesSavedData, savedMoviesFilteredData, handleSetSavedMoviesDisplayed]);
 
-
   return (
     <section className="moviesCardList">
       <Switch>
         <Route exact path={moviesUrl}>
+        {!isFetching && isFail && CONNECTION_ERR_MESSAGE}
           {isMoviesArrayNotEmpty ?
             <ul className="moviesCardList__list">
             {

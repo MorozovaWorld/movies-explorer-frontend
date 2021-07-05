@@ -1,7 +1,7 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onMovieDelete, moviesSavedData, onCardClick, savedMoviesFilteredData, isAfterSavedFilter, handleFilterCheckbox, handleSearch, isChecked }) {
+function SavedMovies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onMovieDelete, moviesSavedData, onCardClick, savedMoviesFilteredData, isAfterSavedFilter, handleFilterCheckbox, handleSearch, isChecked, isFetching, isFail }) {
   
   return (
     <main className="movies">
@@ -19,6 +19,8 @@ function SavedMovies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, on
         moviesSavedData={moviesSavedData}
         savedMoviesFilteredData={savedMoviesFilteredData}
         isAfterSavedFilter={isAfterSavedFilter}
+        isFetching={isFetching}
+        isFail={isFail}
       />
     </main>
   );

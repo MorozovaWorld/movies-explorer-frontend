@@ -3,7 +3,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import React, { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader'
 
-function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, movies, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch, isFetching, isChecked }) {
+function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, movies, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch, isFetching, isChecked, isFail }) {
   
   const [numShowMobile, setNumShowMobile] = useState(5);
   const [numShowTablet, setNumShowTablet] = useState(8);
@@ -61,9 +61,11 @@ function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardS
               numShowMobile={numShowMobile}
               numShowTablet={numShowTablet}
               numShow={numShow}
+              isFetching={isFetching}
+              isFail={isFail}
             />
             {isMoviesArrayNotEmpty && isButtonShow && <button className="movies__more opacity opacity_useAt_button" type="button" onClick={handleNumShow} >Ещё</button>}
-          </>
+          </>          
       }
     </main>
   );

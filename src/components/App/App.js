@@ -25,7 +25,8 @@ import {
   REGISTER_SUCCEED_MESSAGE,
   LOGIN_SUCCEED_MESSAGE,
   SCREEN_RESOLUTION_BREAKPOINT_769,
-  SCREEN_RESOLUTION_BREAKPOINT_400
+  SCREEN_RESOLUTION_BREAKPOINT_400,
+  CONNECTION_ERR_MESSAGE
 } from '../../utils/constants.js'
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -67,14 +68,9 @@ function App() {
   const [isAfterFilter, setAfterFilter] = useState(false);
   const [isAfterSavedFilter, setAfterSavedFilter] = useState(false);
   const [isChecked, setChecked] = useState(false);
-
-  const handleWindowResize = () => setWidth(window.innerWidth);
+  const [isFail, setFail] = useState(false);
   
-  useEffect(() => {
-      if (loggedIn) {
-        history.push(moviesUrl);
-      }
-    }, [loggedIn, history, moviesUrl]);
+  const handleWindowResize = () => setWidth(window.innerWidth);
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
@@ -96,6 +92,7 @@ function App() {
       })
     } else {
       setCurrentUser({name: '', email: ''});
+      setLoggedIn(false);
     }
   }
   
@@ -104,6 +101,13 @@ function App() {
     }, []
   );
   
+  useEffect(() => {
+    if (loggedIn) {
+      tokenCheck();
+      history.push(moviesUrl);
+    }
+  }, [loggedIn, history, moviesUrl]);
+
   useEffect(() => {
     window.onresize = () => {
       handleWindowResize();
@@ -144,7 +148,9 @@ function App() {
   const handleSetDefault = () => {
     setMoviesFilteredData([]);
     setSavedMoviesFilteredData([]);
-    setChecked(false)
+    setAfterSavedFilter(false);
+    setAfterFilter(false);
+    setChecked(false);
   }
 
   const onSubmitFail = (message) => {
@@ -172,9 +178,9 @@ function App() {
       .then((res) => {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
+          setFail(false);
           onSubmitSucceed(LOGIN_SUCCEED_MESSAGE)
           setLoggedIn(true);
-          tokenCheck();
         }
         if (res.status === 401) {
           onSubmitFail(UNAUTHORIZED_ERR_MESSAGE);
@@ -183,6 +189,10 @@ function App() {
         if (res.status === 400) {
           onSubmitFail(BAD_REQUEST_ERR_MESSAGE);
           throw new Error(BAD_REQUEST_ERR_MESSAGE);
+        }
+        if (res.status === 500) {
+          onSubmitFail(CONNECTION_ERR_MESSAGE);
+          throw new Error(CONNECTION_ERR_MESSAGE);
         }
       })
       .catch((err) => {
@@ -204,9 +214,13 @@ function App() {
           onSubmitFail(EMAIL_CONFLICT_ERR_MESSAGE);
           throw new Error(EMAIL_CONFLICT_ERR_MESSAGE);
         }
+        if (res.status === 500) {
+          onSubmitFail(CONNECTION_ERR_MESSAGE);
+          throw new Error(CONNECTION_ERR_MESSAGE);
+        }
         onSubmitSucceed(REGISTER_SUCCEED_MESSAGE)
         onLogin(email, password);
-        setFetching(false);
+        setFail(false);
       })
       .catch((err) => {
         setFetching(false);
@@ -227,9 +241,14 @@ function App() {
           onSubmitFail(BAD_REQUEST_ERR_MESSAGE);
           throw new Error(BAD_REQUEST_ERR_MESSAGE);
         }
+        if (res.status === 500) {
+          onSubmitFail(CONNECTION_ERR_MESSAGE);
+          throw new Error(CONNECTION_ERR_MESSAGE);
+        }
         setCurrentUser({...currentUser, name: res.name, email: res.email });
         onSubmitSucceed(USER_INFO_UPDATE_SUCCEED);
 
+        setFail(false);
         setFetching(false);
       })
       .catch((err) => {
@@ -242,8 +261,7 @@ function App() {
     setMoviesFilteredData([]);
     setLoggedIn(false);
     localStorage.removeItem('jwt');
-    localStorage.removeItem('initialMoviesObject');
-    console.log('удали потом')
+
     tokenCheck();
   };
 
@@ -260,10 +278,11 @@ function App() {
 
   const moviesSavedArrayCheck = (filteredSavedMoviesArray) => {
     if(filteredSavedMoviesArray.length > 0) {
+
       setSavedMoviesFilteredData(filteredSavedMoviesArray);
       setFetching(false);
     } else {
-      setSavedMoviesFilteredData([])
+      setSavedMoviesFilteredData(null)
       setAfterSavedFilter(true);
       setFetching(false);
     }
@@ -276,10 +295,14 @@ function App() {
 
       handleFilter(movie, res, isChecked, moviesArrayCheck);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      setFail(true);
+      console.log(err);
+    });
   }
 
   const onSearchSubmit = (movie) => {
+    setFail(false);
     setFetching(true);
     const localStoragedMovies = JSON.parse(localStorage.getItem("initialMoviesObject"));
 
@@ -337,6 +360,8 @@ function App() {
   }
 
   const handleCardSave = (movie) => {
+    setFail(false);
+
     const obj = {};
 
     for (let key in movie) {
@@ -351,16 +376,24 @@ function App() {
       .then((res) => {
         setMoviesSavedData([...moviesSavedData, res]);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setFail(true);
+        console.log(err);
+      });
   };
 
   const handleMovieDelete = (movie) => {
+    setFail(false);
+
     mainApi.deleteMovie(movie._id)
       .then(() => {
         const newMovies = moviesSavedData.filter(c => c._id !== movie._id);
         setMoviesSavedData(newMovies);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setFail(true);
+        console.log(err);
+      })
   };
 
   return (
@@ -416,6 +449,7 @@ function App() {
               handleFilterCheckbox={handleCheckboxFilter}
               isFetching={isFetching}
               isChecked={isChecked}
+              isFail={isFail}
             />
             <ProtectedRoute 
               path={savedMoviesUrl}
@@ -431,6 +465,8 @@ function App() {
               isAfterSavedFilter={isAfterSavedFilter}
               handleFilterCheckbox={handleCheckboxFilter}
               isChecked={isChecked}
+              isFetching={isFetching}
+              isFail={isFail}
             />
             <ProtectedRoute 
               path={profileUrl}
@@ -455,7 +491,8 @@ function App() {
             isOpen={isMobileNavigationOpen}
             isTabletLayout={isTabletLayout}
             isMobileLayout={isMobileLayout}
-            handleMobileMenuClose={toggleBurgerMenuOpen} 
+            handleMobileMenuClose={toggleBurgerMenuOpen}
+            handleSetDefault={handleSetDefault}
           />
         </div>
       </div>

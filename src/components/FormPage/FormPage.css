@@ -1,5 +1,5 @@
 .formPage {
-  min-width: 396px;
+  width: 396px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,7 +118,7 @@
 
 @media screen and (max-width: 430px) {
   .formPage {
-    min-width: 81.25%;
+    width: 81.25%;
     padding: 56px 0 30px;
     align-items: center;
   }

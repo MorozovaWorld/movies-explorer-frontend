@@ -8,6 +8,7 @@ function Navigation({ isTabletLayout, isMobileLayout, handleMobileMenuClose, han
   
   const handleLinkClick = () => {
     if(isTabletLayout || isMobileLayout) {
+      handleSetDefault();
       handleMobileMenuClose();
     }
     if(!isTabletLayout && !isMobileLayout) {
