@@ -313,7 +313,6 @@ function App() {
   }
 
   const onSavedSearchSubmit = (movie) => {
-    console.log(moviesSavedData)
     handleFilter(movie, moviesSavedData, isChecked, moviesSavedArrayCheck);
   }
 
@@ -337,7 +336,7 @@ function App() {
         onFilterSavedChecked(boolean, word, moviesSavedData)
       }
     }
-    else if(savedMov && savedMoviesFilteredData.length > 0) {
+    else if(savedMov && savedMoviesFilteredData && savedMoviesFilteredData.length > 0) {
       if(boolean) {
         onFilterSavedChecked(boolean, word, savedMoviesFilteredData)
       } else {
@@ -389,6 +388,9 @@ function App() {
       .then(() => {
         const newMovies = moviesSavedData.filter(c => c._id !== movie._id);
         setMoviesSavedData(newMovies);
+
+        const newSavedMovies = savedMoviesFilteredData.filter(c => c._id !== movie._id);
+        setSavedMoviesFilteredData(newSavedMovies);
       })
       .catch(err => {
         setFail(true);
