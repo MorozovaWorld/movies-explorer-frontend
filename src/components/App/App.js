@@ -321,8 +321,9 @@ function App() {
 
     const mov = location.pathname === moviesUrl;
     const savedMov = location.pathname === savedMoviesUrl;
-    
-    if(mov && moviesFilteredData.length > 0) {
+    const localStoragedFilteredMovies = JSON.parse(localStorage.getItem("filteredMoviesArray"));
+
+    if(mov && localStoragedFilteredMovies && localStoragedFilteredMovies.length > 0) {
       if(boolean) {
         onFilterChecked(boolean, word)
       } else {
@@ -389,8 +390,10 @@ function App() {
         const newMovies = moviesSavedData.filter(c => c._id !== movie._id);
         setMoviesSavedData(newMovies);
 
-        const newSavedMovies = savedMoviesFilteredData.filter(c => c._id !== movie._id);
-        setSavedMoviesFilteredData(newSavedMovies);
+        if (savedMoviesFilteredData) {
+          const newSavedMovies = savedMoviesFilteredData.filter(c => c._id !== movie._id);
+          setSavedMoviesFilteredData(newSavedMovies);
+        }
       })
       .catch(err => {
         setFail(true);
