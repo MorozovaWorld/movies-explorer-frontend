@@ -7,7 +7,6 @@ import {CONNECTION_ERR_MESSAGE} from '../../utils/constants'
 function MoviesCardList({
     isTabletLayout,
     isMobileLayout,
-    movies,
     moviesSavedData,
     onCardClick,
     onMovieDelete,
@@ -21,16 +20,18 @@ function MoviesCardList({
     numShowTablet,
     numShowMobile,
     isFetching,
-    isFail
+    isFail,
+    movies
   })
 {
+
   const [moviesDisplayedList, setMoviesDisplayedList] = useState([]);
   const [savedMoviesDisplayedList, setSavedMoviesDisplayedList] = useState([]);
 
   const { 
     moviesUrl,
     savedMoviesUrl,
-  } = routesConfig;
+  } = routesConfig
 
   const handleSetMoviesDisplayed = useCallback((mov, setterFunction) => {
     isMobileLayout && !isTabletLayout && setterFunction(mov.slice(0, numShowMobile));

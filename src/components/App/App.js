@@ -115,10 +115,14 @@ function App() {
   }, [width]);
 
   useEffect(() => {
-    if(moviesFilteredData.length > 0) {
-      setMoviesArrayNotEmpty(true);
-    } else {
-      setMoviesArrayNotEmpty(false);
+    const localStoragedFilteredMovies = JSON.parse(localStorage.getItem("filteredMoviesArray"));
+
+    if(localStoragedFilteredMovies) {
+      if(localStoragedFilteredMovies.length > 0) {
+        setMoviesArrayNotEmpty(true);
+      } else {
+        setMoviesArrayNotEmpty(false);
+      }
     }
   }, [moviesFilteredData]);
 
@@ -143,14 +147,6 @@ function App() {
 
   const toggleBurgerMenuOpen = () => {
     setMobileNavigationOpen(!isMobileNavigationOpen);
-  }
-
-  const handleSetDefault = () => {
-    setMoviesFilteredData([]);
-    setSavedMoviesFilteredData([]);
-    setAfterSavedFilter(false);
-    setAfterFilter(false);
-    setChecked(false);
   }
 
   const onSubmitFail = (message) => {
@@ -259,15 +255,18 @@ function App() {
 
   const onSignOut = () => {
     setMoviesFilteredData([]);
-    setLoggedIn(false);
     localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    localStorage.removeItem('filteredMoviesArray');
 
     tokenCheck();
   };
 
   const moviesArrayCheck = (filteredMoviesArray) => {
     if(filteredMoviesArray.length > 0) {
+      localStorage.setItem("filteredMoviesArray", JSON.stringify(filteredMoviesArray));
       setMoviesFilteredData(filteredMoviesArray);
+
       setFetching(false);
     } else {
       setMoviesArrayNotEmpty(false);
@@ -314,6 +313,7 @@ function App() {
   }
 
   const onSavedSearchSubmit = (movie) => {
+    console.log(moviesSavedData)
     handleFilter(movie, moviesSavedData, isChecked, moviesSavedArrayCheck);
   }
 
@@ -322,7 +322,7 @@ function App() {
 
     const mov = location.pathname === moviesUrl;
     const savedMov = location.pathname === savedMoviesUrl;
-
+    
     if(mov && moviesFilteredData.length > 0) {
       if(boolean) {
         onFilterChecked(boolean, word)
@@ -349,7 +349,7 @@ function App() {
   const onFilterChecked = (boolean, word) => {
       setFetching(true);
       const localStoragedMovies = JSON.parse(localStorage.getItem("initialMoviesObject"));
-  
+
       handleFilter(word, localStoragedMovies, boolean, moviesArrayCheck);
   }
 
@@ -407,7 +407,6 @@ function App() {
               isMobileNavigationOpen={isMobileNavigationOpen}
               isTabletLayout={isTabletLayout}
               isMobileLayout={isMobileLayout}
-              handleSetDefault={handleSetDefault}
           /> : null
           }
           <Switch>
@@ -437,7 +436,6 @@ function App() {
               component={Movies}
               width={width}
               handleSearch={onSearchSubmit}
-              movies={moviesFilteredData}
               onCardSave={handleCardSave}
               isMoviesArrayNotEmpty={isMoviesArrayNotEmpty}
               isAfterFilter={isAfterFilter}
@@ -492,7 +490,6 @@ function App() {
             isTabletLayout={isTabletLayout}
             isMobileLayout={isMobileLayout}
             handleMobileMenuClose={toggleBurgerMenuOpen}
-            handleSetDefault={handleSetDefault}
           />
         </div>
       </div>

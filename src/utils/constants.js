@@ -41,7 +41,7 @@ export const routesConfig = {
   signUpUrl: '/signup',
   singInUrl: '/signin'
 };
-
+ 
 export const SCREEN_RESOLUTION_BREAKPOINT_769 = 769;
 export const SCREEN_RESOLUTION_BREAKPOINT_400 = 400;
 
@@ -54,7 +54,7 @@ export const KEYWORD_REQUIRED_ERR_MESSAGE = 'Нужно ввести ключе�
 export const NOTHING_IS_FINDED = 'Ничего не найдено';
 export const BAD_REQUEST_ERR_MESSAGE= 'Некорректно заполнено одно из полей';
 export const EMAIL_CONFLICT_ERR_MESSAGE= 'Пользователь с таким емейлом уже зарегистрирован';
-export const UNAUTHORIZED_ERR_MESSAGE= 'Неверный email или пароль';
+export const UNAUTHORIZED_ERR_MESSAGE= 'Вы ввели неправильный логин или пароль';
 export const CONNECTION_ERR_MESSAGE= 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 
 export const USER_INFO_UPDATE_SUCCEED = 'Профиль обновлен!';

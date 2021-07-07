@@ -5,7 +5,7 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu.js';
 import React  from 'react';
 import { routesConfig } from '../../utils/constants';
 
-function Header({ isTabletLayout, isMobileLayout, onBurgerMenuClick, isMobileNavigationOpen, handleSetDefault }) {
+function Header({ isTabletLayout, isMobileLayout, onBurgerMenuClick, isMobileNavigationOpen }) {
   const location = useLocation();
   const locationUrl = location.pathname;
 
@@ -28,7 +28,7 @@ function Header({ isTabletLayout, isMobileLayout, onBurgerMenuClick, isMobileNav
         <BurgerMenu
           toggleBurgerMenuOpen={onBurgerMenuClick}
           isMobileNavigationOpen={isMobileNavigationOpen}
-        /> : <Navigation handleSetDefault={handleSetDefault} />
+        /> : <Navigation />
         }
     </header>
   );

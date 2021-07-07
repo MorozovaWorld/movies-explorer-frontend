@@ -3,13 +3,15 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import React, { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader'
 
-function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, movies, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch, isFetching, isChecked, isFail }) {
+function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch, isFetching, isChecked, isFail }) {
   
   const [numShowMobile, setNumShowMobile] = useState(5);
   const [numShowTablet, setNumShowTablet] = useState(8);
   const [numShow, setNumShow] = useState(16);
 
   const [isButtonShow, setButtonShow] = useState(false); 
+  
+  const movies = localStorage.getItem("filteredMoviesArray") !== null ? JSON.parse(localStorage.getItem("filteredMoviesArray")) : [];
 
   useEffect(() => {
     if(!isMobileLayout && !isTabletLayout && (movies.length > numShow)) {

@@ -121,11 +121,15 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseAuthUrl: `${window.location.protocol}${'//api.movies-morozova.nomoredomains.club' || '//localhost:3001'}`,
+  // baseAuthUrl: `${window.location.protocol}${'//api.movies-morozova.nomoredomains.club' || '//localhost:3001'}`,
+  baseAuthUrl: 'https://api.movies-morozova.nomoredomains.club',
+
   singupUrl: '/signup',
   singinUrl: '/signin',
 
-  baseUrl: `${window.location.protocol}${'//api.movies-morozova.nomoredomains.club' || '//localhost:3001'}`,
+  // baseUrl: `${window.location.protocol}${'//api.movies-morozova.nomoredomains.club' || '//localhost:3001'}`,
+  baseUrl: 'https://api.movies-morozova.nomoredomains.club',
+
   moviesUrl: '/movies',
   usersUrl: '/users',
   userUrl: '/me',
