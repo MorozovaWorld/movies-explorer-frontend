@@ -1,13 +1,18 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import React, { useState, useEffect } from 'react';
-import Preloader from '../Preloader/Preloader'
+import Preloader from '../Preloader/Preloader';
+import {
+  START_NUM_MOBILE,
+  START_NUM_TABLET,
+  START_NUM
+} from '../../utils/constants.js'
 
 function Movies({ isTabletLayout, isMobileLayout, isMoviesArrayNotEmpty, onCardSave, onMovieDelete, isAfterFilter, onCardClick, moviesSavedData, handleFilterCheckbox, handleSearch, isFetching, isChecked, isFail }) {
   
-  const [numShowMobile, setNumShowMobile] = useState(5);
-  const [numShowTablet, setNumShowTablet] = useState(8);
-  const [numShow, setNumShow] = useState(16);
+  const [numShowMobile, setNumShowMobile] = useState(START_NUM_MOBILE);
+  const [numShowTablet, setNumShowTablet] = useState(START_NUM_TABLET);
+  const [numShow, setNumShow] = useState(START_NUM);
 
   const [isButtonShow, setButtonShow] = useState(false); 
   

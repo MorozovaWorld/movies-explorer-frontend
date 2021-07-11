@@ -41,7 +41,7 @@ export const routesConfig = {
   signUpUrl: '/signup',
   singInUrl: '/signin'
 };
- 
+
 export const SCREEN_RESOLUTION_BREAKPOINT_769 = 769;
 export const SCREEN_RESOLUTION_BREAKPOINT_400 = 400;
 
@@ -60,3 +60,9 @@ export const CONNECTION_ERR_MESSAGE= 'Во время запроса произ�
 export const USER_INFO_UPDATE_SUCCEED = 'Профиль обновлен!';
 export const REGISTER_SUCCEED_MESSAGE = 'Вы успешно зарегистрировались!';
 export const LOGIN_SUCCEED_MESSAGE = 'Успешно!';
+
+export const START_NUM = 16;
+export const START_NUM_TABLET = 8;
+export const START_NUM_MOBILE = 5;
+
+export const SHORT_MOVIE_DURATION = 40;

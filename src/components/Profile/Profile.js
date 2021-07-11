@@ -14,9 +14,6 @@ import Preloader from '../Preloader/Preloader'
 
 function Profile({ handleSignOut, handleUpdateUserInfo, isSubmitResultData, isSubmitMessageDisplayed, setSubmitMessageDisplayed, isFetching }) {
   const user = React.useContext(CurrentUserContext);
-//console.log(user.name);
-//console.log(user.email);
-
 
   const [name, setName] = useState(`${user.name}`);
   const [email , setEmail ] = useState(`${user.email}`);

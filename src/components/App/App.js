@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, withRouter, useHistory, Redirect, useLocation } from 'react-router-dom';
+import { Route, Switch, withRouter, useHistory, useLocation } from 'react-router-dom';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header.js';
@@ -69,11 +69,12 @@ function App() {
   const [isAfterSavedFilter, setAfterSavedFilter] = useState(false);
   const [isChecked, setChecked] = useState(false);
   const [isFail, setFail] = useState(false);
-  
+
   const handleWindowResize = () => setWidth(window.innerWidth);
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
+
     if (jwt) {
       Promise.all([
         mainApi.getUserInfo(jwt),
@@ -95,18 +96,21 @@ function App() {
       setLoggedIn(false);
     }
   }
-  
+
   useEffect(() => {
     tokenCheck();
     }, []
   );
   
   useEffect(() => {
+    localStorage.setItem("currentLocation", location.pathname);
+  }, [location.pathname])
+
+  useEffect(() => {
     if (loggedIn) {
       tokenCheck();
-      history.push(moviesUrl);
     }
-  }, [loggedIn, history, moviesUrl]);
+  }, [loggedIn]);
 
   useEffect(() => {
     window.onresize = () => {
@@ -175,8 +179,10 @@ function App() {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           setFail(false);
-          onSubmitSucceed(LOGIN_SUCCEED_MESSAGE)
+          onSubmitSucceed(LOGIN_SUCCEED_MESSAGE);
           setLoggedIn(true);
+
+          history.push(moviesUrl);
         }
         if (res.status === 401) {
           onSubmitFail(UNAUTHORIZED_ERR_MESSAGE);
@@ -258,7 +264,8 @@ function App() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     localStorage.removeItem('filteredMoviesArray');
-
+    localStorage.removeItem('currentLocation');
+    
     tokenCheck();
   };
 
@@ -406,7 +413,7 @@ function App() {
       <div className="body">
         <div className="page">
           {
-            location.pathname !== singInUrl && location.pathname !== signUpUrl ? 
+            location.pathname === mainPageUrl || location.pathname === moviesUrl || location.pathname === savedMoviesUrl || location.pathname === profileUrl ? 
             <Header 
               onBurgerMenuClick={toggleBurgerMenuOpen}
               isMobileNavigationOpen={isMobileNavigationOpen}
@@ -482,9 +489,6 @@ function App() {
               loggedIn={loggedIn}
               isFetching={isFetching}
             />
-            <Route>
-              {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
-            </Route>
             <Route path="*">
               <PageNotFound />
             </Route>
