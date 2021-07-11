@@ -20,7 +20,14 @@
 
 @media screen and (max-width: 1130px) {
   .moviesCardList__list {
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .moviesCardList__list {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

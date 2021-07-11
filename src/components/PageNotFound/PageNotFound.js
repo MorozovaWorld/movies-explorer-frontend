@@ -4,6 +4,10 @@ import { useHistory } from 'react-router-dom';
 function PageNotFound () {
   const history = useHistory(); 
 
+  const handleGoBack = () => {
+    history.goBack()
+  }
+
   return (
     <div className="PageNotFound">
       <div className="PageNotFound__container">
@@ -14,7 +18,7 @@ function PageNotFound () {
             Страница не найдена
           </p>
         </div>
-      <button className="PageNotFound__linkBack opacity opacity_useAt_button" onClick={() => history.goBack()}>Назад</button>
+      <button className="PageNotFound__linkBack opacity opacity_useAt_button" onClick={handleGoBack}>Назад</button>
     </div>
   )
 }
