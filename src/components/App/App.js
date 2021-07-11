@@ -101,10 +101,6 @@ function App() {
     tokenCheck();
     }, []
   );
-  
-  useEffect(() => {
-    localStorage.setItem("currentLocation", location.pathname);
-  }, [location.pathname])
 
   useEffect(() => {
     if (loggedIn) {
@@ -264,7 +260,6 @@ function App() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     localStorage.removeItem('filteredMoviesArray');
-    localStorage.removeItem('currentLocation');
     
     tokenCheck();
   };
